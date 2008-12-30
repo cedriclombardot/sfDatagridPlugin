@@ -76,7 +76,7 @@ abstract class sfDatagridFormatter
 	 * @return string The html output
 	 */
 	public function renderPagerBar($object, $suffix)
-	{
+	{ 
 		$datagridName = $object->_get('datagridName');
 		$pager = $object->_get('pager');
 		$page = $object->_get('page');
@@ -104,7 +104,7 @@ abstract class sfDatagridFormatter
 					$pagerHtml.= link_to_remote(
 							'<img src="' . DATAGRID_IMAGEDIR . 'pager-arrow-left.gif" alt="" align="absmiddle" />',
 							array(
-								'url' => $moduleAction . '?' . $this->P_PAGE . '=' . $pager->getPreviousPage() . $suffixWithSorting,
+								'url' => $moduleAction . '?' . $this->P_PAGE . '=' . $pager->getPreviousPage() . '&' . $suffixWithSorting,
 								'update' => $datagridName,
 								'script' => true
 								));
@@ -117,7 +117,7 @@ abstract class sfDatagridFormatter
 						$pagerHtml.= link_to_remote(
 								$item,
 								array(
-									'url' => $moduleAction . '?' . $this->P_PAGE . '=' . $item . $suffixWithSorting,
+									'url' => $moduleAction . '?' . $this->P_PAGE . '=' . $item . '&' . $suffixWithSorting,
 									'update' => $datagridName,
 									'script' => true
 									),
@@ -128,7 +128,7 @@ abstract class sfDatagridFormatter
 						$pagerHtml.= link_to_remote(
 								$item,
 								array(
-									'url' => $moduleAction . '?' . $this->P_PAGE . '=' . $item . $suffixWithSorting,
+									'url' => $moduleAction . '?' . $this->P_PAGE . '=' . $item . '&' . $suffixWithSorting,
 									'update' => $datagridName,
 									'script' => true
 									));
@@ -140,7 +140,7 @@ abstract class sfDatagridFormatter
 					$pagerHtml.= link_to_remote(
 							'<img src="' . DATAGRID_IMAGEDIR . 'pager-arrow-right.gif" alt="" align="absmiddle" />',
 							array(
-								'url' => $moduleAction . '?' . $this->P_PAGE . '=' . $pager->getNextPage() . $suffixWithSorting,
+								'url' => $moduleAction . '?' . $this->P_PAGE . '=' . $pager->getNextPage() . '&' . $suffixWithSorting,
 								'update' => $datagridName,
 								'script' => true
 								));
@@ -364,18 +364,18 @@ abstract class sfDatagridFormatter
 				break;
 				
 			case (strtoupper($type) == 'DATE' || strtoupper($type) == 'TIMESTAMP'):
-				if(@array_key_exists('start', $value) && $value['start'] != '')
+				if(@array_key_exists('start_' . $object->_get('datagridName'), $value) && $value['start_' . $object->_get('datagridName')] != '')
 				{
-					$value1 = format_date(strtotime($value['start']), 'dd.MM.yyyy');
+					$value1 = format_date(strtotime($value['start_' . $object->_get('datagridName')]), 'dd.MM.yyyy');
 				}
 				else
 				{
 					$value1 = '';
 				}
 				
-				if(@array_key_exists('start', $value) && $value['stop'] != '')
+				if(@array_key_exists('start_' . $object->_get('datagridName'), $value) && $value['stop_' . $object->_get('datagridName')] != '')
 				{
-					$value2 = format_date(strtotime($value['stop']), 'dd.MM.yyyy');
+					$value2 = format_date(strtotime($value['stop_' . $object->_get('datagridName')]), 'dd.MM.yyyy');
 				}
 				else
 				{
@@ -386,10 +386,10 @@ abstract class sfDatagridFormatter
 				
 				$output = '<span style="padding-bottom: 5px; display: block;">';
 				$output.= $this->traduct('Du') . ' ';
-				$output.= $wDateStart->render('search[' . $column . '][start]', $value1, array('onclick' => 'displayDatePicker(this.name)', 'style' => 'width: 75px;'));
+				$output.= $wDateStart->render('search[' . $column . '][start_' . $object->_get('datagridName') . ']', $value1, array('onclick' => 'displayDatePicker(this.name)', 'style' => 'width: 75px;'));
 				$output.= '</span>';
 				$output.= ' ' .$this->traduct('Au') . ' ';
-				$output.= $wDateStop->render('search[' . $column . '][stop]', $value2, array('type' => 'text', 'onclick' => 'displayDatePicker(this.name)', 'style' => 'width: 75px;'));
+				$output.= $wDateStop->render('search[' . $column . '][stop_' . $object->_get('datagridName') . ']', $value2, array('type' => 'text', 'onclick' => 'displayDatePicker(this.name)', 'style' => 'width: 75px;'));
 				break;
 				
 			default:
@@ -474,8 +474,9 @@ abstract class sfDatagridFormatter
 				if(!is_null($rowAction))
 				{
 					preg_match('/%(?<param>\w+)%/', $rowAction, $matches);
-					
-					$rowIndex = array_search($matches['param'], array_keys($columns));
+
+					$rowIndex = array_search($matches['param'], $columns);
+
 					$this->addOption('onclick', $rowOptions[$columnName], "document.location.href='" . url_for(strtr($rowAction, array('%' . $matches['param'] . '%' => $rowValues[$rowIndex]))) . "'");
 					$this->addOption('style', $rowOptions[$columnName], 'cursor:pointer;');
 				}
