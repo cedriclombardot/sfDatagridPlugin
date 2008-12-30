@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<package packagerversion="1.4.6" version="2.0" xmlns="http://pear.php.net/dtd/package-2.0" xmlns:tasks="http://pear.php.net/dtd/tasks-1.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://pear.php.net/dtd/tasks-1.0 http://pear.php.net/dtd/tasks-1.0.xsd http://pear.php.net/dtd/package-2.0 http://pear.php.net/dtd/package-2.0.xsd">
+  <name>sfDatagridPlugin</name>
+  <channel>plugins.symfony-project.org</channel>
+  <summary>Ajax datagrid</summary>
+  <description>This plugins allow to create an ajax datagrid with sorting columns, line highlight, action on the line with a checkbox, data paging, column search, etc...</description>
+  <lead>
+    <name>David ZELLER</name>
+    <user>sgt_schultz</user>
+    <email>dzeller@openbusiness.com</email>
+    <active>yes</active>
+  </lead>
+  <date>2009-12-19</date>
+  <time>16:00:00</time>
+  <version>
+    <release>1.0.1</release>
+    <api>1.0.1</api>
+  </version>
+  <stability>
+    <release>beta</release>
+    <api>beta</api>
+  </stability>
+  <license uri="http://www.symfony-project.org/license">MIT license</license>
+  <notes>-</notes>
+  <contents>
+    <dir name="/">
+      <file role="data" name="README" />
+      <file role="data" name="LICENSE" />
+      <dir name="config">
+        <file role="data" name="config.php" />
+      </dir>
+      <dir name="lib">
+        <file role="data" name="sfDatagridPropel.class.php" />
+        <file role="data" name="sfDatagridFormatterDefault.class.php" />
+        <file role="data" name="sfDatagridFormatter.class.php" />
+        <file role="data" name="sfDatagridArrayMultiSort.class.php" />
+        <file role="data" name="sfDatagridArray.class.php" />
+        <file role="data" name="sfDatagrid.class.php" />
+      </dir>
+      <dir name="web">
+        <dir name="css">
+          <file role="data" name="datagrid.css" />
+          <file role="data" name="calendar.css" />
+        </dir>
+        <dir name="img">
+          <file role="data" name="actions-row.gif" />
+          <file role="data" name="filters-row.gif" />
+          <file role="data" name="header-arrow-asc.gif" />
+          <file role="data" name="header-arrow-desc.gif" />
+          <file role="data" name="header-row.gif" />
+          <file role="data" name="header-sorting.gif" />
+          <file role="data" name="pager-arrow-left.gif" />
+          <file role="data" name="pager-arrow-right.gif" />
+        </dir>
+        <dir name="js">
+          <file role="data" name="calendar.js" />
+          <file role="data" name="datagrid.js" />
+          <file role="data" name="prototype.js" />
+        </dir>
+      </dir>
+    </dir>
+  </contents>
+  <dependencies>
+    <required>
+      <php>
+        <min>5.1.0</min>
+      </php>
+      <pearinstaller>
+        <min>1.4.1</min>
+      </pearinstaller>
+      <package>
+        <name>symfony</name>
+        <channel>pear.symfony-project.com</channel>
+        <min>1.2.0</min>
+        <max>1.3.0</max>
+        <exclude>1.3.0</exclude>
+      </package>
+    </required>
+  </dependencies>
+  <phprelease />
+  <changelog />
+</package>
