@@ -10,11 +10,11 @@
     <email>dzeller@openbusiness.com</email>
     <active>yes</active>
   </lead>
-  <date>2009-12-19</date>
+  <date>2008-12-30</date>
   <time>16:00:00</time>
   <version>
-    <release>1.0.1</release>
-    <api>1.0.1</api>
+    <release>1.0.2</release>
+    <api>1.0.2</api>
   </version>
   <stability>
     <release>beta</release>

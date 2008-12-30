@@ -16,36 +16,44 @@ How to use it
 		$this->getResponse()->setContent($datagridClass->getContent($array_of_values, array(css alternate 1, css alternate 2)));
 		return sfView::NONE;
 		
+Depandencies
+---------------------
+
+Prototype must be loaded to the page
+
+		
 Configuration exemple
 ---------------------
 
-		public function execute($request)
-		{
-			$d = new sfDatagridPropel('OptionsList', 'ObsviwRootoptions');
-			
-			$d->setColumns(array('id' => 'ID', 'name' => 'Nom du groupe d\'option', 'count' => 'Nombre d\'options'));
-			$d->setDatagridActions(array('Supprimer' => 'products/optionsDelete'));
-			$d->setColumnsOptions(array('id' => array('style' => 'display:none;')));
-			
-			$d->setRowAction('products/optionsEdit?edit=', 'id');
-			$d->setDefaultSortingColumn('name', 'asc');
-			
-			$d->setRowLimit(25);
-			
-			$p = $d->prepare('doSelectFirstLevel', 'doCountFirstLevel');
-			
-			$values = array();
-			
-			foreach($p->getResults() as $item)
-			{
-				$values[] = array(sfDatagrid::getCheck($item->getId()), $item->getId(), $item->getName(), $item->getCount());	
-			}
-			
-			$this->getResponse()->setContent($d->getContent($values, array('lt', 'dr')));
-			
-			return sfView::NONE;
-		}
 
+	public function execute($request)
+	{
+		$d = new sfDatagridPropel('OptionsList', 'ObsviwRootoptions');
+		
+		$d->setColumns(array('id' => 'ID', 'name' => 'Nom du groupe d\'option', 'count' => 'Nombre d\'options'));
+		$d->setDatagridActions(array('Supprimer' => 'products/optionsDelete'));
+		$d->setColumnsOptions(array('id' => array('style' => 'display:none;')));
+		
+		$d->setRowAction('products/optionsEdit?edit=', 'id');
+		$d->setDefaultSortingColumn('name', 'asc');
+		
+		$d->setRowLimit(25);
+		
+		$p = $d->prepare('doSelectFirstLevel', 'doCountFirstLevel');
+		
+		$values = array();
+		
+		foreach($p->getResults() as $item)
+		{
+			$values[] = array(sfDatagrid::getCheck($item->getId()), $item->getId(), $item->getName(), $item->getCount());	
+		}
+		
+		$this->getResponse()->setContent($d->getContent($values, array('lt', 'dr')));
+		
+		return sfView::NONE;
+	}
+
+	
 How to contribute.
 ------------------
 
