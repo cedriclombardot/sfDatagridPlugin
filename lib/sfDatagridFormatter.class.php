@@ -353,14 +353,27 @@ abstract class sfDatagridFormatter
 	{
 		$output = '';
 		
-		switch(strtoupper($type))
+		switch($type)
 		{
+			case is_array($type):
+				$choices[''] = '';
+				
+				foreach($type as $key => $values)
+				{
+					$choices[$key] = $values;
+				}
+				
+				$wSelect = new sfWidgetFormSelect(array('choices' => $choices));
+				$output = $wSelect->render('search[' . $column . ']', $value, array('style' => 'width: 100%;'));
+				break;
+				
 			case 'NOTYPE':
 				$output = '';
 				break;
 			
 			case 'BOOLEAN':
-				$output = select_tag('search[' . $column . ']', options_for_select(array('' => '', 1 => 'true', 0 => 'false'), $value), array('style' => 'width: 100%;'));
+				$wSelect = new sfWidgetFormSelect(array('' => '', 1 => 'true', 0 => 'false'));
+				$output = $wSelect->render('search[' . $column . ']', $value, array('style' => 'width: 100%;'));
 				break;
 				
 			case (strtoupper($type) == 'DATE' || strtoupper($type) == 'TIMESTAMP'):

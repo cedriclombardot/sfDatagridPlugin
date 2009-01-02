@@ -135,8 +135,8 @@ class sfDatagridPropel extends sfDatagrid
 		{
 			if(is_array($this->search) && array_key_exists($col, $this->search) && !is_null($this->search[$col]) && $this->search[$col] != '')
 			{
-				switch(strtoupper($this->getColumnType($col)))
-				{
+				switch($this->getColumnType($col))
+				{						
 					case 'NOTYPE':
 						// Do nothing
 						break;

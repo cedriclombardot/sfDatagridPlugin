@@ -6,7 +6,6 @@
  */
 class sfDatagridArray extends sfDatagrid
 {
-	
 	/**
 	 * Class constructor
 	 *
