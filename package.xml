@@ -13,8 +13,8 @@
   <date>2009-01-02</date>
   <time>22:00:00</time>
   <version>
-    <release>1.0.4</release>
-    <api>1.0.4</api>
+    <release>1.0.5</release>
+    <api>1.0.5</api>
   </version>
   <stability>
     <release>stable</release>
@@ -81,8 +81,8 @@
   <changelog>
     <release>
       <version>
-        <release>1.0.4</release>
-        <api>1.0.4</api>
+        <release>1.0.5</release>
+        <api>1.0.5</api>
       </version>
       <stability>
         <release>stable</release>
@@ -92,7 +92,7 @@
       <date>2009-01-02</date>
       <license>MIT</license>
       <notes>
-        * Add dropdown search possibility
+        * David : fix the symfony cc notice
       </notes>
     </release>
   </changelog>

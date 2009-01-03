@@ -52,9 +52,3 @@ Configuration exemple
 		
 		return sfView::NONE;
 	}
-
-	
-How to contribute.
-------------------
-
-If you want to contribute, send email to dzeller@openbusiness.com
