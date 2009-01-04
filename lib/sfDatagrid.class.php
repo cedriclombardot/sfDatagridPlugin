@@ -17,7 +17,6 @@
  * sfLoader::loadHelpers(array('Url', 'Javascript', 'I18N', 'Tag', 'Form'));
  * 
  * @author		David Zeller	<zellerda01@gmail.com>
- * @version		1.0.3
  */
 abstract class sfDatagrid
 {
