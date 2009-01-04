@@ -93,6 +93,7 @@
       <license>MIT</license>
       <notes>
         * David : fix the symfony cc notice
+        * David : fix the action bar rendering problem with ie
       </notes>
     </release>
   </changelog>

@@ -211,6 +211,11 @@ abstract class sfDatagridFormatter
 			$linksHtml.= link_to_remote($this->traduct('Vue par défaut'), array('url' => $defaultUrl . '&d_clear=1', 'update' => $datagridName));
 		}
 		
+		if($actionSelect == '')
+		{
+			$actionSelect = '&nbsp;';
+		}
+		
 		return strtr($this->datagridActions, array(
 			'%links%' => $linksHtml,
 			'%actions%' => $actionSelect
