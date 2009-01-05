@@ -376,7 +376,7 @@ abstract class sfDatagridFormatter
 				break;
 			
 			case 'BOOLEAN':
-				$wSelect = new sfWidgetFormSelect(array('' => '', 1 => 'true', 0 => 'false'));
+				$wSelect = new sfWidgetFormSelect(array('choices' => array('' => '', 1 => 'true', 0 => 'false')));
 				$output = $wSelect->render('search[' . $column . ']', $value, array('style' => 'width: 100%;'));
 				break;
 				
