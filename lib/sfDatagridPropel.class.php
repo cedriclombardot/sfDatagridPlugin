@@ -146,17 +146,28 @@ class sfDatagridPropel extends sfDatagrid
 						break;
 						
 					case (strtoupper($this->getColumnType($col)) == 'DATE' || strtoupper($this->getColumnType($col)) == 'TIMESTAMP'):
-						if(array_key_exists('start_' . $this->datagridName, $this->search[$col]) && $this->search[$col]['start_' . $this->datagridName] != '')
-						{
-							$c1 = $c->getNewCriterion($this->getColumnSortingOption($col), format_date(strtotime($this->search[$col]['start_' . $this->datagridName]), 'yyyy-MM-dd'), Criteria::GREATER_EQUAL);
-							$c->addAnd($c1);
+						
+						try {
+							
+							if(array_key_exists('start_' . $this->datagridName, $this->search[$col]) && $this->search[$col]['start_' . $this->datagridName] != '')
+							{
+								$c1 = $c->getNewCriterion($this->getColumnSortingOption($col), format_date(strtotime($this->search[$col]['start_' . $this->datagridName]), 'yyyy-MM-dd'), Criteria::GREATER_EQUAL);
+								$c->addAnd($c1);
+							}
+						
+						
+							if(array_key_exists('stop_' . $this->datagridName, $this->search[$col]) && $this->search[$col]['stop_' . $this->datagridName] != '')
+							{
+								$c2 = $c->getNewCriterion($this->getColumnSortingOption($col), format_date(strtotime($this->search[$col]['stop_' . $this->datagridName]), 'yyyy-MM-dd'), Criteria::LESS_EQUAL);
+								$c->addAnd($c2);
+							}
+							
+						} catch(Exception $ex) {
+							
+							$this->search[$col]['start_' . $this->datagridName] = '';
+							$this->search[$col]['stop_' . $this->datagridName] = '';
 						}
 						
-						if(array_key_exists('stop_' . $this->datagridName, $this->search[$col]) && $this->search[$col]['stop_' . $this->datagridName] != '')
-						{
-							$c2 = $c->getNewCriterion($this->getColumnSortingOption($col), format_date(strtotime($this->search[$col]['stop_' . $this->datagridName]), 'yyyy-MM-dd'), Criteria::LESS_EQUAL);
-							$c->addAnd($c2);
-						}
 						break;
 						
 					default:

@@ -244,7 +244,7 @@ abstract class sfDatagridFormatter
 		
 		if(count($actions) != 0)
 		{
-			$htmlOutput.= content_tag('th', '', array('style' => 'width: 30px;'));
+			$htmlOutput.= content_tag('th', '&nbsp;', array('style' => 'width: 30px;'));
 		}
 		
 		foreach($columns as $key => $label)
@@ -314,7 +314,7 @@ abstract class sfDatagridFormatter
 		
 		if(count($actions) != 0)
 		{
-			$filterHtml.= content_tag('td', '', array('style' => 'width: 30px;', 'class' => 'filter', 'valign' => 'top'));
+			$filterHtml.= content_tag('td', '&nbsp;', array('style' => 'width: 30px;', 'class' => 'filter', 'valign' => 'top'));
 		}
 		
 		foreach($columns as $column)

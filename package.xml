@@ -95,6 +95,7 @@
         * David : fix the symfony cc notice
         * David : fix the action bar rendering problem with ie
 		* David : fix the boolean render select error
+		* David	: fix the exception when the date filter value cannot be converted
       </notes>
     </release>
   </changelog>
