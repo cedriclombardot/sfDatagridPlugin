@@ -12,8 +12,8 @@
   </lead>
   <date>2009-01-05</date>
   <version>
-    <release>1.0.5</release>
-    <api>1.0.5</api>
+    <release>1.0.6</release>
+    <api>1.0.6</api>
   </version>
   <stability>
     <release>stable</release>
@@ -80,8 +80,8 @@
   <changelog>
     <release>
       <version>
-        <release>1.0.5</release>
-        <api>1.0.5</api>
+        <release>1.0.6</release>
+        <api>1.0.6</api>
       </version>
       <stability>
         <release>stable</release>
@@ -93,8 +93,8 @@
       <notes>
         * David : fix the symfony cc notice
         * David : fix the action bar rendering problem with ie
-		* David : fix the boolean render select error
-		* David	: fix the exception when the date filter value cannot be converted
+		    * David : fix the boolean render select error
+		    * David	: fix the exception when the date filter value cannot be converted
       </notes>
     </release>
   </changelog>
