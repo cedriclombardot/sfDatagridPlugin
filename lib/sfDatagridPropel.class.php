@@ -9,7 +9,8 @@ class sfDatagridPropel extends sfDatagrid
 	protected
 		$peerTable = null,				// The name of the table without "Peer" at the end
 		$criteria = null,				// The criteria (instance of Criteria)
-		$tableSuffix = null;			// The table suffix (e.g. If you code and SVN select you must specify the table suffix for sorting)
+		$tableSuffix = null,			// The table suffix (e.g. If you code and SVN select you must specify the table suffix for sorting)
+		$columnsCompare = array();			// The type of the comparator Database (LIKE, EQUAL, LESS_THAN, etc.)
 	
 	/**
 	 * Class constructor
@@ -33,6 +34,16 @@ class sfDatagridPropel extends sfDatagrid
 		
 		$this->peerTable = $peerTable;
 		$this->tableSuffix = $tableSuffix;
+	}
+	
+	/**
+	 * Set the column comparaison functions
+	 *
+	 * @param array $options The array of the criteria comparators
+	 */
+	public function setColumnsCompare($options)
+	{
+		$this->columnsCompare = $options;
 	}
 		
 	/**
@@ -118,23 +129,25 @@ class sfDatagridPropel extends sfDatagrid
 	protected function addSearch()
 	{		
 		$c = $this->criteria;
+		$c->setIgnoreCase(true);
+		
 		$columnsIds = array_keys($this->columns);
 		
 		$config = Propel::getConfiguration();
-		
-		if ($config['datasources']['propel']['adapter'] == 'pgsql')
-		{
-			$comp = Criteria::ILIKE;
-		}
-		else
-		{
-			$comp = Criteria::LIKE;
-		}
 		
 		foreach($columnsIds as $col)
 		{
 			if(is_array($this->search) && array_key_exists($col, $this->search) && !is_null($this->search[$col]) && $this->search[$col] != '')
 			{
+				if(array_key_exists($col, $this->columnsCompare))
+				{
+					$comp = $this->columnsCompare[$col];
+				}
+				else
+				{
+					$comp = Criteria::LIKE;
+				}
+				
 				switch($this->getColumnType($col))
 				{						
 					case 'NOTYPE':
@@ -171,7 +184,16 @@ class sfDatagridPropel extends sfDatagrid
 						break;
 						
 					default:
-						$c->add($this->getColumnSortingOption($col), '%' . $this->search[$col] . '%', $comp);
+						
+						if($comp == Criteria::LIKE)
+						{
+							$c->add($this->getColumnSortingOption($col), '%' . $this->search[$col] . '%', $comp);
+						}
+						else
+						{
+							$c->add($this->getColumnSortingOption($col), $this->search[$col], $comp);
+						}
+						
 						break;
 				}
 			}
