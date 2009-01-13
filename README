@@ -21,7 +21,14 @@ Depandencies
 
 Prototype must be loaded to the page
 
-		
+Helpers
+---------------------
+
+Many helpers must be loaded in the module configuration class
+
+	$this->getActive()->loadHelpers(array('Form', 'Number', 'Javascript', 'Date', 'Url', 'I18N', 'Tag'));
+
+	
 Configuration exemple
 ---------------------
 
