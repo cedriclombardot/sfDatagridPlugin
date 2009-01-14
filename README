@@ -2,60 +2,13 @@ sfDatagrid plugin
 ==============
 
 This plugins allow to create an ajax datagrid with sorting columns, line highlight, action on the line with a checkbox, data paging, column search, etc...
-
-How to use it
--------------
-
- * In your template insert the following line
- 
-		echo sfDatagrid::render('the datagrid name', 'module/action');
-		
- * In the use the action to configure your datagrid (documentation not available yet)
- * At the end of your datagrid action add this line to render the datagrid
- 
-		$this->getResponse()->setContent($datagridClass->getContent($array_of_values, array(css alternate 1, css alternate 2)));
-		return sfView::NONE;
 		
 Depandencies
 ---------------------
 
 Prototype must be loaded to the page
 
-Helpers
+Online documentation
 ---------------------
 
-Many helpers must be loaded in the module configuration class
-
-	$this->getActive()->loadHelpers(array('Form', 'Number', 'Javascript', 'Date', 'Url', 'I18N', 'Tag'));
-
-	
-Configuration exemple
----------------------
-
-
-	public function execute($request)
-	{
-		$d = new sfDatagridPropel('OptionsList', 'ObsviwRootoptions');
-		
-		$d->setColumns(array('id' => 'ID', 'name' => 'Nom du groupe d\'option', 'count' => 'Nombre d\'options'));
-		$d->setDatagridActions(array('Supprimer' => 'products/optionsDelete'));
-		$d->setColumnsOptions(array('id' => array('style' => 'display:none;')));
-		
-		$d->setRowAction('products/optionsEdit?edit=', 'id');
-		$d->setDefaultSortingColumn('name', 'asc');
-		
-		$d->setRowLimit(25);
-		
-		$p = $d->prepare('doSelectFirstLevel', 'doCountFirstLevel');
-		
-		$values = array();
-		
-		foreach($p->getResults() as $item)
-		{
-			$values[] = array(sfDatagrid::getCheck($item->getId()), $item->getId(), $item->getName(), $item->getCount());	
-		}
-		
-		$this->getResponse()->setContent($d->getContent($values, array('lt', 'dr')));
-		
-		return sfView::NONE;
-	}
+Go to [http://symfony.swisscenter.com/datagrid](http://symfony.swisscenter.com/datagrid)
