@@ -10,7 +10,11 @@ function dg_send(form, datagridName, type, url)
             
         case 'action':
             
-            new Ajax.Updater(datagridName, $(datagridName + '_select').options[$(datagridName + '_select').selectedIndex].value, {asynchronous:true, evalScripts:true, parameters:oForm.serialize(this)}); return false;
+            if($(datagridName + '_select').options[$(datagridName + '_select').selectedIndex].value != '#')
+            {
+                new Ajax.Updater(datagridName, $(datagridName + '_select').options[$(datagridName + '_select').selectedIndex].value, {asynchronous:true, evalScripts:true, parameters:oForm.serialize(this)}); return false;
+            }
+            
             break;
     }
 }

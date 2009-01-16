@@ -23,7 +23,7 @@ abstract class sfDatagrid
 	const P_PAGE = 'dg_page';
 	const P_ORDER = 'dg_order';
 	const P_SORT = 'dg_sort';
-	
+    
 	// Datagrid global values
 	protected
 		$pager = null,					// The datagrid Propel Pager (instance of sfPager)
@@ -288,7 +288,15 @@ abstract class sfDatagrid
 		
 		foreach($actions as $title => $link)
 		{
-			$actionsProcess[$title] = url_for($link);
+            if($link == '#')
+            {
+                $actionsProcess[$title] = $link;
+            }
+            else
+            {
+                $actionsProcess[$title] = url_for($link);
+            }
+			
 		}
 		
 		$this->datagridActions = $actionsProcess;
@@ -417,7 +425,7 @@ abstract class sfDatagrid
 		}
 		else
 		{
-			$formatter = $this->getFormatter('default');
+            $formatter = $this->getFormatter('default');
 		}
 		
 		// Make the header

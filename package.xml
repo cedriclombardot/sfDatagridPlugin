@@ -91,7 +91,8 @@
       <date>2009-01-16</date>
       <license>MIT</license>
       <notes>
-        * 
+        * David : add the default value to the first parameter of the prepare function
+		* David : add the possiblity to make an empty datagrid action like "Choose the value"
       </notes>
     </release>
     <release>

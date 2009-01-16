@@ -50,10 +50,11 @@ class sfDatagridPropel extends sfDatagrid
 	 * Prepare the datagrid
 	 *
 	 * @param string The pager peer method
+     * @param string The cound peer method
 	 * @return object The propel resultset
 	 * @see	parent::prepare()
 	 */
-	public function prepare($peerMethod = null, $countMethod = 'doCount')
+	public function prepare($peerMethod = 'doSelect', $countMethod = 'doCount')
 	{	
 		parent::prepare();
 		
