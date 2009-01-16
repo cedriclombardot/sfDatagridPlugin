@@ -92,7 +92,7 @@
       <license>MIT</license>
       <notes>
         * David : add the default value to the first parameter of the prepare function
-		* David : add the possiblity to make an empty datagrid action like "Choose the value"
+        * David : add the possiblity to make an empty datagrid action like "Choose the value"
       </notes>
     </release>
     <release>
@@ -128,7 +128,7 @@
         * David : fix the symfony cc notice
         * David : fix the action bar rendering problem with ie
         * David : fix the boolean render select error
-        * David	: fix the exception when the date filter value cannot be converted
+        * David : fix the exception when the date filter value cannot be converted
       </notes>
     </release>
 	<release>
@@ -147,7 +147,7 @@
         * David : fix the symfony cc notice
         * David : fix the action bar rendering problem with ie
         * David : fix the boolean render select error
-        * David	: fix the exception when the date filter value cannot be converted
+        * David : fix the exception when the date filter value cannot be converted
       </notes>
     </release>
   </changelog>
