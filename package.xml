@@ -91,6 +91,22 @@
       <date>2009-01-16</date>
       <license>MIT</license>
       <notes>
+        * 
+      </notes>
+    </release>
+    <release>
+      <version>
+        <release>1.0.7</release>
+        <api>1.0.7</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <license uri="http://www.symfony-project.org/license">MIT license</license>
+      <date>2009-01-16</date>
+      <license>MIT</license>
+      <notes>
         * David : Change the default text in english by default
       </notes>
     </release>
