@@ -32,7 +32,15 @@ abstract class sfDatagridFormatter
 		// The datagrid pager details
 		$datagridPager = '%pager%&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;%grid_totals%',
 		// The datagrid action bar
-		$datagridActions = '<table cellspacing="0" cellpadding="0" class="grid-actions"><tr><td valign="middle" class="left-actions"><span class="pager">%links%</span></td><td align="right" valign="middle" class="right-actions">%actions%</td></table>';
+		$datagridActions = '<table cellspacing="0" cellpadding="0" class="grid-actions"><tr><td valign="middle" class="left-actions"><span class="pager">%links%</span></td><td align="right" valign="middle" class="right-actions">%actions%</td></table>',
+        
+        // The datagrid default text
+        $textNoValueInRows = 'Nothing in the list',
+        $textSearch = 'Search',
+        $textValidate = 'Validate',
+        $textPage = 'Page',
+        $textDefaultView = 'Default view',
+        $textNumberOfRecords = 'Number of records';
 		
 	protected
 		$P_ORDER = 'dg_order',
@@ -147,17 +155,17 @@ abstract class sfDatagridFormatter
 			}
 			else
 			{
-				$pagerHtml.= $this->traduct('Page') . ' 1';
+				$pagerHtml.= $this->traduct($this->textPage) . ' 1';
 			}
 			
-			$gridTotals.= $this->traduct('Number of records') . ' : ' . $pager->getNbResults();
+			$gridTotals.= $this->traduct($this->textNumberOfRecords) . ' : ' . $pager->getNbResults();
 		}
 		
 		$url = $moduleAction . '?' . $this->P_PAGE . '=1' . $suffixWithSorting;
 		
 		if($renderSearch)
 		{
-			$searchHtml.= content_tag('button', content_tag('span', $this->traduct('Search')), array('type' => 'button', 'class' => 'button', 'name' => 'search_btn', 'onclick' => 'dg_send(\'' . $datagridName . '-form\', \'' . $datagridName . '\', \'search\', \'' . url_for($url) . '\')'));
+			$searchHtml.= content_tag('button', content_tag('span', $this->traduct($this->textSearch)), array('type' => 'button', 'class' => 'button', 'name' => 'search_btn', 'onclick' => 'dg_send(\'' . $datagridName . '-form\', \'' . $datagridName . '\', \'search\', \'' . url_for($url) . '\')'));
 		}
 		
 		if($renderPager)
@@ -203,12 +211,12 @@ abstract class sfDatagridFormatter
 		{
 			$actionSelect.= select_tag('actions', array_flip($actions), array('id' => $datagridName . '_select'));
 			$actionSelect.= '&nbsp';
-			$actionSelect.= '<input type="button" name="actions" value="' . $this->traduct('Validate') . '" onclick="dg_send(\'' . $datagridName . '-form\', \'' . $datagridName . '\', \'action\', \'\')" />';
+			$actionSelect.= '<input type="button" name="actions" value="' . $this->traduct($this->textValidate) . '" onclick="dg_send(\'' . $datagridName . '-form\', \'' . $datagridName . '\', \'action\', \'\')" />';
 		}
 		
 		if($keepRefresh){
 			
-			$linksHtml.= link_to_remote($this->traduct('Vue par défaut'), array('url' => $defaultUrl . '&d_clear=1', 'update' => $datagridName));
+			$linksHtml.= link_to_remote($this->traduct($this->textDefaultView), array('url' => $defaultUrl . '&d_clear=1', 'update' => $datagridName));
 		}
 		
 		if($actionSelect == '')
@@ -524,7 +532,7 @@ abstract class sfDatagridFormatter
 			
 			$htmlOutput.= strtr($this->datagridRows, array(
 				'%row_options%' => _tag_options($rowOptions),
-				'%value%' => $this->traduct('Nothing in the list')
+				'%value%' => $this->traduct($this->textNoValueInRows)
 			));
 		}
 		
