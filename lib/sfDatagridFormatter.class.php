@@ -150,14 +150,14 @@ abstract class sfDatagridFormatter
 				$pagerHtml.= $this->traduct('Page') . ' 1';
 			}
 			
-			$gridTotals.= $this->traduct('Nombre d\'enregistrements') . ' : ' . $pager->getNbResults();
+			$gridTotals.= $this->traduct('Number of records') . ' : ' . $pager->getNbResults();
 		}
 		
 		$url = $moduleAction . '?' . $this->P_PAGE . '=1' . $suffixWithSorting;
 		
 		if($renderSearch)
 		{
-			$searchHtml.= content_tag('button', content_tag('span', $this->traduct('Rechercher')), array('type' => 'button', 'class' => 'button', 'name' => 'search_btn', 'onclick' => 'dg_send(\'' . $datagridName . '-form\', \'' . $datagridName . '\', \'search\', \'' . url_for($url) . '\')'));
+			$searchHtml.= content_tag('button', content_tag('span', $this->traduct('Search')), array('type' => 'button', 'class' => 'button', 'name' => 'search_btn', 'onclick' => 'dg_send(\'' . $datagridName . '-form\', \'' . $datagridName . '\', \'search\', \'' . url_for($url) . '\')'));
 		}
 		
 		if($renderPager)
@@ -203,7 +203,7 @@ abstract class sfDatagridFormatter
 		{
 			$actionSelect.= select_tag('actions', array_flip($actions), array('id' => $datagridName . '_select'));
 			$actionSelect.= '&nbsp';
-			$actionSelect.= '<input type="button" name="actions" value="' . $this->traduct('Valider') . '" onclick="dg_send(\'' . $datagridName . '-form\', \'' . $datagridName . '\', \'action\', \'\')" />';
+			$actionSelect.= '<input type="button" name="actions" value="' . $this->traduct('Validate') . '" onclick="dg_send(\'' . $datagridName . '-form\', \'' . $datagridName . '\', \'action\', \'\')" />';
 		}
 		
 		if($keepRefresh){
@@ -524,7 +524,7 @@ abstract class sfDatagridFormatter
 			
 			$htmlOutput.= strtr($this->datagridRows, array(
 				'%row_options%' => _tag_options($rowOptions),
-				'%value%' => $this->traduct('Aucun enregistrement disponible')
+				'%value%' => $this->traduct('Nothing in the list')
 			));
 		}
 		
