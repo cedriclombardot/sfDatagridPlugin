@@ -12,3 +12,14 @@ Online documentation
 ---------------------
 
 Go to [http://symfony.swisscenter.com/datagrid](http://symfony.swisscenter.com/datagrid)
+
+Using with sfPropelAdminGenerator
+---------------------
+
+	[yml]
+	generator:
+	  class:              sfPropelAdminGenerator
+	  param:
+	    model_class:      ##AUTO##
+	    theme:            sfDataGrid
+	    

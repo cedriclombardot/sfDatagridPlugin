@@ -505,6 +505,11 @@ abstract class sfDatagrid
     */
     public static function getConfig($param)
     {
+    	if($param=='images_dir'){
+    		$request = sfContext::getInstance()->getRequest();
+  			$sf_relative_url_root = $request->getRelativeUrlRoot();
+  			return $sf_relative_url_root.'/'.sfConfig::get('app_datagrid_' . $param);
+    	}
         return sfConfig::get('app_datagrid_' . $param);
     }
 	
