@@ -97,7 +97,7 @@ abstract class sfDatagridFormatter
 		{
 			if($pager->haveToPaginate())
 			{
-				$pagerHtml.= $this->traduct('Page') . ' : ';
+				$pagerHtml.= $this->traduct(sfDatagrid::getConfig('text_page')) . ' : ';
 				
 				if($page != 1)
 				{
@@ -529,7 +529,7 @@ abstract class sfDatagridFormatter
 			
 			$htmlOutput.= strtr($this->datagridRows, array(
 				'%row_options%' => _tag_options($rowOptions),
-				'%value%' => $this->traduct($this->textNoValueInRows)
+				'%value%' => $this->traduct(sfDatagrid::getConfig('text_novalueinrows'))
 			));
 		}
 		
