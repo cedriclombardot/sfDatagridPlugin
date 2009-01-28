@@ -10,10 +10,10 @@
     <email>zellerda01@gmail.com</email>
     <active>yes</active>
   </lead>
-  <date>2009-01-16</date>
+  <date>2009-01-28</date>
   <version>
-    <release>1.0.8</release>
-    <api>1.0.8</api>
+    <release>1.0.9</release>
+    <api>1.0.9</api>
   </version>
   <stability>
     <release>stable</release>
@@ -26,7 +26,7 @@
       <file role="data" name="README" />
       <file role="data" name="LICENSE" />
       <dir name="config">
-        <file role="data" name="config.php" />
+        <file role="data" name="app.yml" />
       </dir>
       <dir name="lib">
         <file role="data" name="sfDatagridPropel.class.php" />
@@ -50,6 +50,7 @@
           <file role="data" name="header-sorting.gif" />
           <file role="data" name="pager-arrow-left.gif" />
           <file role="data" name="pager-arrow-right.gif" />
+		  <file role="data" name="ajax-loader.gif" />
         </dir>
         <dir name="js">
           <file role="data" name="calendar.js" />
@@ -78,6 +79,22 @@
   </dependencies>
   <phprelease />
   <changelog>
+	<release>
+      <version>
+        <release>1.0.9</release>
+        <api>1.0.9</api>
+      </version>
+      <stability>
+        <release>stable</release>
+        <api>stable</api>
+      </stability>
+      <license uri="http://www.symfony-project.org/license">MIT license</license>
+      <date>2009-01-28</date>
+      <license>MIT</license>
+      <notes>
+        * David : add the loading box for ajax
+      </notes>
+    </release>
     <release>
       <version>
         <release>1.0.8</release>

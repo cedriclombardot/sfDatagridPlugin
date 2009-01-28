@@ -83,11 +83,11 @@ abstract class sfDatagrid
 		$r = sfContext::getInstance()->getResponse();
 
 		$r->addStylesheet('/sfDatagridPlugin/css/datagrid.css');
-		$r->addStylesheet('/sfDatagridPlugin/css/calendar.css');
+		$r->addStylesheet('/sfExtraWidgetsPlugin/css/datepicker/datepicker_vista.css');
 		
 		//$r->addJavascript('/sfDatagridPlugin/js/prototype.js');
 		$r->addJavascript('/sfDatagridPlugin/js/datagrid.js');
-		$r->addJavascript('/sfDatagridPlugin/js/calendar.js');	
+		$r->addJavascript('/sfExtraWidgetsPlugin/js/datepicker.js');	
 	}
 	
 	/**
@@ -480,8 +480,8 @@ abstract class sfDatagrid
 	{
 		self::addScriptAndCss();
 		
-		$html = '<div id="' . $div . '"></div>';
-		$html.= javascript_tag(remote_function(array('update' => $div, 'url' => $url, 'script' => true)));
+		$html = '<div id="' . $div . '">' . '<div class="datagrid-loader" id="loader-' . $div . '">' . __(sfDatagrid::getConfig('text_loading')) . '</div>' . '</div>';
+		$html.= javascript_tag(remote_function(array('update' => $div, 'url' => $url, 'script' => true, 'loading' => 'dg_hide_show(\'' . $div . '\')')));
 		return $html;
 	}
 	
@@ -496,6 +496,17 @@ abstract class sfDatagrid
 		$html = '<input type="checkbox" name="gridline[]" value="' . $value . '" />';
 		return $html;	
 	}
+    
+    /**
+    * Get a value from the app.yml
+    * 
+    * @param string $param The parameter name
+    * @return mixed The value
+    */
+    public static function getConfig($param)
+    {
+        return sfConfig::get('app_datagrid_' . $param);
+    }
 	
 	/**
 	 * Get any class variables

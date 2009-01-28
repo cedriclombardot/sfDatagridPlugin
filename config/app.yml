@@ -1,0 +1,13 @@
+all:
+  datagrid:
+    images_dir: /sfDatagridPlugin/img/
+    
+    text_novalueinrows: Rien dans cette liste
+    text_search: Rechercher
+    text_validate: Valider
+    text_page: Page
+    text_defaultview: Vue par défaut
+    text_numberofrecords: Nombre d'enregistrement
+    text_loading: Veuillez patienter
+    text_from: Du
+    text_to: Au

@@ -20,7 +20,7 @@ abstract class sfDatagridFormatter
 {
 	protected
 		// The datagrid container
-		$datagridContainer = '%flash%%pager%%actions%<table border="0" cellspadding="0" cellspacing="1" class="grid">%headers%%filters%%rows%</table>',
+		$datagridContainer = '%loader%%flash%%pager%%actions%<table border="0" cellspadding="0" cellspacing="1" class="grid">%headers%%filters%%rows%</table>',
 		// The datagrid rowCell
 		$datagridRows = '<td %row_options%>%value%</td>',
 		// The datagrid headerCell
@@ -32,15 +32,7 @@ abstract class sfDatagridFormatter
 		// The datagrid pager details
 		$datagridPager = '%pager%&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;%grid_totals%',
 		// The datagrid action bar
-		$datagridActions = '<table cellspacing="0" cellpadding="0" class="grid-actions"><tr><td valign="middle" class="left-actions"><span class="pager">%links%</span></td><td align="right" valign="middle" class="right-actions">%actions%</td></table>',
-        
-        // The datagrid default text
-        $textNoValueInRows = 'Nothing in the list',
-        $textSearch = 'Search',
-        $textValidate = 'Validate',
-        $textPage = 'Page',
-        $textDefaultView = 'Default view',
-        $textNumberOfRecords = 'Number of records';
+		$datagridActions = '<table cellspacing="0" cellpadding="0" class="grid-actions"><tr><td valign="middle" class="left-actions"><span class="pager">%links%</span></td><td align="right" valign="middle" class="right-actions">%actions%</td></table>';
 		
 	protected
 		$P_ORDER = 'dg_order',
@@ -71,7 +63,8 @@ abstract class sfDatagridFormatter
 			'%rows%' => $rows,
 			'%pager%' => $pager,
 			'%actions%' => $actions,
-			'%filters%' => $filters
+			'%filters%' => $filters,
+            '%loader%' => '<div class="datagrid-loader" id="loader-' . $object->_get('datagridName') . '">' . sfDatagrid::getConfig('text_loading') . '</div>'
 		)) . '</form>';
 	}
 	
@@ -109,11 +102,12 @@ abstract class sfDatagridFormatter
 				if($page != 1)
 				{
 					$pagerHtml.= link_to_remote(
-							'<img src="' . DATAGRID_IMAGEDIR . 'pager-arrow-left.gif" alt="" align="absmiddle" />',
+							'<img src="' . sfDatagrid::getConfig('images_dir') . 'pager-arrow-left.gif" alt="" align="absmiddle" />',
 							array(
 								'url' => $moduleAction . '?' . $this->P_PAGE . '=' . $pager->getPreviousPage() . '&' . $suffixWithSorting,
 								'update' => $datagridName,
-								'script' => true
+								'script' => true,
+                                'loading' => 'dg_hide_show(\'' . $datagridName . '\')'
 								));
 				}
 				
@@ -126,7 +120,8 @@ abstract class sfDatagridFormatter
 								array(
 									'url' => $moduleAction . '?' . $this->P_PAGE . '=' . $item . '&' . $suffixWithSorting,
 									'update' => $datagridName,
-									'script' => true
+									'script' => true,
+                                    'loading' => 'dg_hide_show(\'' . $datagridName . '\')'
 									),
 								array('class' => 'selected'));
 					}
@@ -137,7 +132,8 @@ abstract class sfDatagridFormatter
 								array(
 									'url' => $moduleAction . '?' . $this->P_PAGE . '=' . $item . '&' . $suffixWithSorting,
 									'update' => $datagridName,
-									'script' => true
+									'script' => true,
+                                    'loading' => 'dg_hide_show(\'' . $datagridName . '\')'
 									));
 					}
 				}
@@ -145,34 +141,35 @@ abstract class sfDatagridFormatter
 				if($page != $pager->getLastPage())
 				{
 					$pagerHtml.= link_to_remote(
-							'<img src="' . DATAGRID_IMAGEDIR . 'pager-arrow-right.gif" alt="" align="absmiddle" />',
+							'<img src="' . sfDatagrid::getConfig('images_dir') . 'pager-arrow-right.gif" alt="" align="absmiddle" />',
 							array(
 								'url' => $moduleAction . '?' . $this->P_PAGE . '=' . $pager->getNextPage() . '&' . $suffixWithSorting,
 								'update' => $datagridName,
-								'script' => true
+								'script' => true,
+                                'loading' => 'dg_hide_show(\'' . $datagridName . '\')'
 								));
 				}
 			}
 			else
 			{
-				$pagerHtml.= $this->traduct($this->textPage) . ' 1';
+				$pagerHtml.= $this->traduct(sfDatagrid::getConfig('text_page')) . ' 1';
 			}
 			
-			$gridTotals.= $this->traduct($this->textNumberOfRecords) . ' : ' . $pager->getNbResults();
+			$gridTotals.= $this->traduct(sfDatagrid::getConfig('text_numberofrecords')) . ' : ' . $pager->getNbResults();
 		}
 		
 		$url = $moduleAction . '?' . $this->P_PAGE . '=1' . $suffixWithSorting;
 		
 		if($renderSearch)
 		{
-			$searchHtml.= content_tag('button', content_tag('span', $this->traduct($this->textSearch)), array('type' => 'button', 'class' => 'button', 'name' => 'search_btn', 'onclick' => 'dg_send(\'' . $datagridName . '-form\', \'' . $datagridName . '\', \'search\', \'' . url_for($url) . '\')'));
+			$searchHtml.= content_tag('button', content_tag('span', $this->traduct(sfDatagrid::getConfig('text_search'))), array('type' => 'button', 'class' => 'button', 'name' => 'search_btn', 'onclick' => 'dg_send(\'' . $datagridName . '-form\', \'' . $datagridName . '\', \'search\', \'' . url_for($url) . '\')'));
 		}
 		
 		if($renderPager)
 		{
 			return strtr($this->datagridPagerContainer, array(
 						'%pager%' => strtr($this->datagridPager, array('%pager%' => $pagerHtml, '%grid_totals%' => $gridTotals)),
-						'%search%' => $searchHtml
+						'%search%' => $searchHtml,
 						));
 		}
 		else
@@ -181,7 +178,7 @@ abstract class sfDatagridFormatter
 			{
 				return strtr($this->datagridPagerContainer, array(
 							'%pager%' => '',
-							'%search%' => $searchHtml
+							'%search%' => $searchHtml,
 							));
 			}
 			else
@@ -211,12 +208,12 @@ abstract class sfDatagridFormatter
 		{
 			$actionSelect.= select_tag('actions', array_flip($actions), array('id' => $datagridName . '_select'));
 			$actionSelect.= '&nbsp';
-			$actionSelect.= '<input type="button" name="actions" value="' . $this->traduct($this->textValidate) . '" onclick="dg_send(\'' . $datagridName . '-form\', \'' . $datagridName . '\', \'action\', \'\')" />';
+			$actionSelect.= '<input type="button" name="actions" value="' . $this->traduct(sfDatagrid::getConfig('text_validate')) . '" onclick="dg_send(\'' . $datagridName . '-form\', \'' . $datagridName . '\', \'action\', \'\')" />';
 		}
 		
 		if($keepRefresh){
 			
-			$linksHtml.= link_to_remote($this->traduct($this->textDefaultView), array('url' => $defaultUrl . '&d_clear=1', 'update' => $datagridName));
+			$linksHtml.= link_to_remote($this->traduct(sfDatagrid::getConfig('text_defaultview')), array('url' => $defaultUrl . '&d_clear=1', 'update' => $datagridName, 'loading' => 'dg_hide_show(\'' . $datagridName . '\')'));
 		}
 		
 		if($actionSelect == '')
@@ -293,7 +290,7 @@ abstract class sfDatagridFormatter
 				}
 				
 				$htmlOutput.= strtr($this->datagridHeaders, array(
-					'%value%' => $this->getSortingArrow($sortBy, $sortOrder, $key) . link_to_remote($label, array('update' => $datagridName, 'url' => $url . '&' . $this->P_SORT . '=' . $key . '&' . $this->P_ORDER . '=' . $order, 'script' => true), $this->isSorting($sortBy, $key)),
+					'%value%' => $this->getSortingArrow($sortBy, $sortOrder, $key) . link_to_remote($label, array('update' => $datagridName, 'url' => $url . '&' . $this->P_SORT . '=' . $key . '&' . $this->P_ORDER . '=' . $order, 'script' => true, 'loading' => 'dg_hide_show(\'' . $datagridName . '\')'), $this->isSorting($sortBy, $key)),
 					'%header_options%' => _tag_options($columnsOptions[$key])
 				));
 			}
@@ -384,7 +381,7 @@ abstract class sfDatagridFormatter
 				break;
 			
 			case 'BOOLEAN':
-				$wSelect = new sfWidgetFormSelect(array('choices' => array('' => '', 1 => 'true', 0 => 'false')));
+				$wSelect = new sfWidgetFormSelect(array('choices' => array('' => '', 1 => 'Oui', 0 => 'Non')));
 				$output = $wSelect->render('search[' . $column . ']', $value, array('style' => 'width: 100%;'));
 				break;
 				
@@ -460,7 +457,7 @@ abstract class sfDatagridFormatter
 		
 		if ($column == $sortBy){
 			
-			$html = '<span><img src="' . DATAGRID_IMAGEDIR . 'header-arrow-' . $sortOrder . '.gif" alt="" /></span>';
+			$html = '<span><img src="' . sfDatagrid::getConfig('images_dir') . 'header-arrow-' . $sortOrder . '.gif" alt="" /></span>';
 		}
 		
 		return $html;

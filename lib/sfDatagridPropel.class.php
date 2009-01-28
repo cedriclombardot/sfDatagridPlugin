@@ -71,7 +71,7 @@ class sfDatagridPropel extends sfDatagrid
 				$this->filtersTypes[$column] = $this->getColumnType($column);
 			}
 		}
-		
+        
 		// Set the pager
 		$p = new sfPropelPager($this->peerTable, $this->rowLimit);
 		$p->setPeerMethod($peerMethod);

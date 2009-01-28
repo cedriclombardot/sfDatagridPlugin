@@ -20,6 +20,8 @@
 .grid-pager td .pager a { margin: 5px; color: #000000; }
 .grid-pager td .pager a.selected { font-weight: bold; color: #EB5E00; }
 
+.datagrid-loader { display: none; left: 50%; top: 45%; position: absolute; margin-left: -102px; width: 200px; text-align: center; color:#d85909; padding: 50px 0px 10px 0px; font-size: 14px; font-weight: bold; border:2px solid #f1af73; background: #fff4e9 url(/sfDatagridPlugin/img/ajax-loader.gif) no-repeat center 10px; }
+
 .grid-actions { background-image: url(/sfDatagridPlugin/img/actions-row.gif); border: 1px solid #DADFE0; width: 100%; } 
 .grid-actions td { height: 24px; padding: 0px 5px 0px 5px; border-top: 1px solid #FFFFFF; }
 .grid-actions td.left-actions a { color: #EB5E00; font-size: 11px; }
