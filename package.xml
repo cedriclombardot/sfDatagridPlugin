@@ -93,6 +93,7 @@
       <license>MIT</license>
       <notes>
         * David : add the loading box for ajax
+        * David : put the default text in app.yml
       </notes>
     </release>
     <release>
