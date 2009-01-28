@@ -83,11 +83,11 @@ abstract class sfDatagrid
 		$r = sfContext::getInstance()->getResponse();
 
 		$r->addStylesheet('/sfDatagridPlugin/css/datagrid.css');
-		$r->addStylesheet('/sfExtraWidgetsPlugin/css/datepicker/datepicker_vista.css');
+		$r->addStylesheet('/sfDatagridPlugin/css/calendar.css');
 		
 		//$r->addJavascript('/sfDatagridPlugin/js/prototype.js');
 		$r->addJavascript('/sfDatagridPlugin/js/datagrid.js');
-		$r->addJavascript('/sfExtraWidgetsPlugin/js/datepicker.js');	
+		$r->addJavascript('/sfDatagridPlugin/js/calendar.js');	
 	}
 	
 	/**
