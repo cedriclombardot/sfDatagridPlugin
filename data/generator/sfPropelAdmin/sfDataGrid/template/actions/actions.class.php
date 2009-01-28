@@ -23,7 +23,7 @@ class <?php echo $this->getGeneratedModuleName() ?>Actions extends sfActions
   	$this->datagrid->setRowAction('<?php echo $this->getModuleName(); ?>/edit?id=', 'id');
   	  
   	<?php $datagrid_actions=$this->getParameterValue('list.datagrid_actions', array()) ?>
-  	<?php if(sizeof($datagrid_actions)>0); ?>
+  	<?php if(sizeof($datagrid_actions)>0): ?>
   		$this->datagrid->setDatagridActions(<?php $datagrid_actions ?>); 
   	<?php endif; ?>
   	
