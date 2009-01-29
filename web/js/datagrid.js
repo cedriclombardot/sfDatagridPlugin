@@ -9,10 +9,16 @@ function dg_send(form, datagridName, type, url)
             break;
         
         case 'reset':
-        	el=oForm.getInputs();
+        	oForm=document.getElementById(form);
+        	el=oForm.elements;
+        
+        	
         	for(i in el){
-        		el[i].value='';
+        		
+        			el[i].value='';
+        		
         	}
+        	
         	dg_send(form, datagridName, 'search', url);
             break;
         case 'action':
