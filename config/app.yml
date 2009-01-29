@@ -5,6 +5,7 @@ all:
     
     text_novalueinrows: Rien dans cette liste
     text_search: Rechercher
+    text_reset: Réinitialiser 
     text_validate: Valider
     text_page: Page
     text_defaultview: Vue par défaut

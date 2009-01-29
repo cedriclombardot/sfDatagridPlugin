@@ -7,7 +7,14 @@ function dg_send(form, datagridName, type, url)
         case 'search':
             new Ajax.Updater(datagridName, url, {asynchronous:true, evalScripts:true, method:'get', parameters:oForm.serialize(this), onLoading: function(request, json){dg_hide_show(datagridName)}}); return false;
             break;
-            
+        
+        case 'reset':
+        	el=oForm.getInputs();
+        	for(i in el){
+        		el[i].value='';
+        	}
+        	dg_send(form, datagridName, 'search', url);
+            break;
         case 'action':
             
             if($(datagridName + '_select').options[$(datagridName + '_select').selectedIndex].value != '#')
