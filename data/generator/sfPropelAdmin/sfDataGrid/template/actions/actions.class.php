@@ -16,7 +16,7 @@ class <?php echo $this->getGeneratedModuleName() ?>Actions extends sfActions
   }
   
   public function executeDatagrid($request){
-  	$this->datagrid= new sfDatagridPropel('simpleDatagrid', '<?php echo $this->getClassName() ?>'); 
+  	$this->datagrid= new sfDatagridPropel('<?php echo $this->getClassName() ?>Datagrid', '<?php echo $this->getClassName() ?>'); 
   	
   	$this->datagrid->setRowLimit(<?php echo $this->getParameterValue('list.max_per_page', 20) ?>);
   	
