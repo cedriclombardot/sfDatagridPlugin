@@ -103,7 +103,7 @@ abstract class sfDatagridFormatter
 				{
 					
 					$pagerHtml.= link_to_remote(
-							'<img src="' .$sf_relative_url_root.'/'. sfDatagrid::getConfig('images_dir') . 'pager-arrow-left.gif" alt="" align="absmiddle" />',
+							'<img src="' . sfDatagrid::getConfig('images_dir') . 'pager-arrow-left.gif" alt="" align="absmiddle" />',
 							array(
 								'url' => $moduleAction . '?' . $this->P_PAGE . '=' . $pager->getPreviousPage() . '&' . $suffixWithSorting,
 								'update' => $datagridName,
