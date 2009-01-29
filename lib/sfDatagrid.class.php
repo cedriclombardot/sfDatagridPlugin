@@ -400,7 +400,7 @@ abstract class sfDatagrid
 
 		if (!class_exists($class))
 		{
-			throw new InvalidArgumentException(sprintf('The form formatter "%s" does not exist.', $name));
+			throw new InvalidArgumentException(sprintf('The datagrid formatter "%s" does not exist.', $name));
 		}
 
 		return new $class($this);
