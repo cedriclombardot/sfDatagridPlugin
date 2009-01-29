@@ -485,10 +485,12 @@ abstract class sfDatagridFormatter
 	protected function getSortingArrow($sortBy, $sortOrder, $column)
 	{
 		$html = '';
-		
+		/* On a localhost with alias the arrow not appear so we must set the full path */
+		 $request = sfContext::getInstance()->getRequest();
+  		 $sf_relative_url_root = $request->getRelativeUrlRoot();
 		if ($column == $sortBy){
 			
-			$html = '<span><img src="' . sfDatagrid::getConfig('images_dir') . 'header-arrow-' . $sortOrder . '.gif" alt="" /></span>';
+			$html = '<span><img src="' .$sf_relative_url_root.sfDatagrid::getConfig('images_dir') . 'header-arrow-' . $sortOrder . '.gif" alt="" /></span>';
 		}
 		
 		return $html;
