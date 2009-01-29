@@ -26,7 +26,7 @@ class <?php echo $this->getGeneratedModuleName() ?>Actions extends sfActions
   	<?php if(sizeof($datagrid_actions)>0): ?>
   		<?php foreach($datagrid_actions as  $actionName => $params ){ ?>
   		
-  			$actions['<?php echo $params['name']?$params['name']:$actionName ?>']= '<?php echo $this->getModuleName(); ?>/<?php echo $params['action']?$params['action']:sfInflector::camelize($actionName.'_selected'); ?>';
+  			$actions[__('<?php echo $params['name']?$params['name']:$actionName ?>')]= '<?php echo $this->getModuleName(); ?>/<?php echo $params['action']?$params['action']:sfInflector::camelize($actionName.'_selected'); ?>';
   			
   		<?php } ?>
   		$this->datagrid->setDatagridActions($actions); 
