@@ -54,10 +54,12 @@ $columns['<?php echo $column->getName(); ?>']= '<?php  echo $this->getParameterV
   	$this->datagrid->setColumns($columns);
   	
   	  $p = $this->datagrid->prepare('<?php echo $this->getParameterValue('list.peer_method','doSelect') ?>', '<?php echo $this->getParameterValue('list.peer_count_method','doCount') ?>');  
-      $values = array();  
+      $values = array(); 
+      $defaultValuesId=array(); 
       $results=$p->getResults() ;
       if(sizeof($results)>0){
 	   foreach($results as $k=>$<?php echo $this->getSingularName() ?>) {
+	   $defaultValuesId[$k]=$<?php echo $this->getSingularName() ?>->getPrimaryKey();
 	   <?php if(sizeof($datagrid_actions)>0): ?>
 	   $values[$k][]=sfDatagrid::getCheck($<?php echo $this->getSingularName() ?>->getPrimaryKey());
 	   <?php endif; ?>
@@ -77,6 +79,7 @@ $values[$k][] = <?php echo $this->getColumnListTag($column) ?>;
 			<?php endforeach; ?>
 	      	
 	 }
+	 $this->datagrid->setRowIndexDefaultValues($defaultValuesId);
      }
       $this->getResponse()->setContent($this->datagrid->getContent($values, array('lt', 'dr'))); 
     

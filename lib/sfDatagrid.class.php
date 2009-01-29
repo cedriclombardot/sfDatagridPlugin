@@ -41,7 +41,8 @@ abstract class sfDatagrid
 		$rowAction = null,				// The link for the row (e.g. to edit)
 		$columnsSort = array(),			// The columns custom sorting options
 		$filtersTypes = array(),		// The type of filter
-		$search = array();				// The search parameters
+		$search = array(),				// The search parameters
+		$rowIndexDefaultValues= array(); // Default value for a row if the column doesn't exist
 	
 	// Render Options
 	protected
@@ -137,6 +138,14 @@ abstract class sfDatagrid
 		$this->rowLimit = $value;
 	}
 	
+	/*
+	 * Default values for a row if the column doesn't exist
+	 * 
+	 * @param array $values LIst of the values for each lines
+	 */
+	public function setRowIndexDefaultValues($values){
+		$this->rowIndexDefaultValues=$values;
+	}
 	/**
 	 * Define the value of the sort and the page are set in the session
 	 *
@@ -458,9 +467,13 @@ abstract class sfDatagrid
 		if(count($values) != 0)
 		{
 			$i = 0;
-			foreach($values as $rowValues)
+			foreach($values as $k=>$rowValues)
 			{	
-				$rows.= $formatter->renderRow($this, $rowValues, $i % 2 ? $alternate[1] : $alternate[0]);
+				$rowIndexDefaultValue=null;
+				if(array_key_exists($k,$this->rowIndexDefaultValues)){
+					$rowIndexDefaultValue=$this->rowIndexDefaultValues[$k];
+				}
+				$rows.= $formatter->renderRow($this, $rowValues, $i % 2 ? $alternate[1] : $alternate[0],$rowIndexDefaultValue);
 				$i++;
 			}
 		}

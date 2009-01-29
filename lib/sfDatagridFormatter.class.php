@@ -507,9 +507,10 @@ abstract class sfDatagridFormatter
 	 * @param sfDatagrid $object The datagrid object
 	 * @param array $rowValues The array with the values
 	 * @param string $rowClass The css class for the row
+	 * @param string $rowIndexDefaultValue The RowIndex Default if ! $rowIndex
 	 * @return string The html output for the row
 	 */
-	public function renderRow($object, $rowValues, $rowClass = null)
+	public function renderRow($object, $rowValues, $rowClass = null,$rowIndexDefaultValue=null)
 	{
 		$columns = array_keys($object->_get('columns'));
 		$rowOptions = $object->_get('columnsOptions');
@@ -534,11 +535,19 @@ abstract class sfDatagridFormatter
 				if(!is_null($rowAction))
 				{
 					preg_match('/%(?<param>\w+)%/', $rowAction, $matches);
-
 					$rowIndex = array_search($matches['param'], $columns);
-
-					$this->addOption('onclick', $rowOptions[$columnName], "document.location.href='" . url_for(strtr($rowAction, array('%' . $matches['param'] . '%' => $rowValues[$rowIndex]))) . "'");
-					$this->addOption('style', $rowOptions[$columnName], 'cursor:pointer;');
+					if(!$rowIndex){
+						
+						if(!is_null($rowIndexDefaultValue)){
+							$this->addOption('onclick', $rowOptions[$columnName], "document.location.href='" . url_for(strtr($rowAction, array('%' . $matches['param'] . '%' => $rowIndexDefaultValue))) . "'");
+							$this->addOption('style', $rowOptions[$columnName], 'cursor:pointer;');
+						}else{
+							throw new Exception("Impossible to find column ".$matches['param']);
+						}
+					}else{
+						$this->addOption('onclick', $rowOptions[$columnName], "document.location.href='" . url_for(strtr($rowAction, array('%' . $matches['param'] . '%' => $rowValues[$rowIndex]))) . "'");
+						$this->addOption('style', $rowOptions[$columnName], 'cursor:pointer;');
+					}
 				}
 				
 				if(!array_key_exists($columnName, $rowOptions))
