@@ -22,12 +22,21 @@ class <?php echo $this->getGeneratedModuleName() ?>Actions extends sfActions
   	
   	$this->datagrid->setRowAction('<?php echo $this->getModuleName(); ?>/edit?id=', 'id');
   	  
-  	<?php $datagrid_actions=$this->getParameterValue('list.batch_actions', array()) ?>
+  	<?php $datagrid_actions=$this->getParameterValue('list.batch_actions', array()); ?>
   	<?php if(sizeof($datagrid_actions)>0): ?>
-  		$this->datagrid->setDatagridActions(<?php $datagrid_actions ?>); 
+  		<?php foreach($datagrid_actions as  $actionName => $params ){ ?>
+  		
+  			$actions['<?php echo $params['name']?$params['name']:$actionName ?>']= '<?php echo $this->getModuleName(); ?>/<?php echo $params['action']?$params['action']:sfInflector::camelize($actionName.'_selected'); ?>';
+  			
+  		<?php } ?>
+  		$this->datagrid->setDatagridActions($actions); 
   	<?php endif; ?>
   	
   	$columns=array();
+  	<?php if(sizeof($datagrid_actions)>0): ?>
+  	<?php $columns['_batch']='ID'; ?>
+  	
+  	<?php endif; ?>
   	<?php $hs = $this->getParameterValue('list.hide', array()) ?>
 	<?php foreach ($this->getColumns('list.display') as $column): ?>
 	<?php if (in_array($column->getName(), $hs)) continue ?>
