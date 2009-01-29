@@ -372,20 +372,20 @@ abstract class sfDatagridFormatter
     		$builder=$object->_get('peerTable').'MapBuilder';
     		$mapBuilder=new $builder;
     		$mapBuilder->doBuild();
-    		$adminrelated = $sfAdminColumn=$mapBuilder->getDatabaseMap()->getTable(strtolower($object->_get('peerTable')))->getColumn(strtoupper($column));
+    		$adminrelated = $mapBuilder->getDatabaseMap()->getTable(strtolower($object->_get('peerTable')))->getColumn(strtoupper($column));
         }
         catch(Exception $e)
         {
             $adminrelated = '';
         }
 		
-        if($adminrelated != '')
+        if(($adminrelated instanceof ColumnMap)&&($adminrelated->isForeignKey()))
         {
 			/*
 			 * @todo Et si on utilise pas propel ?
 			 */
 			$wSelect= new sfWidgetFormPropelSelect(
-			array('model' => sfInflector::camelize($sfAdminColumn->getRelatedTableName()),  'add_empty' =>true)); 
+			array('model' => sfInflector::camelize($adminrelated->getRelatedTableName()),  'add_empty' =>true)); 
 			
 			$output = $wSelect->render('search[' . $column . ']', $value, array('style' => 'width: 100%;'));
 		} 
