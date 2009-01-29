@@ -36,10 +36,16 @@ class <?php echo $this->getGeneratedModuleName() ?>Actions extends sfActions
   	<?php if(sizeof($datagrid_actions)>0): ?>
   	<?php $columns['_batch']='batch'; ?>
   	<?php endif; ?>
-  	
-  	
+  	<?php 
+  	$tablePeer=$this->getClassName().'Peer';
+    $builder=$this->getClassName().'MapBuilder';
+    $mapBuilder=new $builder;
+    $mapBuilder->doBuild();
+  		?>
   	<?php $hs = $this->getParameterValue('list.hide', array()) ?>
 	<?php foreach ($this->getColumns('list.display') as $column): ?>
+	
+		
 	<?php if (in_array($column->getName(), $hs)) continue ?>
 	<?php $credentials = $this->getParameterValue('list.fields.'.$column->getName().'.credentials') ?>
 	<?php if ($credentials): $credentials = str_replace("\n", ' ', var_export($credentials, true)) ?>
@@ -64,14 +70,23 @@ $columns['<?php echo $column->getName(); ?>']= '<?php  echo $this->getParameterV
 	   $values[$k][]=sfDatagrid::getCheck($<?php echo $this->getSingularName() ?>->getPrimaryKey());
 	   <?php endif; ?>
 	    
-	   
+	  
+        
 	      	<?php foreach ($this->getColumns('list.display') as $column): ?>
 			<?php if (in_array($column->getName(), $hs)) continue ?>
 			<?php $credentials = $this->getParameterValue('list.fields.'.$column->getName().'.credentials') ?>
 			<?php if ($credentials): $credentials = str_replace("\n", ' ', var_export($credentials, true)) ?>
 		    	[?php if ($sf_user->hasCredential(<?php echo $credentials ?>)): ?]
 		    <?php endif; ?>
-$values[$k][] = <?php echo $this->getColumnListTag($column) ?>;  
+		 <?php     if(($column->isForeignKey()))
+        { 
+    
+        	?>
+
+$values[$k][] = $<?php echo $this->getSingularName() ?>->get<?php echo $this->getRelatedClassName($column) ?>(); 
+<?php } else{ ?>
+	$values[$k][] = <?php echo $this->getColumnListTag($column) ?>; 
+<?php } ?>
 			<?php if ($credentials): ?>
 			    [?php endif; ?]
 			<?php endif; ?>
