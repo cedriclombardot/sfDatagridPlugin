@@ -57,7 +57,7 @@ $columns['<?php echo $column->getName(); ?>']= '<?php  echo $this->getParameterV
       $results=$p->getResults() ;
       if(sizeof($results)>0){
 	   foreach($results as $k=>$<?php echo $this->getSingularName() ?>) {
-	   $values[$k][]=sfDatagrid::getCheck($<?php echo $this->getSingularName() ?>->getId());
+	   $values[$k][]=sfDatagrid::getCheck($<?php echo $this->getSingularName() ?>->getPrimaryKey());
 	      	<?php foreach ($this->getColumns('list.display') as $column): ?>
 			<?php if (in_array($column->getName(), $hs)) continue ?>
 			<?php $credentials = $this->getParameterValue('list.fields.'.$column->getName().'.credentials') ?>
@@ -133,7 +133,7 @@ else
 
   public function executeDeleteSelected($request)
   {
-    $this->selectedItems = $this->getRequestParameter('sf_admin_batch_selection', array());
+    $this->selectedItems = $this->getRequestParameter('gridline', array());
 
     try
     {
@@ -145,10 +145,10 @@ else
     catch (PropelException $e)
     {
       $request->setError('delete', 'Could not delete the selected <?php echo sfInflector::humanize($this->getPluralName()) ?>. Make sure they do not have any associated items.');
-      return $this->forward('<?php echo $this->getModuleName() ?>', 'list');
+      return $this->forward('<?php echo $this->getModuleName() ?>', 'datagrid');
     }
 
-    return $this->redirect('<?php echo $this->getModuleName() ?>/list');
+    return $this->redirect('<?php echo $this->getModuleName() ?>/datagrid');
   }
 
   public function executeEdit($request)
