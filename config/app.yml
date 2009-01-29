@@ -1,6 +1,7 @@
 all:
   datagrid:
     images_dir: /sfDatagridPlugin/img/
+    class_for_foreign: sfWidgetFormPropelSelect # Or sfWidgetFormDoctrineSelect  
     
     text_novalueinrows: Rien dans cette liste
     text_search: Rechercher

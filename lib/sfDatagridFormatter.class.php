@@ -382,9 +382,11 @@ abstract class sfDatagridFormatter
         if(($adminrelated instanceof ColumnMap)&&($adminrelated->isForeignKey()))
         {
 			/*
-			 * @todo Et si on utilise pas propel ?
+			 * Et si on utilise pas propel ?
+			 * @see class_for_foreign
 			 */
-			$wSelect= new sfWidgetFormPropelSelect(
+        	$c=sfDatagrid::getConfig('class_for_foreign');
+			$wSelect= new $c(
 			array('model' => sfInflector::camelize($adminrelated->getRelatedTableName()),  'add_empty' =>true)); 
 			
 			$output = $wSelect->render('search[' . $column . ']', $value, array('style' => 'width: 100%;'));
