@@ -57,6 +57,7 @@ $columns['<?php echo $column->getName(); ?>']= '<?php  echo $this->getParameterV
       $results=$p->getResults() ;
       if(sizeof($results)>0){
 	   foreach($results as $k=>$<?php echo $this->getSingularName() ?>) {
+	   $values[$k][]=sfDatagrid::getCheck($<?php echo $this->getSingularName() ?>->getId());
 	      	<?php foreach ($this->getColumns('list.display') as $column): ?>
 			<?php if (in_array($column->getName(), $hs)) continue ?>
 			<?php $credentials = $this->getParameterValue('list.fields.'.$column->getName().'.credentials') ?>
@@ -67,6 +68,7 @@ $values[$k][] = <?php echo $this->getColumnListTag($column) ?>;
 			<?php if ($credentials): ?>
 			    [?php endif; ?]
 			<?php endif; ?>
+			
 			<?php endforeach; ?>
 	      	
 	 }
