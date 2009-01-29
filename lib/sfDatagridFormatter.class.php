@@ -363,7 +363,7 @@ abstract class sfDatagridFormatter
 	{
 		$output = '';
 		/*
-		 * @todo il faudra penser a déplacer ce morceau de code afin de prendre en entrer $mapBuilder pour le
+		 * @todo il faudra penser a dÃ©placer ce morceau de code afin de prendre en entrer $mapBuilder pour le
 		 * calculer qu'une fois
 		 */
         try
