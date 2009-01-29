@@ -141,6 +141,7 @@ abstract class sfDatagridFormatter
 				
 				if($page != $pager->getLastPage())
 				{
+					
 					$pagerHtml.= link_to_remote(
 							'<img src="' . sfDatagrid::getConfig('images_dir') . 'pager-arrow-right.gif" alt="" align="absmiddle" />',
 							array(

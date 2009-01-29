@@ -19,6 +19,7 @@
 .grid-pager td { padding: 5px 0px 5px 0px; }
 .grid-pager td .pager a { margin: 5px; color: #000000; }
 .grid-pager td .pager a.selected { font-weight: bold; color: #EB5E00; }
+.grid-pager .button { float: right }
 
 .datagrid-loader { display: none; left: 50%; top: 45%; position: absolute; margin-left: -102px; width: 200px; text-align: center; color:#d85909; padding: 50px 0px 10px 0px; font-size: 14px; font-weight: bold; border:2px solid #f1af73; background: #fff4e9 url(../img/ajax-loader.gif) no-repeat center 10px; }
 
