@@ -1,16 +1,6 @@
 [?php use_helper('I18N', 'Date') ?]
 
 [?php use_stylesheet('<?php echo $this->getParameterValue('css', sfConfig::get('sf_admin_web_dir').'/css/main') ?>') ?]
-<style>
-	#sf_admin_container td{
-	padding:3px;
-	background-color: transparent;
-	}
-	#sf_admin_container td.filter{
-	padding:10px;
-	background-color: transparent;
-	}
-</style>
 <div id="sf_admin_container">
 
 <h1><?php echo $this->getI18NString('list.title', $this->getModuleName().' list') ?></h1>
