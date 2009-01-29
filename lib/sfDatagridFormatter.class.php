@@ -366,13 +366,21 @@ abstract class sfDatagridFormatter
 		 * @todo il faudra penser a déplacer ce morceau de code afin de prendre en entrer $mapBuilder pour le
 		 * calculer qu'une fois
 		 */
-		$tablePeer=$object->_get('peerTable').'Peer';
-		$builder=$object->_get('peerTable').'MapBuilder';
-		$mapBuilder=new $builder;
-		$mapBuilder->doBuild();
-		$sfAdminColumn=$mapBuilder->getDatabaseMap()->getTable(strtolower($object->_get('peerTable')))->getColumn(strtoupper($column));
-		if($sfAdminColumn->getRelatedTableName()!=''){
-			
+        try
+        {
+    		$tablePeer=$object->_get('peerTable').'Peer';
+    		$builder=$object->_get('peerTable').'MapBuilder';
+    		$mapBuilder=new $builder;
+    		$mapBuilder->doBuild();
+    		$adminrelated = $sfAdminColumn=$mapBuilder->getDatabaseMap()->getTable(strtolower($object->_get('peerTable')))->getColumn(strtoupper($column));
+        }
+        catch(Exception $e)
+        {
+            $adminrelated = '';
+        }
+		
+        if($adminrelated != '')
+        {
 			/*
 			 * @todo Et si on utilise pas propel ?
 			 */
@@ -380,67 +388,67 @@ abstract class sfDatagridFormatter
 			array('model' => sfInflector::camelize($sfAdminColumn->getRelatedTableName()),  'add_empty' =>true)); 
 			
 			$output = $wSelect->render('search[' . $column . ']', $value, array('style' => 'width: 100%;'));
-			
-		}else{
-		
-		switch($type)
-		{
-			case is_array($type):
-				$choices[''] = '';
-				
-				foreach($type as $key => $values)
-				{
-					$choices[$key] = $values;
-				}
-				
-				$wSelect = new sfWidgetFormSelect(array('choices' => $choices));
-				$output = $wSelect->render('search[' . $column . ']', $value, array('style' => 'width: 100%;'));
-				break;
-				
-			case 'NOTYPE':
-				$output = '';
-				break;
-			
-			case 'BOOLEAN':
-				$wSelect = new sfWidgetFormSelect(array('choices' => array('' => '', 1 => 'Oui', 0 => 'Non')));
-				$output = $wSelect->render('search[' . $column . ']', $value, array('style' => 'width: 100%;'));
-				break;
-				
-			case (strtoupper($type) == 'DATE' || strtoupper($type) == 'TIMESTAMP'):
-				if(@array_key_exists('start_' . $object->_get('datagridName'), $value) && $value['start_' . $object->_get('datagridName')] != '')
-				{
-					$value1 = format_date(strtotime($value['start_' . $object->_get('datagridName')]), 'dd.MM.yyyy');
-				}
-				else
-				{
-					$value1 = '';
-				}
-				
-				if(@array_key_exists('start_' . $object->_get('datagridName'), $value) && $value['stop_' . $object->_get('datagridName')] != '')
-				{
-					$value2 = format_date(strtotime($value['stop_' . $object->_get('datagridName')]), 'dd.MM.yyyy');
-				}
-				else
-				{
-					$value2 = '';
-				}
-				$wDateStart = new sfWidgetFormInput();
-				$wDateStop = new sfWidgetFormInput();
-				
-				$output = '<span style="padding-bottom: 5px; display: block;">';
-				$output.= $this->traduct('Du') . ' ';
-				$output.= $wDateStart->render('search[' . $column . '][start_' . $object->_get('datagridName') . ']', $value1, array('onclick' => 'displayDatePicker(this.name)', 'style' => 'width: 75px;'));
-				$output.= '</span>';
-				$output.= ' ' .$this->traduct('Au') . ' ';
-				$output.= $wDateStop->render('search[' . $column . '][stop_' . $object->_get('datagridName') . ']', $value2, array('type' => 'text', 'onclick' => 'displayDatePicker(this.name)', 'style' => 'width: 75px;'));
-				break;
-				
-			default:
-				$wInput = new sfWidgetFormInput();
-				$url = $object->_get('moduleAction') . '?' . $this->P_PAGE . '=1' . $suffix . '&' . $this->P_SORT . '=' . $object->_get('sortBy') . '&' . $this->P_ORDER . '=' . $object->_get('sortOrder');
-				$output = $wInput->render('search[' . $column . ']', $value, array('style' => 'width: 100%;', 'onkeydown' => 'dg_keydown(\'' . $object->_get('datagridName') . '-form\', \'' . $object->_get('datagridName') . '\', \'search\', \'' . url_for($url) . '\', event)'));
-				break;
-		}
+		} 
+        else
+        {
+    		switch($type)
+    		{
+    			case is_array($type):
+    				$choices[''] = '';
+    				
+    				foreach($type as $key => $values)
+    				{
+    					$choices[$key] = $values;
+    				}
+    				
+    				$wSelect = new sfWidgetFormSelect(array('choices' => $choices));
+    				$output = $wSelect->render('search[' . $column . ']', $value, array('style' => 'width: 100%;'));
+    				break;
+    				
+    			case 'NOTYPE':
+    				$output = '';
+    				break;
+    			
+    			case 'BOOLEAN':
+    				$wSelect = new sfWidgetFormSelect(array('choices' => array('' => '', 1 => 'Oui', 0 => 'Non')));
+    				$output = $wSelect->render('search[' . $column . ']', $value, array('style' => 'width: 100%;'));
+    				break;
+    				
+    			case (strtoupper($type) == 'DATE' || strtoupper($type) == 'TIMESTAMP'):
+    				if(@array_key_exists('start_' . $object->_get('datagridName'), $value) && $value['start_' . $object->_get('datagridName')] != '')
+    				{
+    					$value1 = format_date(strtotime($value['start_' . $object->_get('datagridName')]), 'dd.MM.yyyy');
+    				}
+    				else
+    				{
+    					$value1 = '';
+    				}
+    				
+    				if(@array_key_exists('start_' . $object->_get('datagridName'), $value) && $value['stop_' . $object->_get('datagridName')] != '')
+    				{
+    					$value2 = format_date(strtotime($value['stop_' . $object->_get('datagridName')]), 'dd.MM.yyyy');
+    				}
+    				else
+    				{
+    					$value2 = '';
+    				}
+    				$wDateStart = new sfWidgetFormInput();
+    				$wDateStop = new sfWidgetFormInput();
+    				
+    				$output = '<span style="padding-bottom: 5px; display: block;">';
+    				$output.= $this->traduct(sfDatagrid::getConfig('text_from')) . ' ';
+    				$output.= $wDateStart->render('search[' . $column . '][start_' . $object->_get('datagridName') . ']', $value1, array('onclick' => 'displayDatePicker(this.name)', 'style' => 'width: 75px;'));
+    				$output.= '</span>';
+    				$output.= ' ' .$this->traduct(sfDatagrid::getConfig('text_to')) . ' ';
+    				$output.= $wDateStop->render('search[' . $column . '][stop_' . $object->_get('datagridName') . ']', $value2, array('type' => 'text', 'onclick' => 'displayDatePicker(this.name)', 'style' => 'width: 75px;'));
+    				break;
+    				
+    			default:
+    				$wInput = new sfWidgetFormInput();
+    				$url = $object->_get('moduleAction') . '?' . $this->P_PAGE . '=1' . $suffix . '&' . $this->P_SORT . '=' . $object->_get('sortBy') . '&' . $this->P_ORDER . '=' . $object->_get('sortOrder');
+    				$output = $wInput->render('search[' . $column . ']', $value, array('style' => 'width: 100%;', 'onkeydown' => 'dg_keydown(\'' . $object->_get('datagridName') . '-form\', \'' . $object->_get('datagridName') . '\', \'search\', \'' . url_for($url) . '\', event)'));
+    				break;
+    		}
 		}
 		return content_tag('div', $output);
 	}

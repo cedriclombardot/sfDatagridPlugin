@@ -371,14 +371,14 @@ abstract class sfDatagrid
 		
 		return $p;
 	}
-	
-	/**
+	   
+    /**
 	 * Use i18n function (if is active) to traduct a value
 	 *
 	 * @param string $value The text to traduct
 	 * @return string The traducted value
 	 */
-	protected function traduct($value)
+	protected static function traduct($value)
 	{
 		if (sfConfig::get('sf_i18n'))
 		{
@@ -480,7 +480,7 @@ abstract class sfDatagrid
 	{
 		self::addScriptAndCss();
 		
-		$html = '<div id="' . $div . '">' . '<div class="datagrid-loader" id="loader-' . $div . '">' . __(sfDatagrid::getConfig('text_loading')) . '</div>' . '</div>';
+		$html = '<div id="' . $div . '">' . '<div class="datagrid-loader" id="loader-' . $div . '">' . sfDatagrid::traduct(sfDatagrid::getConfig('text_loading')) . '</div>' . '</div>';
 		$html.= javascript_tag(remote_function(array('update' => $div, 'url' => $url, 'script' => true, 'loading' => 'dg_hide_show(\'' . $div . '\')')));
 		return $html;
 	}
