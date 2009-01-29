@@ -36,8 +36,6 @@ class <?php echo $this->getGeneratedModuleName() ?>Actions extends sfActions
   	<?php if(sizeof($datagrid_actions)>0): ?>
   	<?php $columns['_batch']='batch'; ?>
   	<?php endif; ?>
-  	<?php //$columns['id_auto']=$this->getMethodParamsForGetOrCreate(); ?>
-  	$columns[<?php echo $this->getMethodParamsForGetOrCreate() ?>]= <?php echo $this->getMethodParamsForGetOrCreate() ?>;
   	
   	
   	<?php $hs = $this->getParameterValue('list.hide', array()) ?>
@@ -63,7 +61,7 @@ $columns['<?php echo $column->getName(); ?>']= '<?php  echo $this->getParameterV
 	   <?php if(sizeof($datagrid_actions)>0): ?>
 	   $values[$k][]=sfDatagrid::getCheck($<?php echo $this->getSingularName() ?>->getPrimaryKey());
 	   <?php endif; ?>
-	    $values[$k][]=$<?php echo $this->getSingularName() ?>->getPrimaryKey();
+	    
 	   
 	      	<?php foreach ($this->getColumns('list.display') as $column): ?>
 			<?php if (in_array($column->getName(), $hs)) continue ?>

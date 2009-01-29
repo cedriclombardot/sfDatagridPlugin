@@ -233,6 +233,15 @@ abstract class sfDatagrid
 	}
 	
 	/**
+	 * Set  options for a column
+	 *
+	 * @param string $column The name of the col
+	 * @param array $options The array with the options
+	 */
+	public function setColumnOption($column, $options=array()){
+		$this->columnsOptions[$column] = $options;
+	}
+	/**
 	 * Define if the search zone have to be render
 	 *
 	 * @param boolean $value
