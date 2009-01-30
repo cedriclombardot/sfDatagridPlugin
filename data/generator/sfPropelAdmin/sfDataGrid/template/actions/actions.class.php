@@ -20,7 +20,7 @@ class <?php echo $this->getGeneratedModuleName() ?>Actions extends sfActions
   	
   	$this->datagrid->setRowLimit(<?php echo $this->getParameterValue('list.max_per_page', 20) ?>);
   	
-  	$this->datagrid->setRowAction('<?php echo $this->getModuleName(); ?>/edit?'.<?php echo $this->getMethodParamsForGetOrCreate() ?>.'=', <?php echo $this->getMethodParamsForGetOrCreate() ?>);
+  	$this->datagrid->setRowAction('<?php echo $this->getModuleName(); ?>/<?php echo $this->getParameterValue('list.row_action', 'edit') ?>?'.<?php echo $this->getMethodParamsForGetOrCreate() ?>.'=', <?php echo $this->getMethodParamsForGetOrCreate() ?>);
   	  
   	<?php $datagrid_actions=$this->getParameterValue('list.batch_actions', array()); ?>
   	<?php if(sizeof($datagrid_actions)>0): ?>
