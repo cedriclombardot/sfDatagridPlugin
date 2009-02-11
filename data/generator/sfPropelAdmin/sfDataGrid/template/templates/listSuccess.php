@@ -17,7 +17,7 @@
 </div>
 
 <div id="sf_admin_content">
-[?php echo sfDatagrid::render('simpleDatagrid', '<?php echo $this->getModuleName() ?>/datagrid'); ?]
+[?php echo sfDatagrid::render('<?php echo $this->getClassName() ?>Datagrid', '<?php echo $this->getModuleName() ?>/datagrid'); ?]
 [?php include_partial('list_actions') ?]
 </div>
 
