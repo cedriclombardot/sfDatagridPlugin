@@ -17,9 +17,12 @@ class <?php echo $this->getGeneratedModuleName() ?>Actions extends sfActions
   
   public function executeDatagrid($request){
   	$this->datagrid= new sfDatagridPropel('<?php echo $this->getClassName() ?>Datagrid', '<?php echo $this->getClassName() ?>'); 
-  	
+  	$this->datagrid->keepOnRefresh(true);
   	$this->datagrid->setRowLimit(<?php echo $this->getParameterValue('list.max_per_page', 20) ?>);
   	
+  	<?php if($sort=$this->getParameterValue('list.sort')){ ?>
+  	$this->datagrid->setDefaultSortingColumn('<?php echo ($sort[0]) ?>','<?php echo $sort[1] ?>');
+  	<?php } ?>
   	$this->datagrid->setRowAction('<?php echo $this->getModuleName(); ?>/<?php echo $this->getParameterValue('list.row_action', 'edit') ?>?'.<?php echo $this->getMethodParamsForGetOrCreate() ?>.'=', <?php echo $this->getMethodParamsForGetOrCreate() ?>);
   	  
   	<?php $datagrid_actions=$this->getParameterValue('list.batch_actions', array()); ?>
