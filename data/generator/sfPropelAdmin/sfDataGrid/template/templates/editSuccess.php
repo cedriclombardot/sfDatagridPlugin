@@ -12,7 +12,11 @@
 
 <div id="sf_admin_content">
 [?php include_partial('<?php echo $this->getModuleName() ?>/edit_messages', array('<?php echo $this->getSingularName() ?>' => $<?php echo $this->getSingularName() ?>, 'labels' => $labels)) ?]
+<?php if($this->getParameterValue('edit.layout')){ ?>
+[?php include_partial('<?php echo $this->getModuleName() ?>/edit_form_layout', array('<?php echo $this->getSingularName() ?>' => $<?php echo $this->getSingularName() ?>, 'labels' => $labels)) ?]
+<?php }else{ ?>
 [?php include_partial('<?php echo $this->getModuleName() ?>/edit_form', array('<?php echo $this->getSingularName() ?>' => $<?php echo $this->getSingularName() ?>, 'labels' => $labels)) ?]
+<?php } ?>
 </div>
 
 <div id="sf_admin_footer">
