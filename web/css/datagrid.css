@@ -36,3 +36,7 @@
 	padding:10px;
 	background-color: transparent;
 	}
+
+#sf_admin_container ul.checkbox_list, #sf_admin_container .checkbox_list li{
+list-style:none;
+}

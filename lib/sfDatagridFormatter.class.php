@@ -439,6 +439,15 @@ abstract class sfDatagridFormatter
     				{
     					$value2 = '';
     				}
+    				if(@array_key_exists('null_' . $object->_get('datagridName'), $value) && $value['null_' . $object->_get('datagridName')] != '')
+    				{
+    					
+    					$value3 = array('null'=>$value['null_' . $object->_get('datagridName')][0]);
+    				}
+    				else
+    				{
+    					$value3 = null;
+    				}
     				$wDateStart = new sfWidgetFormInput();
     				$wDateStop = new sfWidgetFormInput();
     				
@@ -448,6 +457,11 @@ abstract class sfDatagridFormatter
     				$output.= '</span>';
     				$output.= ' ' .$this->traduct(sfDatagrid::getConfig('text_to')) . ' ';
     				$output.= $wDateStop->render('search[' . $column . '][stop_' . $object->_get('datagridName') . ']', $value2, array('type' => 'text', 'onclick' => 'displayDatePicker(this.name)', 'style' => 'width: 75px;'));
+    				
+    				if((($adminrelated instanceof ColumnMap)&&(!$adminrelated->isNotNull()))){
+    					$chk = new sfWidgetFormSelectCheckbox(array('choices'=>array('null'=>$this->traduct(sfDatagrid::getConfig('label_null')))));
+    					$output .= $chk->render('search[' . $column . '][null_'. $object->_get('datagridName') . ']',$value3,array());
+    				}
     				break;
     				
     			default:

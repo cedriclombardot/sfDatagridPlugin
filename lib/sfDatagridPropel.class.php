@@ -176,10 +176,17 @@ class sfDatagridPropel extends sfDatagrid
 								$c->addAnd($c2);
 							}
 							
+							if(array_key_exists('null_' . $this->datagridName, $this->search[$col]) && $this->search[$col]['null_' . $this->datagridName] != '')
+							{
+								$c3 = $c->getNewCriterion($this->getColumnSortingOption($col), null, Criteria::ISNULL);
+								$c->addOr($c3);
+							}
+							
 						} catch(Exception $ex) {
 							
 							$this->search[$col]['start_' . $this->datagridName] = '';
 							$this->search[$col]['stop_' . $this->datagridName] = '';
+							$this->search[$col]['null_' . $this->datagridName] = '';
 						}
 						
 						break;

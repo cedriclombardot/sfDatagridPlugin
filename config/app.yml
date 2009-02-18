@@ -8,7 +8,8 @@ all:
     text_reset: Réinitialiser 
     text_validate: Valider
     text_page: Page
-    text_defaultview: Vue par défaut
+    text_defaultview: ""
+    label_null: Est-vide ?
     text_numberofrecords: Nombre d'enregistrement
     text_loading: Veuillez patienter
     text_from: Du
