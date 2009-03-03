@@ -94,7 +94,10 @@ abstract class sfDatagridFormatter
 		
 		$suffixWithSorting = $suffix . '&' . $this->P_SORT . '=' . $sortBy . '&' . $this->P_ORDER . '=' . $sortOrder;
 		
+		if(sizeof($defaultSort)>0)
 		$suffixWithDefaultSorting= $suffix . '&' . $this->P_SORT . '=' . $defaultSort['sort'] . '&' . $this->P_ORDER . '=' . $defaultSort['order'];
+		else
+		$suffixWithDefaultSorting=$suffixWithSorting;
 		if($renderPager)
 		{
 			if($pager->haveToPaginate())
