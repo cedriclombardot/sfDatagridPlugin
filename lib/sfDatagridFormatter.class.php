@@ -366,14 +366,9 @@ abstract class sfDatagridFormatter
 	 */
 	protected function getInputFilter($type, $column, $value, $object, $suffix)
 	{
-		echo $type;
+		
 		$output = '';
-       
-    		switch($type)
-    		{
-    			
-    			case 'FOREIGN':
-    				try
+		try
         			{
         			/*
 					 * @todo il faudra penser a déplacer ce morceau de code afin de prendre en entrer $mapBuilder pour le
@@ -388,6 +383,11 @@ abstract class sfDatagridFormatter
 			        {
 			            $adminrelated = '';
 			        }
+    		switch($type)
+    		{
+    			
+    			case 'FOREIGN':
+    				
 			         if(($adminrelated instanceof ColumnMap)&&($adminrelated->isForeignKey()))
        				 {
     					$c=sfDatagrid::getConfig('class_for_foreign');
