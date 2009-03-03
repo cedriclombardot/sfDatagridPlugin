@@ -9,7 +9,7 @@ all:
     text_validate: Valider
     text_page: Page
     text_defaultview: ""
-    label_null: Date nulle ?
+    label_null: Date nulle
     text_numberofrecords: Nombre d'enregistrements
     text_loading: Veuillez patienter
     text_from: Du

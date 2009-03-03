@@ -80,6 +80,7 @@ abstract class sfDatagridFormatter
 		$datagridName = $object->_get('datagridName');
 		$pager = $object->_get('pager');
 		$page = $object->_get('page');
+		$defaultSort= $object->_get('defaultSort');
 		$moduleAction = $object->_get('moduleAction');
 		$sortBy = $object->_get('sortBy');
 		$sortOrder = $object->_get('sortOrder');
@@ -93,6 +94,7 @@ abstract class sfDatagridFormatter
 		
 		$suffixWithSorting = $suffix . '&' . $this->P_SORT . '=' . $sortBy . '&' . $this->P_ORDER . '=' . $sortOrder;
 		
+		$suffixWithDefaultSorting= $suffix . '&' . $this->P_SORT . '=' . $defaultSort['sort'] . '&' . $this->P_ORDER . '=' . $defaultSort['order'];
 		if($renderPager)
 		{
 			if($pager->haveToPaginate())
@@ -161,12 +163,12 @@ abstract class sfDatagridFormatter
 		}
 		
 		$url = $moduleAction . '?' . $this->P_PAGE . '=1' . $suffixWithSorting;
-		
+		$url2 = $moduleAction.'?' . $this->P_PAGE . '=1'.$suffixWithDefaultSorting;
 		if($renderSearch)
 		{
 			$searchHtml.= content_tag('button', content_tag('span', $this->traduct(sfDatagrid::getConfig('text_search'))), array('type' => 'button', 'class' => 'button', 'name' => 'search_btn', 'onclick' => 'dg_send(\'' . $datagridName . '-form\', \'' . $datagridName . '\', \'search\', \'' . url_for($url) . '\')'));
 		
-			$searchHtml.= content_tag('button', content_tag('span', $this->traduct(sfDatagrid::getConfig('text_reset'))), array('type' => 'button', 'class' => 'button reset', 'name' => 'reset_btn', 'onclick' => 'dg_send(\'' . $datagridName . '-form\', \'' . $datagridName . '\', \'reset\', \'' . url_for($url) . '\')'));
+			$searchHtml.= content_tag('button', content_tag('span', $this->traduct(sfDatagrid::getConfig('text_reset'))), array('type' => 'button', 'class' => 'button reset', 'name' => 'reset_btn', 'onclick' => 'dg_send(\'' . $datagridName . '-form\', \'' . $datagridName . '\', \'reset\', \'' . url_for($url2) . '\')'));
 	
 		}
 		
