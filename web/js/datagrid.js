@@ -16,6 +16,7 @@ function dg_send(form, datagridName, type, url)
         	for(i in el){
         		
         			el[i].value='';
+        			
         		
         	}
         	
