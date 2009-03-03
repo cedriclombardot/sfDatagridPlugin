@@ -121,7 +121,12 @@ class sfDatagridPropel extends sfDatagrid
 		}
 		
 		$map = call_user_func(array($tableName, 'getTableMap'));
+		
+		if($map->getColumn($field)->isForeignKey()){
+			return 'FOREIGN';
+		}
 		return $map->getColumn($field)->getType();
+		
 	}
 	
 	/**
@@ -158,7 +163,8 @@ class sfDatagridPropel extends sfDatagrid
 					case 'BOOLEAN':
 						$c->add($this->getColumnSortingOption($col), $this->search[$col]);
 						break;
-						
+				  
+					
 					case (strtoupper($this->getColumnType($col)) == 'DATE' || strtoupper($this->getColumnType($col)) == 'TIMESTAMP'):
 						
 						try {
@@ -190,7 +196,11 @@ class sfDatagridPropel extends sfDatagrid
 						}
 						
 						break;
-						
+					
+					case 'FOREIGN':
+						$c->add($this->getColumnSortingOption($col), $this->search[$col], $comp);
+					break;
+					
 					default:
 						
 						if($comp == Criteria::LIKE)

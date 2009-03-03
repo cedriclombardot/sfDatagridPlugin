@@ -366,40 +366,36 @@ abstract class sfDatagridFormatter
 	 */
 	protected function getInputFilter($type, $column, $value, $object, $suffix)
 	{
+		echo $type;
 		$output = '';
-		/*
-		 * @todo il faudra penser a déplacer ce morceau de code afin de prendre en entrer $mapBuilder pour le
-		 * calculer qu'une fois
-		 */
-        try
-        {
-    		$tablePeer=$object->_get('peerTable').'Peer';
-    		$builder=$object->_get('peerTable').'MapBuilder';
-    		$mapBuilder=new $builder;
-    		$mapBuilder->doBuild();
-    		$adminrelated = $mapBuilder->getDatabaseMap()->getTable(strtolower($object->_get('peerTable')))->getColumn(strtoupper($column));
-        }
-        catch(Exception $e)
-        {
-            $adminrelated = '';
-        }
-		
-        if(($adminrelated instanceof ColumnMap)&&($adminrelated->isForeignKey()))
-        {
-			/*
-			 * Et si on utilise pas propel ?
-			 * @see class_for_foreign
-			 */
-        	$c=sfDatagrid::getConfig('class_for_foreign');
-			$wSelect= new $c(
-			array('model' => sfInflector::camelize($adminrelated->getRelatedTableName()),  'add_empty' =>true)); 
-			
-			$output = $wSelect->render('search[' . $column . ']', $value, array('style' => 'width: 100%;'));
-		} 
-        else
-        {
+       
     		switch($type)
     		{
+    			
+    			case 'FOREIGN':
+    				try
+        			{
+        			/*
+					 * @todo il faudra penser a déplacer ce morceau de code afin de prendre en entrer $mapBuilder pour le
+					 * calculer qu'une fois
+					 */
+    				$tablePeer=$object->_get('peerTable').'Peer';
+		    		$builder=$object->_get('peerTable').'MapBuilder';
+		    		$mapBuilder=new $builder;
+		    		$mapBuilder->doBuild();
+		    		$adminrelated = $mapBuilder->getDatabaseMap()->getTable(strtolower($object->_get('peerTable')))->getColumn(strtoupper($column));
+        			}catch(Exception $e)
+			        {
+			            $adminrelated = '';
+			        }
+			         if(($adminrelated instanceof ColumnMap)&&($adminrelated->isForeignKey()))
+       				 {
+    					$c=sfDatagrid::getConfig('class_for_foreign');
+						$wSelect= new $c(
+						array('model' => sfInflector::camelize($adminrelated->getRelatedTableName()),  'add_empty' =>true)); 
+						$output = $wSelect->render('search[' . $column . ']', $value, array('style' => 'width: 100%;'));
+       				 }
+					break;
     			case is_array($type):
     				$choices[''] = '';
     				
@@ -470,7 +466,7 @@ abstract class sfDatagridFormatter
     				$output = $wInput->render('search[' . $column . ']', $value, array('style' => 'width: 100%;', 'onkeydown' => 'dg_keydown(\'' . $object->_get('datagridName') . '-form\', \'' . $object->_get('datagridName') . '\', \'search\', \'' . url_for($url) . '\', event)'));
     				break;
     		}
-		}
+		
 		return content_tag('div', $output);
 	}
 	
