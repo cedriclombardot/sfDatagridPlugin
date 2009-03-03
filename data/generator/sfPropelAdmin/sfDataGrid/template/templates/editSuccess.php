@@ -4,8 +4,15 @@
 
 <div id="sf_admin_container">
 
+<?php if($this->getParameterValue('new.title')): ?>
+[?php if($<?php echo $this->getSingularName() ?>->isNew()){ ?]
+<h1><?php echo $this->getI18NString('new.title', 'edit '.$this->getModuleName()) ?></h1>
+[?php }else{ ?]
 <h1><?php echo $this->getI18NString('edit.title', 'edit '.$this->getModuleName()) ?></h1>
-
+[?php } ?]
+<?php else: ?>
+<h1><?php echo $this->getI18NString('edit.title', 'edit '.$this->getModuleName()) ?></h1>
+<?php endif; ?>
 <div id="sf_admin_header">
 [?php include_partial('<?php echo $this->getModuleName() ?>/edit_header', array('<?php echo $this->getSingularName() ?>' => $<?php echo $this->getSingularName() ?>)) ?]
 </div>
