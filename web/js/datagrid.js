@@ -19,7 +19,7 @@ function dg_send(form, datagridName, type, url)
         			
         		
         	}
-        	
+        	url+='/reset/1';
         	dg_send(form, datagridName, 'search', url);
             break;
         case 'action':

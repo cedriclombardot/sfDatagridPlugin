@@ -40,7 +40,10 @@
 #sf_admin_container ul.checkbox_list, #sf_admin_container .checkbox_list li{
 list-style:none;
 }
-#sf_datagrid_fieldset_none {
+/*
+Copy in your css
+*/
+#sf_admin_container fieldset#sf_datagrid_fieldset_none {
 border:0;
 }
 .form-elem{
@@ -57,3 +60,4 @@ padding:0;
 clear:both;
 
 }
+
