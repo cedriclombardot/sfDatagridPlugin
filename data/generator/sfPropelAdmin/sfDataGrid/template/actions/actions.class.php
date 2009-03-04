@@ -21,25 +21,23 @@ class <?php echo $this->getGeneratedModuleName() ?>Actions extends sfActions
   	$this->datagrid->setRowLimit(<?php echo $this->getParameterValue('list.max_per_page', 20) ?>);
   	<?php if($this->getParameterValue('list.hide_filters')): ?>
   			<?php foreach($this->getParameterValue('list.hide_filters') as $filter): ?>
-  				$this->datagrid->setColumnsFilters(array('<?php echo $filter ?>'=>'NOTYPE'));
+$this->datagrid->setColumnsFilters(array('<?php echo $filter ?>'=>'NOTYPE'));
   			<?php endforeach; ?>
   	<?php endif; ?>
   	<?php if($sort=$this->getParameterValue('list.sort')){ ?>
-  	$this->datagrid->setDefaultSortingColumn('<?php echo ($sort[0]) ?>','<?php echo $sort[1] ?>');
+$this->datagrid->setDefaultSortingColumn('<?php echo ($sort[0]) ?>','<?php echo $sort[1] ?>');
   	<?php } ?>
-  	$this->datagrid->setRowAction('<?php echo $this->getModuleName(); ?>/<?php echo $this->getParameterValue('list.row_action', 'edit') ?>?'.<?php echo $this->getMethodParamsForGetOrCreate() ?>.'=', <?php echo $this->getMethodParamsForGetOrCreate() ?>);
+$this->datagrid->setRowAction('<?php echo $this->getModuleName(); ?>/<?php echo $this->getParameterValue('list.row_action', 'edit') ?>?'.<?php echo $this->getMethodParamsForGetOrCreate() ?>.'=', <?php echo $this->getMethodParamsForGetOrCreate() ?>);
   	  
   	<?php $datagrid_actions=$this->getParameterValue('list.batch_actions', array()); ?>
   	<?php if(sizeof($datagrid_actions)>0): ?>
   		<?php foreach($datagrid_actions as  $actionName => $params ){ ?>
-  		
-  			$actions[__('<?php echo $params['name']?$params['name']:$actionName ?>')]= '<?php echo $this->getModuleName(); ?>/<?php echo $params['action']?$params['action']:sfInflector::camelize($actionName.'_selected'); ?>';
-  			
+$actions[__('<?php echo $params['name']?$params['name']:$actionName ?>')]= '<?php echo $this->getModuleName(); ?>/<?php echo $params['action']?$params['action']:sfInflector::camelize($actionName.'_selected'); ?>';
   		<?php } ?>
-  		$this->datagrid->setDatagridActions($actions); 
+$this->datagrid->setDatagridActions($actions); 
   	<?php endif; ?>
   	
-  	$columns=array();
+$columns=array();
   	<?php if(sizeof($datagrid_actions)>0): ?>
   	<?php $columns['_batch']='batch'; ?>
   	<?php endif; ?>
@@ -51,34 +49,25 @@ class <?php echo $this->getGeneratedModuleName() ?>Actions extends sfActions
   		?>
   	<?php $hs = $this->getParameterValue('list.hide', array()) ?>
 	<?php foreach ($this->getColumns('list.display') as $column): ?>
-	
-		
 	<?php if (in_array($column->getName(), $hs)) continue ?>
 	<?php $credentials = $this->getParameterValue('list.fields.'.$column->getName().'.credentials') ?>
 	<?php if ($credentials): $credentials = str_replace("\n", ' ', var_export($credentials, true)) ?>
     	[?php if ($sf_user->hasCredential(<?php echo $credentials ?>)): ?]
-    <?php endif; ?>
-$columns['<?php echo $column->getName(); ?>']= '<?php  echo $this->getParameterValue('list.fields.'.$column->getName().'.name') ?>';
+    <?php endif; ?>$columns['<?php echo $column->getName(); ?>']= '<?php  echo $this->getParameterValue('list.fields.'.$column->getName().'.name') ?>';
 	<?php if ($credentials): ?>
 	    [?php endif; ?]
 	<?php endif; ?>
-	<?php endforeach; ?>
-    
-  	$this->datagrid->setColumns($columns);
-  	
-  	  $p = $this->datagrid->prepare('<?php echo $this->getParameterValue('list.peer_method','doSelect') ?>', '<?php echo $this->getParameterValue('list.peer_count_method','doCount') ?>');  
-      $values = array(); 
-      $defaultValuesId=array(); 
-      $results=$p->getResults() ;
-      if(sizeof($results)>0){
-	   foreach($results as $k=>$<?php echo $this->getSingularName() ?>) {
-	   $defaultValuesId[$k]=$<?php echo $this->getSingularName() ?>->getPrimaryKey();
-	   <?php if(sizeof($datagrid_actions)>0): ?>
-	   $values[$k][]=sfDatagrid::getCheck($<?php echo $this->getSingularName() ?>->getPrimaryKey());
+	<?php endforeach; ?>$this->datagrid->setColumns($columns);
+$p = $this->datagrid->prepare('<?php echo $this->getParameterValue('list.peer_method','doSelect') ?>', '<?php echo $this->getParameterValue('list.peer_count_method','doCount') ?>');  
+$values = array(); 
+$defaultValuesId=array(); 
+$results=$p->getResults() ;
+if(sizeof($results)>0){
+foreach($results as $k=>$<?php echo $this->getSingularName() ?>) {
+$defaultValuesId[$k]=$<?php echo $this->getSingularName() ?>->getPrimaryKey();
+<?php if(sizeof($datagrid_actions)>0): ?>
+$values[$k][]=sfDatagrid::getCheck($<?php echo $this->getSingularName() ?>->getPrimaryKey());
 	   <?php endif; ?>
-	    
-	  
-        
 	      	<?php foreach ($this->getColumns('list.display') as $column): ?>
 			<?php if (in_array($column->getName(), $hs)) continue ?>
 			<?php $credentials = $this->getParameterValue('list.fields.'.$column->getName().'.credentials') ?>
@@ -87,21 +76,20 @@ $columns['<?php echo $column->getName(); ?>']= '<?php  echo $this->getParameterV
 		    <?php endif; ?>
 		 <?php     if(($column->isForeignKey()))
         { 
-    
+  
         	?>
 
 $values[$k][] = $<?php echo $this->getSingularName() ?>->get<?php echo $this->getRelatedClassName($column) ?>(); 
 <?php } else{ ?>
-	$values[$k][] = <?php echo $this->getColumnListTag($column) ?>; 
+$values[$k][] = <?php echo $this->getColumnListTag($column) ?>; 
 <?php } ?>
-			<?php if ($credentials): ?>
-			    [?php endif; ?]
-			<?php endif; ?>
-			
-			<?php endforeach; ?>
+<?php if ($credentials): ?>
+[?php endif; ?]
+<?php endif; ?>
+<?php endforeach; ?>
 	      	
-	 }
-	 $this->datagrid->setRowIndexDefaultValues($defaultValuesId);
+}
+$this->datagrid->setRowIndexDefaultValues($defaultValuesId);
      }
       $this->getResponse()->setContent($this->datagrid->getContent($values, array('lt', 'dr'))); 
     
