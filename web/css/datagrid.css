@@ -40,3 +40,20 @@
 #sf_admin_container ul.checkbox_list, #sf_admin_container .checkbox_list li{
 list-style:none;
 }
+#sf_datagrid_fieldset_none {
+border:0;
+}
+.form-elem{
+float:left;
+padding:5px;
+
+}
+#sf_admin_container .form-elem label{
+width:7em;
+text-align: right;
+padding:0;
+}
+.row-form{
+clear:both;
+
+}
