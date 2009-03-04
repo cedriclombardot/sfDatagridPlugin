@@ -19,7 +19,11 @@ class <?php echo $this->getGeneratedModuleName() ?>Actions extends sfActions
   	$this->datagrid= new sfDatagridPropel('<?php echo $this->getClassName() ?>Datagrid', '<?php echo $this->getClassName() ?>'); 
   	$this->datagrid->keepOnRefresh(true);
   	$this->datagrid->setRowLimit(<?php echo $this->getParameterValue('list.max_per_page', 20) ?>);
-  	
+  	<?php if($this->getParameterValue('list.hide_filters')): ?>
+  			<?php foreach($this->getParameterValue('list.hide_filters') as $filter): ?>
+  				$this->datagrid->setColumnsFilters(array('<?php echo $filter ?>'=>'NOTYPE'));
+  			<?php endforeach; ?>
+  	<?php endif; ?>
   	<?php if($sort=$this->getParameterValue('list.sort')){ ?>
   	$this->datagrid->setDefaultSortingColumn('<?php echo ($sort[0]) ?>','<?php echo $sort[1] ?>');
   	<?php } ?>
