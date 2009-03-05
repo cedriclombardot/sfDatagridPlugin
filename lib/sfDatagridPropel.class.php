@@ -246,10 +246,13 @@ class sfDatagridPropel extends sfDatagrid
 	{
 		if(array_key_exists($columnName, $this->columnsSort) && $this->columnsSort[$columnName] != 'nosort')
 		{
-			return constant($this->columnsSort[$columnName]);
+			if(defined($this->columnsSort[$columnName]))
+				return constant($this->columnsSort[$columnName]);
+			return constant($this->peerTable . $this->tableSuffix . 'Peer::' . strtoupper($this->columnsSort[$columnName]));
 		} 
 		else 
 		{
+			
 			return constant($this->peerTable . $this->tableSuffix . 'Peer::' . strtoupper($columnName));
 		}
 	}

@@ -20,9 +20,18 @@ class <?php echo $this->getGeneratedModuleName() ?>Actions extends sfActions
   	$this->datagrid->keepOnRefresh(true);
   	$this->datagrid->setRowLimit(<?php echo $this->getParameterValue('list.max_per_page', 20) ?>);
   	<?php if($this->getParameterValue('list.hide_filters')): ?>
+  		$array=array();
   			<?php foreach($this->getParameterValue('list.hide_filters') as $filter): ?>
-$this->datagrid->setColumnsFilters(array('<?php echo $filter ?>'=>'NOTYPE'));
+					$array['<?php echo $filter ?>']='NOTYPE';
   			<?php endforeach; ?>
+  			$this->datagrid->setColumnsFilters($array);
+  	<?php endif; ?>
+  	<?php if($this->getParameterValue('list.columns_sorting')): ?>
+  		$array=array();
+  		<?php foreach($this->getParameterValue('list.columns_sorting') as $col=>$value): ?>
+  		$array['<?php echo $col; ?>']='<?php echo $value; ?>';
+  		<?php endforeach; ?>
+  		$this->datagrid->setColumnsSorting($array);
   	<?php endif; ?>
   	<?php if($sort=$this->getParameterValue('list.sort')){ ?>
 $this->datagrid->setDefaultSortingColumn('<?php echo ($sort[0]) ?>','<?php echo $sort[1] ?>');
