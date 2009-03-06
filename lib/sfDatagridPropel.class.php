@@ -92,6 +92,9 @@ class sfDatagridPropel extends sfDatagrid
 	 */
 	protected function getColumnType($column)
 	{
+		if($column=='_object_actions'){
+			return 'NOTYPE';
+		}
 		if(array_key_exists($column, $this->columnsSort))
 		{
 			if($this->columnsSort[$column] != 'nosort')

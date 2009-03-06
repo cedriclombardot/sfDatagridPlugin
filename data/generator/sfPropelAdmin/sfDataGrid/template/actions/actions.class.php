@@ -50,6 +50,9 @@ $columns=array();
   	<?php if(sizeof($datagrid_actions)>0): ?>
   	<?php $columns['_batch']='batch'; ?>
   	<?php endif; ?>
+  	
+  	
+  	
   	<?php 
   	$tablePeer=$this->getClassName().'Peer';
     $builder=$this->getClassName().'MapBuilder';
@@ -66,7 +69,13 @@ $columns=array();
 	<?php if ($credentials): ?>
 	    [?php endif; ?]
 	<?php endif; ?>
-	<?php endforeach; ?>$this->datagrid->setColumns($columns);
+	
+	<?php endforeach; ?>
+	<?php if($this->getParameterValue('list.object_actions')){
+  		?> $columns['_object_actions']='action';
+  		 <?php
+  	} ?>
+	$this->datagrid->setColumns($columns);
 $p = $this->datagrid->prepare('<?php echo $this->getParameterValue('list.peer_method','doSelect') ?>', '<?php echo $this->getParameterValue('list.peer_count_method','doCount') ?>');  
 $values = array(); 
 $defaultValuesId=array(); 
@@ -95,8 +104,11 @@ $values[$k][] = <?php echo $this->getColumnListTag($column) ?>;
 <?php if ($credentials): ?>
 [?php endif; ?]
 <?php endif; ?>
+	
 <?php endforeach; ?>
-	      	
+<?php if($this->getParameterValue('list.object_actions')){
+  		?> $values[$k][]=get_partial('<?php echo $this->getModuleName(); ?>/list_td_actions',array('<?php echo $this->getSingularName() ?>'=>$<?php echo $this->getSingularName() ?>)); <?php
+  	} ?>	      	
 }
 $this->datagrid->setRowIndexDefaultValues($defaultValuesId);
      }

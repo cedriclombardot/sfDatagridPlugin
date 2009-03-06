@@ -547,7 +547,7 @@ abstract class sfDatagridFormatter
 			{
 				$columnName = $columns[$columnIncrement];
 				
-				if(!is_null($rowAction))
+				if(!is_null($rowAction) &&($columnName!='_object_actions'))
 				{
 					preg_match('/%(?<param>\w+)%/', $rowAction, $matches);
 					$rowIndex = array_search($matches['param'], $columns);
