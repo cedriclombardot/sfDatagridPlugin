@@ -72,7 +72,7 @@ $columns=array();
 	
 	<?php endforeach; ?>
 	<?php if($this->getParameterValue('list.object_actions')){
-  		?> $columns['_object_actions']='action';
+  		?> $columns['_object_actions']=__('Actions');
   		 <?php
   	} ?>
 	$this->datagrid->setColumns($columns);
