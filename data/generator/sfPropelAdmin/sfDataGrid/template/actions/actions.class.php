@@ -26,6 +26,13 @@ class <?php echo $this->getGeneratedModuleName() ?>Actions extends sfActions
   			<?php endforeach; ?>
   			$this->datagrid->setColumnsFilters($array);
   	<?php endif; ?>
+  	<?php if($this->getParameterValue('list.columns_compare')): ?>
+  		$array=array();
+  		<?php foreach($this->getParameterValue('list.columns_compare') as $comp=>$value): ?>
+  			$array['<?php echo $comp ?>']='<?php echo $value ?>';
+  		<?php endforeach; ?>
+  		$this->datagrid->setColumnsCompare($array);
+  	<?php endif; ?>
   	<?php if($this->getParameterValue('list.columns_sorting')): ?>
   		$array=array();
   		<?php foreach($this->getParameterValue('list.columns_sorting') as $col=>$value): ?>
