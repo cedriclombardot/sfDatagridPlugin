@@ -26,13 +26,6 @@ class <?php echo $this->getGeneratedModuleName() ?>Actions extends sfActions
   			<?php endforeach; ?>
   			$this->datagrid->setColumnsFilters($array);
   	<?php endif; ?>
-  	<?php if($this->getParameterValue('list.columns_compare')): ?>
-  		$array=array();
-  		<?php foreach($this->getParameterValue('list.columns_compare') as $comp=>$value): ?>
-  			$array['<?php echo $comp ?>']='<?php echo $value ?>';
-  		<?php endforeach; ?>
-  		$this->datagrid->setColumnsCompare($array);
-  	<?php endif; ?>
   	<?php if($this->getParameterValue('list.columns_sorting')): ?>
   		$array=array();
   		<?php foreach($this->getParameterValue('list.columns_sorting') as $col=>$value): ?>
@@ -102,9 +95,12 @@ $values[$k][]=sfDatagrid::getCheck($<?php echo $this->getSingularName() ?>->getP
 		 <?php     if(($column->isForeignKey()))
         { 
   
-        	?>
-
+?>
+if(method_exists($<?php echo $this->getSingularName() ?>,'get<?php echo $this->getRelatedClassName($column).'RelatedBy'.ucfirst(sfInflector::camelize($column->getName())) ?>')){
+$values[$k][] = $<?php echo $this->getSingularName() ?>->get<?php echo $this->getRelatedClassName($column).'RelatedBy'.ucfirst(sfInflector::camelize($column->getName())) ?>(); 
+}else{
 $values[$k][] = $<?php echo $this->getSingularName() ?>->get<?php echo $this->getRelatedClassName($column) ?>(); 
+}
 <?php } else{ ?>
 $values[$k][] = <?php echo $this->getColumnListTag($column) ?>; 
 <?php } ?>
