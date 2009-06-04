@@ -72,7 +72,7 @@ $columns=array();
 	<?php $credentials = $this->getParameterValue('list.fields.'.$column->getName().'.credentials') ?>
 	<?php if ($credentials): $credentials = str_replace("\n", ' ', var_export($credentials, true)) ?>
     	[?php if ($sf_user->hasCredential(<?php echo $credentials ?>)): ?]
-    <?php endif; ?>$columns['<?php echo $column->getName(); ?>']= '<?php  echo $this->getParameterValue('list.fields.'.$column->getName().'.name') ?>';
+    <?php endif; ?>$columns['<?php echo $column->getName(); ?>']= '<?php  echo addslashes($this->getParameterValue('list.fields.'.$column->getName().'.name')) ?>';
 	<?php if ($credentials): ?>
 	    [?php endif; ?]
 	<?php endif; ?>
