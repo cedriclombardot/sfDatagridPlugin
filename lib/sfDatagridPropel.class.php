@@ -35,7 +35,14 @@ class sfDatagridPropel extends sfDatagrid
 		$this->peerTable = $peerTable;
 		$this->tableSuffix = $tableSuffix;
 	}
-	
+	/**
+	 * To set an default criteria
+	 * 
+	 * @param Criteria $c Object of criteria
+	 */
+	public function setCriteria(Criteria $c){
+		$this->criteria=$c;
+	}
 	/**
 	 * Set the column comparaison functions
 	 *
