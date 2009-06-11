@@ -214,16 +214,16 @@ class sfDatagridPropel extends sfDatagrid
 					default:
 						switch($comp){
 							case (Criteria::LIKE):
-								$c->add($this->getColumnSortingOption($col), '%' . $this->search[$col] . '%', $comp);
+								$c->add($this->getColumnSortingOption($col), '%' . trim($this->search[$col]) . '%', $comp);
 							break;
 							case 'LIKE_START':
-								$c->add($this->getColumnSortingOption($col), $this->search[$col] . '%', Criteria::LIKE);
+								$c->add($this->getColumnSortingOption($col), trim($this->search[$col]) . '%', Criteria::LIKE);
 							break;
 							case 'LIKE_END':
-								$c->add($this->getColumnSortingOption($col), '%'.$this->search[$col], Criteria::LIKE);
+								$c->add($this->getColumnSortingOption($col), '%'.trim($this->search[$col]), Criteria::LIKE);
 							break;
 							default:
-								$c->add($this->getColumnSortingOption($col), $this->search[$col], $comp);
+								$c->add($this->getColumnSortingOption($col), trim($this->search[$col]), $comp);
 							break;
 						}
 					break;
