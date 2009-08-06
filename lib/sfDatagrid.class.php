@@ -305,6 +305,13 @@ abstract class sfDatagrid
 	}
 	
 	/**
+	 * get the column sorting
+	 * @return array columnsSort
+	 */
+	public function getColumnsSorting(){
+		return $this->columnsSort;
+	}
+	/**
 	 * Set the datagrid actions
 	 *
 	 * @param array	$actions The array with the actions
