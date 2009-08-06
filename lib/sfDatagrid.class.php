@@ -232,6 +232,15 @@ abstract class sfDatagrid
 	}
 	
 	/**
+	 * Return an array of filtersTypes
+	 * 
+	 * @return array filtersTypes
+	 */
+	public function getColumnsFilters(){
+		return $this->filtersTypes;
+	}
+	
+	/**
 	 * Set the columns options
 	 *
 	 * @param array $columnsOptions The array with the column options
