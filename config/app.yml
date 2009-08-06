@@ -2,7 +2,7 @@ all:
   datagrid:
     images_dir: /sfDatagridPlugin/img/
     class_for_foreign: sfWidgetFormPropelSelect # Or sfWidgetFormDoctrineSelect  
-    
+#    jsframwork: prototype # prototype or jquery    
     text_novalueinrows: Rien dans cette liste
     text_search: Rechercher
     text_reset: Réinitialiser 

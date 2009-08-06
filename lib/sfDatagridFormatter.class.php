@@ -107,7 +107,7 @@ abstract class sfDatagridFormatter
 				if($page != 1)
 				{
 					
-					$pagerHtml.= link_to_remote(
+					$pagerHtml.= self::link_to_remote(
 							'<img src="' . sfDatagrid::getConfig('images_dir') . 'pager-arrow-left.gif" alt="" align="absmiddle" />',
 							array(
 								'url' => $moduleAction . '?' . $this->P_PAGE . '=' . $pager->getPreviousPage() . '&' . $suffixWithSorting,
@@ -121,7 +121,7 @@ abstract class sfDatagridFormatter
 				{
 					if($item == $page)
 					{
-						$pagerHtml.= link_to_remote(
+						$pagerHtml.= self::link_to_remote(
 								$item,
 								array(
 									'url' => $moduleAction . '?' . $this->P_PAGE . '=' . $item . '&' . $suffixWithSorting,
@@ -133,7 +133,7 @@ abstract class sfDatagridFormatter
 					}
 					else
 					{
-						$pagerHtml.= link_to_remote(
+						$pagerHtml.= self::link_to_remote(
 								$item,
 								array(
 									'url' => $moduleAction . '?' . $this->P_PAGE . '=' . $item . '&' . $suffixWithSorting,
@@ -147,7 +147,7 @@ abstract class sfDatagridFormatter
 				if($page != $pager->getLastPage())
 				{
 					
-					$pagerHtml.= link_to_remote(
+					$pagerHtml.= self::link_to_remote(
 							'<img src="' . sfDatagrid::getConfig('images_dir') . 'pager-arrow-right.gif" alt="" align="absmiddle" />',
 							array(
 								'url' => $moduleAction . '?' . $this->P_PAGE . '=' . $pager->getNextPage() . '&' . $suffixWithSorting,
@@ -224,7 +224,7 @@ abstract class sfDatagridFormatter
 		
 		if($keepRefresh){
 			
-			$linksHtml.= link_to_remote($this->traduct(sfDatagrid::getConfig('text_defaultview')), array('url' => $defaultUrl . '&d_clear=1', 'update' => $datagridName, 'loading' => 'dg_hide_show(\'' . $datagridName . '\')'));
+			$linksHtml.= self::link_to_remote($this->traduct(sfDatagrid::getConfig('text_defaultview')), array('url' => $defaultUrl . '&d_clear=1', 'update' => $datagridName, 'loading' => 'dg_hide_show(\'' . $datagridName . '\')'));
 		}
 		
 		if($actionSelect == '')
@@ -301,7 +301,7 @@ abstract class sfDatagridFormatter
 				}
 				
 				$htmlOutput.= strtr($this->datagridHeaders, array(
-					'%value%' => $this->getSortingArrow($sortBy, $sortOrder, $key) . link_to_remote($label, array('update' => $datagridName, 'url' => $url . '&' . $this->P_SORT . '=' . $key . '&' . $this->P_ORDER . '=' . $order, 'script' => true, 'loading' => 'dg_hide_show(\'' . $datagridName . '\')'), $this->isSorting($sortBy, $key)),
+					'%value%' => $this->getSortingArrow($sortBy, $sortOrder, $key) . self::link_to_remote($label, array('update' => $datagridName, 'url' => $url . '&' . $this->P_SORT . '=' . $key . '&' . $this->P_ORDER . '=' . $order, 'script' => true, 'loading' => 'dg_hide_show(\'' . $datagridName . '\')'), $this->isSorting($sortBy, $key)),
 					'%header_options%' => _tag_options($columnsOptions[$key])
 				));
 			}
@@ -660,6 +660,13 @@ abstract class sfDatagridFormatter
 		}
 		
 		return $value;
+	}
+	
+	public static function link_to_remote($name, $options = array(), $html_options = array()){
+		if(sfConfig::get('app_datagrid_jsframwork','prototype')=='prototype')
+			return link_to_remote($name, $options , $html_options );
+		else
+			return jq_link_to_remote($name, $options , $html_options );
 	}
 }
 ?>

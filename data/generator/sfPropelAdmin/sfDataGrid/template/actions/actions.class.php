@@ -10,7 +10,9 @@
  */
 class <?php echo $this->getGeneratedModuleName() ?>Actions extends sfActions
 {
-  public function executeIndex($request)
+ 
+
+  public function executeIndex(sfWebRequest $request)
   {
   	$this->forward('<?php echo $this->getModuleName(); ?>','list');
   }
@@ -69,7 +71,6 @@ $columns=array();
 	<?php if ($credentials): ?>
 	    [?php endif; ?]
 	<?php endif; ?>
-	
 	<?php endforeach; ?>
 	<?php if($this->getParameterValue('list.object_actions')){
   		?> $columns['_object_actions']=__('Actions');
@@ -448,135 +449,7 @@ $column = sfPropelManyToMany::getColumn($class, $through_class, $remote_column);
     return $<?php echo $this->getSingularName() ?>;
   }
 
-  protected function processFilters()
-  {
-<?php if ($this->getParameterValue('list.filters')): ?>
-    if ($this->getRequest()->hasParameter('filter'))
-    {
-      $this->getUser()->getAttributeHolder()->removeNamespace('sf_admin/<?php echo $this->getSingularName() ?>/filters');
-
-      $filters = $this->getRequestParameter('filters');
-      if(is_array($filters))
-      {
-<?php foreach ($this->getColumns('list.filters') as $column): $type = $column->getType() ?>
-<?php if ($type == PropelColumnTypes::DATE || $type == PropelColumnTypes::TIMESTAMP): ?>
-        if (isset($filters['<?php echo $column->getName() ?>']['from']) && $filters['<?php echo $column->getName() ?>']['from'] !== '')
-        {
-          $filters['<?php echo $column->getName() ?>']['from'] = $this->getContext()->getI18N()->getTimestampForCulture($filters['<?php echo $column->getName() ?>']['from'], $this->getUser()->getCulture());
-        }
-        if (isset($filters['<?php echo $column->getName() ?>']['to']) && $filters['<?php echo $column->getName() ?>']['to'] !== '')
-        {
-          $filters['<?php echo $column->getName() ?>']['to'] = $this->getContext()->getI18N()->getTimestampForCulture($filters['<?php echo $column->getName() ?>']['to'], $this->getUser()->getCulture());
-        }
-<?php endif; ?>
-<?php endforeach; ?>
-        $this->getUser()->getAttributeHolder()->removeNamespace('sf_admin/<?php echo $this->getSingularName() ?>');
-        $this->getUser()->getAttributeHolder()->removeNamespace('sf_admin/<?php echo $this->getSingularName() ?>/filters');
-        $this->getUser()->getAttributeHolder()->add($filters, 'sf_admin/<?php echo $this->getSingularName() ?>/filters');
-      }
-    }
-<?php endif; ?>
-  }
-
-  protected function processSort()
-  {
-    if ($this->getRequestParameter('sort'))
-    {
-      $this->getUser()->setAttribute('sort', $this->getRequestParameter('sort'), 'sf_admin/<?php echo $this->getSingularName() ?>/sort');
-      $this->getUser()->setAttribute('type', $this->getRequestParameter('type', 'asc'), 'sf_admin/<?php echo $this->getSingularName() ?>/sort');
-    }
-
-    if (!$this->getUser()->getAttribute('sort', null, 'sf_admin/<?php echo $this->getSingularName() ?>/sort'))
-    {
-<?php if ($sort = $this->getParameterValue('list.sort')): ?>
-<?php if (is_array($sort)): ?>
-      $this->getUser()->setAttribute('sort', '<?php echo $sort[0] ?>', 'sf_admin/<?php echo $this->getSingularName() ?>/sort');
-      $this->getUser()->setAttribute('type', '<?php echo $sort[1] ?>', 'sf_admin/<?php echo $this->getSingularName() ?>/sort');
-<?php else: ?>
-      $this->getUser()->setAttribute('sort', '<?php echo $sort ?>', 'sf_admin/<?php echo $this->getSingularName() ?>/sort');
-      $this->getUser()->setAttribute('type', 'asc', 'sf_admin/<?php echo $this->getSingularName() ?>/sort');
-<?php endif; ?>
-<?php endif; ?>
-    }
-  }
-
-  protected function addFiltersCriteria($c)
-  {
-<?php if ($this->getParameterValue('list.filters')): ?>
-<?php foreach ($this->getColumns('list.filters') as $column): $type = $column->getType() ?>
-<?php if (($column->isPartial() || $column->isComponent()) && $this->getParameterValue('list.fields.'.$column->getName().'.filter_criteria_disabled')) continue ?>
-    if (isset($this->filters['<?php echo $column->getName() ?>_is_empty']))
-    {
-      $criterion = $c->getNewCriterion(<?php echo $this->getPeerClassName() ?>::<?php echo strtoupper($column->getName()) ?>, '');
-      $criterion->addOr($c->getNewCriterion(<?php echo $this->getPeerClassName() ?>::<?php echo strtoupper($column->getName()) ?>, null, Criteria::ISNULL));
-      $c->add($criterion);
-    }
-<?php if ($type == PropelColumnTypes::DATE || $type == PropelColumnTypes::TIMESTAMP): ?>
-    else if (isset($this->filters['<?php echo $column->getName() ?>']))
-    {
-      if (isset($this->filters['<?php echo $column->getName() ?>']['from']) && $this->filters['<?php echo $column->getName() ?>']['from'] !== '')
-      {
-<?php if ($type == PropelColumnTypes::DATE): ?>
-        $criterion = $c->getNewCriterion(<?php echo $this->getPeerClassName() ?>::<?php echo strtoupper($column->getName()) ?>, date('Y-m-d', $this->filters['<?php echo $column->getName() ?>']['from']), Criteria::GREATER_EQUAL);
-<?php else: ?>
-        $criterion = $c->getNewCriterion(<?php echo $this->getPeerClassName() ?>::<?php echo strtoupper($column->getName()) ?>, $this->filters['<?php echo $column->getName() ?>']['from'], Criteria::GREATER_EQUAL);
-<?php endif; ?>
-      }
-      if (isset($this->filters['<?php echo $column->getName() ?>']['to']) && $this->filters['<?php echo $column->getName() ?>']['to'] !== '')
-      {
-        if (isset($criterion))
-        {
-<?php if ($type == PropelColumnTypes::DATE): ?>
-          $criterion->addAnd($c->getNewCriterion(<?php echo $this->getPeerClassName() ?>::<?php echo strtoupper($column->getName()) ?>, date('Y-m-d', $this->filters['<?php echo $column->getName() ?>']['to']), Criteria::LESS_EQUAL));
-<?php else: ?>
-          $criterion->addAnd($c->getNewCriterion(<?php echo $this->getPeerClassName() ?>::<?php echo strtoupper($column->getName()) ?>, $this->filters['<?php echo $column->getName() ?>']['to'], Criteria::LESS_EQUAL));
-<?php endif; ?>
-        }
-        else
-        {
-<?php if ($type == PropelColumnTypes::DATE): ?>
-          $criterion = $c->getNewCriterion(<?php echo $this->getPeerClassName() ?>::<?php echo strtoupper($column->getName()) ?>, date('Y-m-d', $this->filters['<?php echo $column->getName() ?>']['to']), Criteria::LESS_EQUAL);
-<?php else: ?>
-          $criterion = $c->getNewCriterion(<?php echo $this->getPeerClassName() ?>::<?php echo strtoupper($column->getName()) ?>, $this->filters['<?php echo $column->getName() ?>']['to'], Criteria::LESS_EQUAL);
-<?php endif; ?>
-        }
-      }
-
-      if (isset($criterion))
-      {
-        $c->add($criterion);
-      }
-    }
-<?php else: ?>
-    else if (isset($this->filters['<?php echo $column->getName() ?>']) && $this->filters['<?php echo $column->getName() ?>'] !== '')
-    {
-<?php if ($type == PropelColumnTypes::CHAR || $type == PropelColumnTypes::VARCHAR || $type == PropelColumnTypes::LONGVARCHAR): ?>
-      $c->add(<?php echo $this->getPeerClassName() ?>::<?php echo strtoupper($column->getName()) ?>, strtr($this->filters['<?php echo $column->getName() ?>'], '*', '%'), Criteria::LIKE);
-<?php else: ?>
-      $c->add(<?php echo $this->getPeerClassName() ?>::<?php echo strtoupper($column->getName()) ?>, $this->filters['<?php echo $column->getName() ?>']);
-<?php endif; ?>
-    }
-<?php endif; ?>
-<?php endforeach; ?>
-<?php endif; ?>
-  }
-
-  protected function addSortCriteria($c)
-  {
-    if ($sort_column = $this->getUser()->getAttribute('sort', null, 'sf_admin/<?php echo $this->getSingularName() ?>/sort'))
-    {
-      // camelize lower case to be able to compare with BasePeer::TYPE_PHPNAME translate field name
-      $sort_column = <?php echo $this->getPeerClassName() ?>::translateFieldName(sfInflector::camelize(strtolower($sort_column)), BasePeer::TYPE_PHPNAME, BasePeer::TYPE_COLNAME);
-      if ($this->getUser()->getAttribute('type', null, 'sf_admin/<?php echo $this->getSingularName() ?>/sort') == 'asc')
-      {
-        $c->addAscendingOrderByColumn($sort_column);
-      }
-      else
-      {
-        $c->addDescendingOrderByColumn($sort_column);
-      }
-    }
-  }
+ 
 
   protected function getLabels()
   {

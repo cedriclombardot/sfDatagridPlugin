@@ -87,7 +87,11 @@ abstract class sfDatagrid
 		$r->addStylesheet('/sfDatagridPlugin/css/calendar.css');
 		
 		//$r->addJavascript('/sfDatagridPlugin/js/prototype.js');
-		$r->addJavascript('/sfDatagridPlugin/js/datagrid.js');
+		if(sfConfig::get('app_datagrid_jsframwork','prototype')=='prototype'){
+			$r->addJavascript('/sfDatagridPlugin/js/datagrid.js');
+		}else{
+			$r->addJavascript('/sfDatagridPlugin/js/jquery.datagrid.js');
+		}
 		$r->addJavascript('/sfDatagridPlugin/js/calendar.js');	
 	}
 	
@@ -519,7 +523,10 @@ abstract class sfDatagrid
 		self::addScriptAndCss();
 		
 		$html = '<div id="' . $div . '">' . '<div class="datagrid-loader" id="loader-' . $div . '">' . sfDatagrid::traduct(sfDatagrid::getConfig('text_loading')) . '</div>' . '</div>';
-		$html.= javascript_tag(remote_function(array('update' => $div, 'url' => $url, 'script' => true, 'loading' => 'dg_hide_show(\'' . $div . '\')')));
+		if(sfConfig::get('app_datagrid_jsframwork','prototype')=='prototype')
+			$html.= javascript_tag(remote_function(array('update' => $div, 'url' => $url, 'script' => true, 'loading' => 'dg_hide_show(\'' . $div . '\')')));
+		else
+			$html.=javascript_tag(jq_remote_function(array('update' => $div, 'url' => $url, 'script' => true, 'loading' => 'dg_hide_show(\'' . $div . '\')')));
 		return $html;
 	}
 	

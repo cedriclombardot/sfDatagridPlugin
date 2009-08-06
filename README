@@ -15,7 +15,20 @@ Go to [http://symfony.swisscenter.com/datagrid](http://symfony.swisscenter.com/d
 
 To know How use the Admin Genrator go to [http://symfony.spyrit.net](http://symfony.spyrit.net)
 
+Now Jquery Compatible
+-------------------------
 
+If you want to use Jquery Install sfJqueryReloadedPlugin
+
+$this->getActive()->loadHelpers(array('Form', 'JavascriptBase', 'Javascript', 'jQuery',....);
+
+and in app.yml
+
+    [yml]
+    all:
+      datagrid:
+        jsframwork: jquery # prototype or jquery 
+    
 AdminGenerator Step By Step :
 ---------------------
 
