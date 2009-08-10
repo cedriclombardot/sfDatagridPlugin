@@ -42,9 +42,8 @@ abstract class sfDatagrid
 		$columnsSort = array(),			// The columns custom sorting options
 		$filtersTypes = array(),		// The type of filter
 		$search = array(),				// The search parameters
-		$rowIndexDefaultValues= array(), // Default value for a row if the column doesn't exist
-		$css= array('base'=>'/sfDatagridPlugin/css/datagrid.css','calendar'=>'/sfDatagridPlugin/css/calendar.css');
-	
+		$rowIndexDefaultValues= array(); // Default value for a row if the column doesn't exist
+		
 	// Render Options
 	protected
 		$renderPager = true,			// Is the pager must be display
@@ -83,10 +82,18 @@ abstract class sfDatagrid
 	{
 		// Set the javascript and the css to the request
 		$r = sfContext::getInstance()->getResponse();
-
-		$r->addStylesheet($this->css['base']);
-		$r->addStylesheet($this->css['calendar']);
+		$css=sfConfig::get('app_datagrid_csspath');
 		
+		if(array_key_exists('base',$css))
+			$r->addStylesheet($css['base']);
+		else
+			$r->addStylesheet('/sfDatagridPlugin/css/datagrid.css');
+			
+		if(array_key_exists('calendar',$css))
+			$r->addStylesheet($css['calendar']);
+		else
+			$r->addStylesheet('/sfDatagridPlugin/css/calendar.css');
+			
 		//$r->addJavascript('/sfDatagridPlugin/js/prototype.js');
 		if(sfConfig::get('app_datagrid_jsframwork','prototype')=='prototype'){
 			$r->addJavascript('/sfDatagridPlugin/js/datagrid.js');
@@ -97,14 +104,7 @@ abstract class sfDatagrid
 	}
 	
 	
-	/**
-	 * Change the css file for datagrid
-	 * @param string $css path to css file
-	 * @param string $ns base or calendar
-	 */
-	public function setCss($css,$ns='base'){
-		$this->css[$ns]=$css;
-	}
+
 	/**
 	 * Fix the refresh problem with ajax
 	 */
