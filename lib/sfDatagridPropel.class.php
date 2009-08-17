@@ -133,6 +133,7 @@ class sfDatagridPropel extends sfDatagrid
 		$map = call_user_func(array($tableName, 'getTableMap'));
 		
 		if($map->getColumn($field)->isForeignKey()){
+			
 			return 'FOREIGN';
 		}
 		return $map->getColumn($field)->getType();

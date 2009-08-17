@@ -383,19 +383,24 @@ abstract class sfDatagridFormatter
 		    		$builder=$object->_get('peerTable').'MapBuilder';
 		    		$mapBuilder=new $builder;
 		    		$mapBuilder->doBuild();
-		    		$adminrelated = $mapBuilder->getDatabaseMap()->getTable(strtolower($object->_get('peerTable')))->getColumn(strtoupper($column));
+		    		$adminrelated = $mapBuilder->getDatabaseMap()->getTable(sfInflector::underscore($object->_get('peerTable')))->getColumn(strtoupper($column));
+        			
+		    		
         			}catch(Exception $e)
 			        {
 			            $adminrelated = '';
 			        }
+			       
     		switch($type)
     		{
     			
+    			
     			case 'FOREIGN':
-    				
+    				 
 			         if(($adminrelated instanceof ColumnMap)&&($adminrelated->isForeignKey()))
        				 {
     					$c=sfDatagrid::getConfig('class_for_foreign');
+    					
 						$wSelect= new $c(
 						array('model' => sfInflector::camelize($adminrelated->getRelatedTableName()),  'add_empty' =>true)); 
 						$output = $wSelect->render('search[' . $column . ']', $value, array('style' => 'width: 100%;'));
