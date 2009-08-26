@@ -400,11 +400,19 @@ abstract class sfDatagridFormatter
 			         if(($adminrelated instanceof ColumnMap)&&($adminrelated->isForeignKey()))
        				 {
     					$c=sfDatagrid::getConfig('class_for_foreign');
-    					
-						$wSelect= new $c(
-						array('model' => sfInflector::camelize($adminrelated->getRelatedTableName()),  'add_empty' =>true)); 
-						$output = $wSelect->render('search[' . $column . ']', $value, array('style' => 'width: 100%;'));
-       				 }
+    					if(class_exists(sfInflector::camelize($adminrelated->getRelatedTableName()))){
+    						$class=sfInflector::camelize($adminrelated->getRelatedTableName());
+    					}else{
+    						$class=sfInflector::camelize($adminrelated->getRelatedTableName());
+    						$class=strtolower($class[0]).substr($class,1);
+    						
+    					}
+    					if(class_exists($class)){
+							$wSelect= new $c(
+							array('model' => $class,  'add_empty' =>true)); 
+							$output = $wSelect->render('search[' . $column . ']', $value, array('style' => 'width: 100%;'));
+	    				} 
+    				}
 					break;
     			case is_array($type):
     				$choices[''] = '';
