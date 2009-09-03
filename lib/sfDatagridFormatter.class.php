@@ -563,13 +563,15 @@ abstract class sfDatagridFormatter
 				if(!is_null($rowAction) &&($columnName!='_object_actions'))
 				{
 					preg_match('/%(?<param>\w+)%/', $rowAction, $matches);
+					
 					$rowIndex = array_search($matches['param'], $columns);
+					
 					if($rowIndex === false){
-						
 						if(!is_null($rowIndexDefaultValue)){
 							$this->addOption('onclick', $rowOptions[$columnName], "document.location.href='" . url_for(strtr($rowAction, array('%' . $matches['param'] . '%' => $rowIndexDefaultValue))) . "'");
 							$this->addOption('style', $rowOptions[$columnName], 'cursor:pointer;');
 						}else{
+							
 							throw new Exception("Impossible to find column ".$matches['param']);
 						}
 					}else{
