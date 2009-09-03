@@ -43,6 +43,13 @@ class sfDatagridPropel extends sfDatagrid
 	public function setCriteria(Criteria $c){
 		$this->criteria=$c;
 	}
+	
+	/*
+	 * @return Criteria
+	 */
+	public function getCriteria(){
+		return $this->criteria;
+	}
 	/**
 	 * Set the column comparaison functions
 	 *
