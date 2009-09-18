@@ -208,6 +208,7 @@ abstract class sfDatagridFormatter
 	 */
 	public function renderActionsBar($object, $defaultUrl)
 	{
+		
 		$datagridName = $object->_get('datagridName');
 		$actions = $object->_get('datagridActions');
 		$keepRefresh = $object->_get('refreshKeeping');
