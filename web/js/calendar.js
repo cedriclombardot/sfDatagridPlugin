@@ -139,17 +139,24 @@ function refreshDatePicker(dateFieldName, year, month, day)
  
   // this is the row that indicates which day of the week we're on
   html += TR_days;
-  for(i = 0; i < dayArrayShort.length; i++)
+  for(i = 1; i < dayArrayShort.length; i++)
     html += TD_days + dayArrayShort[i] + xTD;
+  
+  html += TD_days + dayArrayShort[0] + xTD;
   html += xTR;
  
   // now we'll start populating the table with days of the month
   html += TR;
  
   // first, the leading blanks
-  for (i = 0; i < thisDay.getDay(); i++)
-    html += TD_off + " " + xTD;
+  blank=thisDay.getDay();
+  if(thisDay.getDay()==0)
+  	blank=7;
  
+  for (i = 1; i < blank; i++)
+    html += TD_off + " " + xTD;
+   
+  
   // now, the days of the month
   do {
     dayNum = thisDay.getDate();
@@ -160,8 +167,8 @@ function refreshDatePicker(dateFieldName, year, month, day)
     else
       html += TD + TD_onclick + dayNum + xTD;
     
-    // if this is a Saturday, start a new row
-    if (thisDay.getDay() == 6)
+    // if this is a Monday, start a new row
+    if (thisDay.getDay() == 0)
       html += xTR + TR;
     
     // increment the day
@@ -170,8 +177,11 @@ function refreshDatePicker(dateFieldName, year, month, day)
  
   // fill in any trailing blanks
   if (thisDay.getDay() > 0) {
-    for (i = 6; i >= thisDay.getDay(); i--)
+    for (i = 7; i >= thisDay.getDay(); i--)
       html += TD_off + " " + xTD;
+  }
+  if(thisDay.getDay()==0){
+  	 html += TD_off + " " + xTD;
   }
   html += xTR;
  
