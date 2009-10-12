@@ -1,6 +1,5 @@
 function dg_send(form, datagridName, type, url)
 {
-alert('load');
     var oForm = $(form);
     
     switch(type)
