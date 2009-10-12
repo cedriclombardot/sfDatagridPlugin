@@ -82,7 +82,7 @@ abstract class sfDatagrid
 	{
 		// Set the javascript and the css to the request
 		$r = sfContext::getInstance()->getResponse();
-		$css=sfConfig::get('app_datagrid_csspath');
+		$css=sfConfig::get('app_datagrid_csspath',array());
 		
 		if(array_key_exists('base',$css))
 			$r->addStylesheet($css['base']);
