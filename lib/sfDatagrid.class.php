@@ -42,8 +42,8 @@ abstract class sfDatagrid
 		$columnsSort = array(),			// The columns custom sorting options
 		$filtersTypes = array(),		// The type of filter
 		$search = array(),				// The search parameters
-		$rowIndexDefaultValues= array(); // Default value for a row if the column doesn't exist
-		
+		$rowIndexDefaultValues= array(), // Default value for a row if the column doesn't exist
+		$order_by_for_filter= array(); //Sort filters
 	// Render Options
 	protected
 		$renderPager = true,			// Is the pager must be display
@@ -572,6 +572,21 @@ abstract class sfDatagrid
 	public function _get($name)
 	{
 		return $this->$name;
+	}
+	
+	/**
+	 * Get column to sort foreign filter
+	 */
+	public function getOrderByForFilter($column){
+		return ((array_key_exists($column,$this->order_by_for_filter))?$this->order_by_for_filter[$column]:false);
+	}
+	
+	/**
+	 * Define how to sort the select filter
+	 */
+	public function setOrderByForFilter($column,$order){
+		$this->order_by_for_filter[$column]=$order;
+		return $this;
 	}
 	
 	/**

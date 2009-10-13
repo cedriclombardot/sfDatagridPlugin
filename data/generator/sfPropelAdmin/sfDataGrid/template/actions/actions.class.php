@@ -21,6 +21,15 @@ class <?php echo $this->getGeneratedModuleName() ?>Actions extends sfActions
   	$this->datagrid= new sfDatagridPropel('<?php echo $this->getClassName() ?>Datagrid', '<?php echo $this->getClassName() ?>'); 
   	$this->datagrid->keepOnRefresh(true);
   	$this->datagrid->setRowLimit(<?php echo $this->getParameterValue('list.max_per_page', 20) ?>);
+  	
+  	 <?php foreach($this->getParameterValue('list.order_by_for_filter',array()) as $column=>$order): ?>
+    <?php if(is_array($order)): ?>
+    $this->datagrid->setOrderByForFilter('<?php echo ($column) ?>',array('<?php echo sfInflector::camelize($order[0]) ?>','<?php echo strtoupper($order[1]) ?>'));
+    <?php else: ?>
+    $this->datagrid->setOrderByForFilter('<?php echo ($column) ?>',array('<?php echo sfInflector::camelize($order) ?>','ASC'));
+    <?php endif; ?>
+    <?php endforeach; ?>
+    
   	<?php if($this->getParameterValue('list.hide_filters')): ?>
   		$array=array();
   			<?php foreach($this->getParameterValue('list.hide_filters') as $filter): ?>

@@ -360,6 +360,8 @@ abstract class sfDatagridFormatter
 		return $filterHtml;
 	}
 	
+	
+	
 	/**
 	 * Get the input for the filter
 	 *
@@ -408,11 +410,15 @@ abstract class sfDatagridFormatter
     						$class=strtolower($class[0]).substr($class,1);
     						
     					}
+    					
     					if(class_exists($class)){
 							$wSelect= new $c(
 							array('model' => $class,  'add_empty' =>true)); 
+							if($object->getOrderByForFilter($column)){
+								$wSelect->setOption( 'order_by',$object->getOrderByForFilter($column));
+							}
 							$output = $wSelect->render('search[' . $column . ']', $value, array('style' => 'width: 100%;'));
-	    				} 
+    					} 
     				}
 					break;
     			case is_array($type):
