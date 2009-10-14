@@ -6,9 +6,10 @@
 .grid th a:hover { color: #EB5E00; }
 .grid th a.sorting { background-image: url(../img/header-sorting.gif); padding: 3px 5px 3px 5px; }
 .grid th div { padding: 3px 5px 3px 5px; color: #2F2F2F; font-size: 11px; }
-.grid tr.lt { background-color: #FFFFFF; }
-.grid tr.dr { background-color: #f6f6f6; }
-.grid tr:hover { background-color: #FCF5DD; }
+
+.grid tr.lt, #sf_admin_container .grid tr.lt td{ background-color: #FFFFFF; }
+.grid tr.dr, #sf_admin_container .grid tr.dr td { background-color: #f6f6f6; }
+.grid tr:hover{ background-color: #FCF5DD; }
 .grid td { padding: 5px; }
 .grid td a { color: #EB5E00; }
 .grid td.filter { background: url(../img/filters-row.gif); padding: 5px 12px 5px 5px; font-weight: bold; color: #4E3030; }
