@@ -51,4 +51,5 @@
 .dpButton { padding: 0px; font-family: Verdana, Arial, Times New Roman; font-size: 12px; color: #000000; cursor: pointer; }
 
 /* the "This Month" and "Close" buttons at the bottom */
-.dpTodayButton { cursor: pointer; color: #000000; margin: 0px 30px 0px 30px; }
+.dpTodayButton {color:#000000;cursor:pointer;float:left;margin-left:11px;}
+.dpCloseButton {color:#000000;cursor:pointer;float:right;margin-right:11px;}

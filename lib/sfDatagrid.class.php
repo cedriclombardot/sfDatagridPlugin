@@ -100,7 +100,15 @@ abstract class sfDatagrid
 		}else{
 			$r->addJavascript('/sfDatagridPlugin/js/jquery.datagrid.js');
 		}
-		$r->addJavascript('/sfDatagridPlugin/js/calendar.js');	
+		
+		// Languages files for calendar
+		$langues = array('en','fr');
+		if(in_array(sfContext::getInstance()->getUser()->getCulture(),$langues)){ 
+			$r->addJavascript('/sfDatagridPlugin/js/lang/'.sfContext::getInstance()->getUser()->getCulture().'.js');
+		}else{
+			$r->addJavascript('/sfDatagridPlugin/js/lang/en.js');
+		}
+		$r->addJavascript('/sfdatagridPlugin/js/calendar.js');
 	}
 	
 	
