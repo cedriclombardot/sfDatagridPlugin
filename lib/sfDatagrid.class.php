@@ -108,7 +108,7 @@ abstract class sfDatagrid
 		}else{
 			$r->addJavascript('/sfDatagridPlugin/js/lang/en.js');
 		}
-		$r->addJavascript('/sfdatagridPlugin/js/calendar.js');
+		$r->addJavascript('/sfDatagridPlugin/js/calendar.js');
 	}
 	
 	
