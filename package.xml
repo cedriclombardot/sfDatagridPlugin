@@ -17,10 +17,10 @@
   <active>yes</active>
  </developer>
  
- <date>2009-05-11</date>
+ <date>2009-10-27</date>
  <version>
-   <release>1.3.5</release>
-   <api>1.3.5</api>
+   <release>1.4.0</release>
+   <api>1.4.0</api>
  </version>
  <stability>
   <release>stable</release>
@@ -28,7 +28,7 @@
  </stability>
 <license uri="http://www.symfony-project.com/license">MIT</license>
  <notes>-</notes>
- <contents><dir name="/"><dir name="config"><file name="app.yml" role="data"/></dir><dir name="data"><dir name="generator"><dir name="sfPropelAdmin"><dir name="sfDataGrid"><dir name="skeleton"><dir name="actions"><file name="actions.class.php" role="data"/></dir><dir name="config"><file name="generator.yml" role="data"/></dir></dir><dir name="template"><dir name="actions"><file name="actions.class.php" role="data"/></dir><dir name="templates"><file name="editSuccess.php" role="data"/><file name="listSuccess.php" role="data"/><file name="_edit_actions.php" role="data"/><file name="_edit_footer.php" role="data"/><file name="_edit_form.php" role="data"/><file name="_edit_form_layout.php" role="data"/><file name="_edit_header.php" role="data"/><file name="_edit_messages.php" role="data"/><file name="_filters.php" role="data"/><file name="_list_actions.php" role="data"/><file name="_list_footer.php" role="data"/><file name="_list_header.php" role="data"/><file name="_list_messages.php" role="data"/><file name="_list_td_actions.php" role="data"/><file name="_list_td_batch_actions.php" role="data"/><file name="_list_td_stacked.php" role="data"/><file name="_list_td_tabular.php" role="data"/><file name="_list_th_stacked.php" role="data"/><file name="_list_th_tabular.php" role="data"/></dir></dir></dir></dir></dir></dir><dir name="lib"><file name="sfDatagrid.class.php" role="data"/><file name="sfDatagridArray.class.php" role="data"/><file name="sfDatagridArrayMultiSort.class.php" role="data"/><file name="sfDatagridFormatter.class.php" role="data"/><file name="sfDatagridFormatterDefault.class.php" role="data"/><file name="sfDatagridPropel.class.php" role="data"/></dir><file name="LICENSE" role="data"/><file name="README" role="data"/><dir name="web"><dir name="css"><file name="calendar.css" role="data"/><file name="datagrid.css" role="data"/></dir><dir name="img"><file name="actions-row.gif" role="data"/><file name="ajax-loader.gif" role="data"/><file name="filters-row.gif" role="data"/><file name="header-arrow-asc.gif" role="data"/><file name="header-arrow-desc.gif" role="data"/><file name="header-row.gif" role="data"/><file name="header-sorting.gif" role="data"/><file name="pager-arrow-left.gif" role="data"/><file name="pager-arrow-right.gif" role="data"/></dir><dir name="js"><file name="calendar.js" role="data"/><file name="datagrid.js" role="data"/><file name="prototype.js" role="data"/></dir></dir></dir></contents>
+ <contents><dir name="/"><dir name="config"><file name="app.yml" role="data"/></dir><dir name="data"><dir name="generator"><dir name="sfPropelAdmin"><dir name="sfDataGrid"><dir name="skeleton"><dir name="actions"><file name="actions.class.php" role="data"/></dir><dir name="config"><file name="generator.yml" role="data"/></dir></dir><dir name="template"><dir name="actions"><file name="actions.class.php" role="data"/></dir><dir name="templates"><file name="editSuccess.php" role="data"/><file name="listSuccess.php" role="data"/><file name="_edit_actions.php" role="data"/><file name="_edit_footer.php" role="data"/><file name="_edit_form.php" role="data"/><file name="_edit_form_layout.php" role="data"/><file name="_edit_header.php" role="data"/><file name="_edit_messages.php" role="data"/><file name="_filters.php" role="data"/><file name="_list_actions.php" role="data"/><file name="_list_footer.php" role="data"/><file name="_list_header.php" role="data"/><file name="_list_messages.php" role="data"/><file name="_list_td_actions.php" role="data"/><file name="_list_td_batch_actions.php" role="data"/><file name="_list_td_stacked.php" role="data"/><file name="_list_td_tabular.php" role="data"/><file name="_list_th_stacked.php" role="data"/><file name="_list_th_tabular.php" role="data"/></dir></dir></dir></dir></dir></dir><dir name="lib"><file name="sfDatagrid.class.php" role="data"/><file name="sfDatagridArray.class.php" role="data"/><file name="sfDatagridArrayMultiSort.class.php" role="data"/><file name="sfDatagridDoctrine.class.php" role="data"/><file name="sfDatagridFormatter.class.php" role="data"/><file name="sfDatagridFormatterDefault.class.php" role="data"/><file name="sfDatagridPropel.class.php" role="data"/></dir><file name="LICENSE" role="data"/><file name="README" role="data"/><dir name="web"><dir name="css"><file name="calendar.css" role="data"/><file name="datagrid.css" role="data"/></dir><dir name="img"><file name="actions-row.gif" role="data"/><file name="ajax-loader.gif" role="data"/><file name="filters-row.gif" role="data"/><file name="header-arrow-asc.gif" role="data"/><file name="header-arrow-desc.gif" role="data"/><file name="header-row.gif" role="data"/><file name="header-sorting.gif" role="data"/><file name="pager-arrow-left.gif" role="data"/><file name="pager-arrow-right.gif" role="data"/></dir><dir name="js"><file name="calendar.js" role="data"/><file name="datagrid.js" role="data"/><file name="jquery.datagrid.js" role="data"/><dir name="lang"><file name="en.js" role="data"/><file name="fr.js" role="data"/></dir><file name="prototype.js" role="data"/></dir></dir></dir></contents>
 
  <dependencies>
   <required>
@@ -232,6 +232,15 @@
 * David : fix the boolean render select error
 * David : fix the exception when the date filter value cannot be converted</notes>
   </release>
- <release><version><release>1.3.5</release><api>1.3.5</api></version><stability><release>stable</release><api>stable</api></stability><license uri="http://www.symfony-project.com/license">MIT</license><date>2009-05-11</date><notes>[BUG 644] http://trac.symfony-project.org/ticket/6444</notes></release></changelog>
+ <release><version><release>1.3.5</release><api>1.3.5</api></version><stability><release>stable</release><api>stable</api></stability><license uri="http://www.symfony-project.com/license">MIT</license><date>2009-05-11</date><notes>[BUG 644] http://trac.symfony-project.org/ticket/6444</notes></release><release><version><release>1.3.6</release><api>1.3.6</api></version><stability><release>Stable</release><api>Stable</api></stability><license uri="http://www.symfony-project.com/license">MIT</license><date>2009-06-17</date><notes>Best managment for FK</notes></release><release><version><release>1.4.0</release><api>1.4.0</api></version><stability><release>stable</release><api>stable</api></stability><license uri="http://www.symfony-project.com/license">MIT</license><date>2009-10-27</date><notes>
+* Now compatible with Doctrine
+* You can choose prototype or Jquery in app.yml
+* You can change CSS for datagrid an for calendar in app or with sfDatagrid::setCss()
+* Correction of IE6 and 7 css bugs
+* can sort foreign filter into admingenerator with the order_by_for_filter param into your generator.yml
+* Calendar also in french and now start on Monday set with user culture
+* Fix preg_match param with ? it makes some problems depending server : see http://www.webmaster-hub.com/topic/45479-probleme-avec-fonction-functionpreg-match-compilation-failed-unrecognized-character/
+* Simplify method to surcharge criteria with admin generator
+</notes></release></changelog>
 
 </package>
