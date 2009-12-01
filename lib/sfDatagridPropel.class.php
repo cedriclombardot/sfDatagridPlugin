@@ -278,5 +278,23 @@ class sfDatagridPropel extends sfDatagrid
 			return constant($this->peerTable . $this->tableSuffix . 'Peer::' . strtoupper($columnName));
 		}
 	}
+	
+ 	/**
+	 * Get the html output for the datagrid
+	 *
+	 * @param array $values The array of values
+	 * @param array $alternate The two class to alternate
+	 */
+    public function getContent($values, $alternate, $formatter = '')
+	{
+		if($formatter != '')
+		{
+			return parent::getContent($values, $alternate, $formatter);
+		}
+		else
+		{
+           return parent::getContent($values, $alternate, 'propel');
+		}
+	}
 }
 ?>
