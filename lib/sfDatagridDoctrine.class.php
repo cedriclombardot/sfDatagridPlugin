@@ -221,7 +221,7 @@ class sfDatagridDoctrine extends sfDatagrid
 		}
 		else
 		{
-           return parent::getContent($values, $alternate, 'docrine');
+           return parent::getContent($values, $alternate, 'doctrine');
 		}
 	}
 }
