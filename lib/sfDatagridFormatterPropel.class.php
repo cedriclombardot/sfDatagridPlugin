@@ -23,10 +23,19 @@ class sfDatagridFormatterPropel extends sfDatagridFormatterDefault{
 					 */
     				$tablePeer=$object->_get('peerTable').'Peer';
 		    		$builder=$object->_get('peerTable').'MapBuilder';
+		    		if(class_exists($builder)){
 		    		$mapBuilder=new $builder;
 		    		$mapBuilder->doBuild();
 		    		$adminrelated = $mapBuilder->getDatabaseMap()->getTable(sfInflector::underscore($object->_get('peerTable')))->getColumn(strtoupper($column));
         			
+		    		}else{
+		    			 $map=$object->_get('peerTable').'TableMap';
+						 $map=new $map($object->_get('peerTable'),new DatabaseMap('propel'));
+						 $map->initialize();
+						 $adminrelated = $map->getColumn(strtoupper($column));
+		    		}
+		    		
+		    		
 		    		
         			}catch(Exception $e)
 			        {
