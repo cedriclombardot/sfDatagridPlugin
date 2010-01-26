@@ -539,7 +539,6 @@ abstract class sfDatagrid
 	public static function render($div, $url)
 	{
 		self::addScriptAndCss();
-		
 		$html = '<div id="' . $div . '">' . '<div class="datagrid-loader" id="loader-' . $div . '">' . sfDatagrid::traduct(sfDatagrid::getConfig('text_loading')) . '</div>' . '</div>';
 		if(sfConfig::get('app_datagrid_jsframwork','prototype')=='prototype')
 			$html.= javascript_tag(remote_function(array('update' => $div, 'url' => $url, 'script' => true, 'loading' => 'dg_hide_show(\'' . $div . '\')')));
@@ -547,6 +546,94 @@ abstract class sfDatagrid
 			$html.=javascript_tag(jq_remote_function(array('update' => $div, 'url' => $url, 'script' => true, 'loading' => 'dg_hide_show(\'' . $div . '\')')));
 		return $html;
 	}
+	
+	public static function renderDirect($div,$moduleName,$actionName){
+		self::addScriptAndCss();
+		
+		self::get_action($moduleName, $actionName);
+		$html = '<div id="' . $div . '">' . sfContext::getInstance()->getResponse()->getContent(). '</div>';
+		return $html;
+		
+	}
+	
+	protected static function get_action($moduleName,$actionName,$vars=array()){
+		$context = sfContext::getInstance();
+	  	//$actionName = '_'.$componentName;
+	
+		  $class = sfConfig::get('mod_'.strtolower($moduleName).'_partial_view_class', 'sf').'PartialView';
+		  $view = new $class($context, $moduleName, $actionName, '');
+		  $view->setPartialVars($vars);
+		
+		  if ($retval = $view->getCache())
+		  {
+		    return $retval;
+		  }
+		
+		  $allVars = self::_call_action($moduleName, $actionName, $vars);
+		
+		  if (null !== $allVars)
+		  {
+		    // render
+		    $view->getAttributeHolder()->add($allVars);
+		
+		    return $view->render();
+		  }
+	}
+	protected static function _call_action($moduleName, $actionName, $vars)
+		{
+		  $context = sfContext::getInstance();
+		
+		  $controller = $context->getController();
+		 
+		  if (!$controller->actionExists($moduleName, $actionName))
+		  {
+		    // cannot find component
+		    throw new sfConfigurationException(sprintf('The action does not exist: "%s", "%s".', $moduleName, $componentName));
+		  }
+		
+		  // create an instance of the action
+		  $componentInstance = $controller->getAction($moduleName, $actionName);
+		
+		  sfContext::getInstance()->getActionStack()->addEntry($moduleName,$actionName,$componentInstance);
+		  // load component's module config file
+		  require($context->getConfigCache()->checkConfig('modules/'.$moduleName.'/config/module.yml'));
+		
+		  // pass unescaped vars to the component if escaping_strategy is set to true
+		  $componentInstance->getVarHolder()->add(true === sfConfig::get('sf_escaping_strategy') ? sfOutputEscaper::unescape($vars) : $vars);
+		
+		  // dispatch component
+		  $componentToRun = 'execute'.ucfirst($actionName);
+		  if (!method_exists($componentInstance, $componentToRun))
+		  {
+		    if (!method_exists($componentInstance, 'execute'))
+		    {
+		      // component not found
+		      throw new sfInitializationException(sprintf('sfComponent initialization failed for module "%s", component "%s".', $moduleName, $componentName));
+		    }
+		
+		    $componentToRun = 'execute';
+		  }
+		
+		  if (sfConfig::get('sf_logging_enabled'))
+		  {
+		    $context->getEventDispatcher()->notify(new sfEvent(null, 'application.log', array(sprintf('Call "%s->%s()'.'"', $moduleName, $componentToRun))));
+		  }
+		
+		  // run component
+		  if (sfConfig::get('sf_debug') && sfConfig::get('sf_logging_enabled'))
+		  {
+		    $timer = sfTimerManager::getTimer(sprintf('Component "%s/%s"', $moduleName, $actionName));
+		  }
+		
+		  $retval = $componentInstance->$componentToRun($context->getRequest());
+		
+		  if (sfConfig::get('sf_debug') && sfConfig::get('sf_logging_enabled'))
+		  {
+		    $timer->addTime();
+		  }
+		
+		  return sfView::NONE == $retval ? null : $componentInstance->getVarHolder()->getAll();
+		}
 	
 	/**
 	 * Create and return the check box value in html
