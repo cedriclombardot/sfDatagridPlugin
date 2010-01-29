@@ -28,7 +28,14 @@ and in app.yml
     all:
       datagrid:
         jsframwork: jquery # prototype or jquery 
-    
+
+Now direct rendering for first call
+---------------------
+Use :
+
+sfDatagrid::renderDirect($div,$moduleName,$actionName);
+
+
 AdminGenerator Step By Step :
 ---------------------
 
