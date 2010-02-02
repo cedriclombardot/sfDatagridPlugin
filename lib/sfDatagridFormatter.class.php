@@ -32,8 +32,9 @@ abstract class sfDatagridFormatter
 		// The datagrid pager details
 		$datagridPager = '%pager%&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;%grid_totals%',
 		// The datagrid action bar
-		$datagridActions = '<table cellspacing="0" cellpadding="0" class="grid-actions"><tr><td valign="middle" class="left-actions"><span class="pager">%links%</span></td><td align="right" valign="middle" class="right-actions">%actions%</td></table>';
-		
+		$datagridActions = '<table cellspacing="0" cellpadding="0" class="grid-actions"><tr><td valign="middle" class="left-actions"><span class="pager">%links%</span></td><td align="right" valign="middle" class="right-actions">%actions%</td></table>',
+		// To check all for batch_actions
+		$datagridCheckAll= '<input type="checkbox" name="check_all" onchange="dg_check_all(this)" />';
 	protected
 		$P_ORDER = 'dg_order',
 		$P_SORT = 'dg_sort',
@@ -261,7 +262,7 @@ abstract class sfDatagridFormatter
 		
 		if(count($actions) != 0)
 		{
-			$htmlOutput.= content_tag('th', '&nbsp;', array('style' => 'width: 30px;'));
+			$htmlOutput.= content_tag('th', $this->datagridCheckAll, array('style' => 'width: 30px; text-align:center'));
 		}
 		
 		foreach($columns as $key => $label)

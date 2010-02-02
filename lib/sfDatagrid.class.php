@@ -65,6 +65,7 @@ abstract class sfDatagrid
 		$this->moduleAction = sfContext::getInstance()->getModuleName() . '/' . sfContext::getInstance()->getActionName();
 		// Get the sorting options
 		$this->sortBy = $this->request->getParameter(self::P_SORT, null);
+		
 		$this->sortOrder = $this->request->getParameter(self::P_ORDER, null);
 		
 		$this->search = $this->request->getParameter('search');
@@ -137,6 +138,7 @@ abstract class sfDatagrid
 			
 			if(count($cookie) >= 4 && is_null($this->sortBy) && is_null($this->sortOrder))
 			{
+				
 				$this->page = $cookie[0];
 				$this->sortBy = $cookie[1];
 				$this->sortOrder = $cookie[2];
@@ -643,7 +645,7 @@ abstract class sfDatagrid
 	 */
 	public static function getCheck($value)
 	{
-		$html = '<input type="checkbox" name="gridline[]" value="' . $value . '" />';
+		$html = '<input type="checkbox" name="gridline[]" class="gridline_chk" value="' . $value . '" />';
 		return $html;	
 	}
     

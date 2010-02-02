@@ -106,7 +106,7 @@ class sfDatagridPropel extends sfDatagrid
 	 */
 	protected function getColumnType($column)
 	{
-		if($column=='_object_actions'){
+		if(in_array($column,array('_object_actions','CHECK_ALL'))){
 			return 'NOTYPE';
 		}
 		if(array_key_exists($column, $this->columnsSort))
@@ -274,8 +274,8 @@ class sfDatagridPropel extends sfDatagrid
 		} 
 		else 
 		{
-			
-			return constant($this->peerTable . $this->tableSuffix . 'Peer::' . strtoupper($columnName));
+		
+           return constant($this->peerTable . $this->tableSuffix . 'Peer::' . strtoupper($columnName));
 		}
 	}
 	

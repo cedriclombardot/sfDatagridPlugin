@@ -42,7 +42,10 @@ function dg_keydown(form, datagridName, type, url, e)
     
     return false;
 }
-
+function dg_check_all(chk){
+    var checked_status = chk.checked;
+    alert('Non implémenté');
+}
 function dg_hide_show(name)
 {    
     if($('loader-' + name))

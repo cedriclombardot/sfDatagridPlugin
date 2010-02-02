@@ -53,6 +53,10 @@ function dg_send(form, datagridName, type, url)
     }
 }
 
+function dg_check_all(chk){
+    var checked_status = chk.checked;
+    $(chk).parent().parent().parent().find("input.gridline_chk[type='checkbox']").attr('checked',checked_status);
+}
 function dg_keydown(form, datagridName, type, url, e)
 {
     if(e.keyCode == 13)
