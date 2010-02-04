@@ -8,23 +8,23 @@ class sfDatagridDoctrine extends sfDatagrid
 {
 	protected
         $class = '',
-        $alias = 'd',
+        $alias = 'u',
         $columnsCompare = array(),
         $query = null;
     
-	public function __construct($datagridName, $class, Doctrine $base_query = null, $alias = 'd')
+	public function __construct($datagridName, $class, Doctrine_Query $base_query = null, $alias = 'u')
 	{
 		parent::__construct($datagridName);
-        
+
         if(is_null($base_query))
         {
             $this->query = Doctrine::getTable($class)->createQuery($alias);
         }
         else
         {
-            $this->query = $base_query->createQuery($alias);
+            $this->query = $base_query;
         }
-        
+
         $this->alias = $alias;
         $this->class = $class;
 	}
