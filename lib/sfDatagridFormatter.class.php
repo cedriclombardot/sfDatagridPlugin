@@ -107,7 +107,16 @@ abstract class sfDatagridFormatter
 				
 				if($page != 1)
 				{
-					
+					if($page>2){
+						$pagerHtml.= self::link_to_remote(
+							'<img src="' . sfDatagrid::getConfig('images_dir') . 'pager-arrow-first.gif" alt="" align="absmiddle" />',
+							array(
+								'url' => $moduleAction . '?' . $this->P_PAGE . '=' . $pager->getFirstPage() . '&' . $suffixWithSorting,
+								'update' => $datagridName,
+								'script' => true,
+                                'loading' => 'dg_hide_show(\'' . $datagridName . '\')'
+								));
+					}
 					$pagerHtml.= self::link_to_remote(
 							'<img src="' . sfDatagrid::getConfig('images_dir') . 'pager-arrow-left.gif" alt="" align="absmiddle" />',
 							array(
@@ -116,6 +125,7 @@ abstract class sfDatagridFormatter
 								'script' => true,
                                 'loading' => 'dg_hide_show(\'' . $datagridName . '\')'
 								));
+					
 				}
 				
 				foreach($pager->getLinks() as $item)
@@ -156,6 +166,16 @@ abstract class sfDatagridFormatter
 								'script' => true,
                                 'loading' => 'dg_hide_show(\'' . $datagridName . '\')'
 								));
+					if($page+1!=$pager->getLastPage()){
+						$pagerHtml.= self::link_to_remote(
+							'<img src="' . sfDatagrid::getConfig('images_dir') . 'pager-arrow-last.gif" alt="" align="absmiddle" />',
+							array(
+								'url' => $moduleAction . '?' . $this->P_PAGE . '=' . $pager->getLastPage() . '&' . $suffixWithSorting,
+								'update' => $datagridName,
+								'script' => true,
+                                'loading' => 'dg_hide_show(\'' . $datagridName . '\')'
+								));
+					}
 				}
 			}
 			else
