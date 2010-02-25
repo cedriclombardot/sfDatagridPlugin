@@ -590,7 +590,7 @@ abstract class sfDatagrid
 		  if (!$controller->actionExists($moduleName, $actionName))
 		  {
 		    // cannot find component
-		    throw new sfConfigurationException(sprintf('The action does not exist: "%s", "%s".', $moduleName, $componentName));
+		    throw new sfConfigurationException(sprintf('The action does not exist: "%s", "%s".', $moduleName, $actionName));
 		  }
 		
 		  // create an instance of the action
