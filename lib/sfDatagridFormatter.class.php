@@ -435,11 +435,14 @@ abstract class sfDatagridFormatter
 	 * @return string The html output for the row
 	 */
 	public function renderRow($object, $rowValues, $rowClass = null,$rowIndexDefaultValue=null)
-	{
+	{ 
 		$columns = array_keys($object->_get('columns'));
 		$rowOptions = $object->_get('columnsOptions');
 		$rowAction = $object->_get('rowAction');
 		$actions = $object->_get('datagridActions');
+		
+		//
+		$filtersTypes = $object->_get('filtersTypes');
 		
 		$htmlOutput = '';
 		$columnIncrement = 0;
@@ -479,6 +482,19 @@ abstract class sfDatagridFormatter
 				if(!array_key_exists($columnName, $rowOptions))
 				{				
 					$rowOptions[$columnName] = '';
+				}
+				
+				// Affichage des images pour les booleens
+				if(array_key_exists($columnName, $filtersTypes))
+				{
+					$type = $filtersTypes[$columnName];
+					if($type == "BOOLEAN"){
+
+						if($value)
+							$value = image_tag('../sfPropelPlugin/images/tick.png',array('align'=>'center'));
+						else
+							$value = image_tag('../sfPropelPlugin/images/delete.png',array('align'=>'center'));
+					}
 				}
 				
 				$htmlOutput.= strtr($this->datagridRows, array(
