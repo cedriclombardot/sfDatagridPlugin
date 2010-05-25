@@ -188,8 +188,8 @@ abstract class sfDatagridFormatter
 			$gridTotals.= $this->traduct(sfDatagrid::getConfig('text_numberofrecords')) . ' : ' . $pager->getNbResults();
 		}
 		
-		$url = $moduleAction . '?' . $this->P_PAGE . '=1' . $suffixWithSorting;
-		$url2 = $moduleAction.'?' . $this->P_PAGE . '=1'.$suffixWithDefaultSorting;
+		$url = $moduleAction . '?' . $this->P_PAGE . '=1&' . $suffixWithSorting;
+		$url2 = $moduleAction.'?' . $this->P_PAGE . '=1&'.$suffixWithDefaultSorting;
 		if($renderSearch)
 		{
 			$searchHtml.= content_tag('button', content_tag('span', $this->traduct(sfDatagrid::getConfig('text_search'))), array('type' => 'button', 'class' => 'button', 'name' => 'search_btn', 'onclick' => 'dg_send(\'' . $datagridName . '-form\', \'' . $datagridName . '\', \'search\', \'' . url_for($url) . '\')'));
