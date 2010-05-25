@@ -34,7 +34,9 @@ abstract class sfDatagridFormatter
 		// The datagrid action bar
 		$datagridActions = '<table cellspacing="0" cellpadding="0" class="grid-actions"><tr><td valign="middle" class="left-actions"><span class="pager">%links%</span></td><td align="right" valign="middle" class="right-actions">%actions%</td></table>',
 		// To check all for batch_actions
-		$datagridCheckAll= '<input type="checkbox" name="check_all" onchange="dg_check_all(this)" />';
+		$datagridCheckAll= '<input type="checkbox" name="check_all" onchange="dg_check_all(this)" />',
+		//The formater for onclick 
+		$onClick="document.location.href='%url%'";
 	protected
 		$P_ORDER = 'dg_order',
 		$P_SORT = 'dg_sort',
@@ -467,14 +469,14 @@ abstract class sfDatagridFormatter
 					
 					if($rowIndex === false){
 						if(!is_null($rowIndexDefaultValue)){
-							$this->addOption('onclick', $rowOptions[$columnName], "document.location.href='" . url_for(strtr($rowAction, array('%' . $matches['param'] . '%' => $rowIndexDefaultValue))) . "'");
+							$this->addOption('onclick', $rowOptions[$columnName], strtr($this->onClick,array('url'=>url_for(strtr($rowAction, array('%' . $matches['param'] . '%' => $rowIndexDefaultValue))))));
 							$this->addOption('style', $rowOptions[$columnName], 'cursor:pointer;');
 						}else{
 							
 							throw new Exception("Impossible to find column ".$matches['param']);
 						}
 					}else{
-						$this->addOption('onclick', $rowOptions[$columnName], "document.location.href='" . url_for(strtr($rowAction, array('%' . $matches['param'] . '%' => $rowValues[$rowIndex]))) . "'");
+						$this->addOption('onclick', $rowOptions[$columnName], strtr($this->onClick,array('url'=>url_for(strtr($rowAction, array('%' . $matches['param'] . '%' => $rowIndexDefaultValue))))));
 						$this->addOption('style', $rowOptions[$columnName], 'cursor:pointer;');
 					}
 				}

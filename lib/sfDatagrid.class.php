@@ -464,6 +464,8 @@ abstract class sfDatagrid
 		return new $class($this);
 	}
 	
+	
+	
 	/**
 	 * Get the html output for the datagrid
 	 *
