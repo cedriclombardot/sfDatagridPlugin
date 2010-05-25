@@ -469,7 +469,7 @@ abstract class sfDatagridFormatter
 					
 					if($rowIndex === false){
 						if(!is_null($rowIndexDefaultValue)){
-							$this->addOption('onclick', $rowOptions[$columnName], strtr($this->onClick,array('url'=>url_for(strtr($rowAction, array('%' . $matches['param'] . '%' => $rowIndexDefaultValue))))));
+							$this->addOption('onclick', $rowOptions[$columnName], strtr($this->onClick,array('%url%'=>url_for(strtr($rowAction, array('%' . $matches['param'] . '%' => $rowIndexDefaultValue))))));
 							$this->addOption('style', $rowOptions[$columnName], 'cursor:pointer;');
 						}else{
 							
