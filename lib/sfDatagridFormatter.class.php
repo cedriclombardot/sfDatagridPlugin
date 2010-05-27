@@ -457,26 +457,27 @@ abstract class sfDatagridFormatter
 				$htmlOutput.= content_tag('td', $firstColumn, array('style' => 'width: 30px', 'align' => 'center'));
 			}
 			
+			preg_match('/%(?P<param>\w+)%/', $rowAction, $matches);
+					
+			$rowIndex = array_search($matches['param'], $columns);
+			$link=url_for(strtr($rowAction, array('%' . $matches['param'] . '%' => $rowIndexDefaultValue)));
 			foreach($rowValues as $value)
 			{
 				$columnName = $columns[$columnIncrement];
 				
 				if(!is_null($rowAction) &&($columnName!='_object_actions'))
 				{
-					preg_match('/%(?P<param>\w+)%/', $rowAction, $matches);
-					
-					$rowIndex = array_search($matches['param'], $columns);
 					
 					if($rowIndex === false){
 						if(!is_null($rowIndexDefaultValue)){
-							$this->addOption('onclick', $rowOptions[$columnName], strtr($this->onClick,array('%url%'=>url_for(strtr($rowAction, array('%' . $matches['param'] . '%' => $rowIndexDefaultValue))))));
+							$this->addOption('onclick', $rowOptions[$columnName], strtr($this->onClick,array('%url%'=>$link)));
 							$this->addOption('style', $rowOptions[$columnName], 'cursor:pointer;');
 						}else{
 							
 							throw new Exception("Impossible to find column ".$matches['param']);
 						}
 					}else{
-						$this->addOption('onclick', $rowOptions[$columnName], strtr($this->onClick,array('url'=>url_for(strtr($rowAction, array('%' . $matches['param'] . '%' => $rowIndexDefaultValue))))));
+						$this->addOption('onclick', $rowOptions[$columnName], strtr($this->onClick,array('%url%'=>$link)));
 						$this->addOption('style', $rowOptions[$columnName], 'cursor:pointer;');
 					}
 				}

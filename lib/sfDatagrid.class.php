@@ -459,7 +459,6 @@ abstract class sfDatagrid
 	protected function getFormatter($name)
 	{
 		$class = 'sfDatagridFormatter'.ucfirst($name);
-
 		if (!class_exists($class))
 		{
 			throw new InvalidArgumentException(sprintf('The datagrid formatter "%s" does not exist.', $name));
@@ -509,7 +508,6 @@ abstract class sfDatagrid
 		
 		// Make the rows
 		$rows = '';
-		
 		if(count($values) != 0)
 		{
 			$i = 0;
