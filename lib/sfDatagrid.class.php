@@ -67,9 +67,10 @@ abstract class sfDatagrid
 		$this->sortBy = $this->request->getParameter(self::P_SORT, null);
 		
 		$this->sortOrder = $this->request->getParameter(self::P_ORDER, null);
+		
 		if(substr($this->sortOrder,0,3)=='asc')
 			$this->sortOrder='asc';
-		else
+		elseif(substr($this->sortOrder,0,4)=='desc')
 			$this->sortOrder='desc';
 			
 		$this->search = $this->request->getParameter('search');
