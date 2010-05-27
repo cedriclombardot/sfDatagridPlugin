@@ -23,7 +23,7 @@ class sfDatagridFormatterPropel extends sfDatagridFormatterDefault{
 					 */
     				$tablePeer=$object->_get('peerTable').'Peer';
 		    		$builder=$object->_get('peerTable').'MapBuilder';
-		    		if(class_exists($builder)){
+		    		if(sfAutoload::getInstance()->loadClass($builder)){
 		    		$mapBuilder=new $builder;
 		    		$mapBuilder->doBuild();
 		    		$adminrelated = $mapBuilder->getDatabaseMap()->getTable(sfInflector::underscore($object->_get('peerTable')))->getColumn(strtoupper($column));
@@ -51,7 +51,7 @@ class sfDatagridFormatterPropel extends sfDatagridFormatterDefault{
 			         if(($adminrelated instanceof ColumnMap)&&($adminrelated->isForeignKey()))
        				 {
     					$c=sfDatagrid::getConfig('class_for_foreign');
-    					if(class_exists(sfInflector::camelize($adminrelated->getRelatedTableName()))){
+    					if(sfAutoload::getInstance()->loadClass(sfInflector::camelize($adminrelated->getRelatedTableName()))){
     						$class=sfInflector::camelize($adminrelated->getRelatedTableName());
     					}else{
     						$class=sfInflector::camelize($adminrelated->getRelatedTableName());
@@ -59,7 +59,7 @@ class sfDatagridFormatterPropel extends sfDatagridFormatterDefault{
     						
     					}
     					
-    					if(class_exists($class)){
+    					if(sfAutoload::getInstance()->loadClass($class)){
 							$wSelect= new $c(
 							array('model' => $class,  'add_empty' =>true)); 
 							if($object->getOrderByForFilter($column)){
