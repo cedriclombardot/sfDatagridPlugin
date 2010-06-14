@@ -502,6 +502,18 @@ abstract class sfDatagrid
 
 		$pager = $formatter->renderPagerBar($this, $this->getUriSuffix());
 		
+		$pager_bottom='';
+		if(sfDatagrid::getConfig('insert_pager_bottom',false)){
+			/**
+			 * for the bottom
+			 */
+			
+			$old=$this->_get('renderSearch');
+			$this->renderSearch(false);
+			$pager_bottom=$formatter->renderPagerBar($this, $this->getUriSuffix());
+			$this->renderSearch($old);
+		}
+		
 		if(!(count($this->datagridActions) == 0 && $this->refreshKeeping == false))
 		{
 			$actions = $formatter->renderActionsBar($this, $urlDefault);
@@ -533,7 +545,7 @@ abstract class sfDatagrid
 		}
 		
 		// Get all
-		return $formatter->renderDatagrid($this, $headers, $rows, $filters, $pager, $actions);
+		return $formatter->renderDatagrid($this, $headers, $rows, $filters, $pager, $actions,$pager_bottom);
 	}
 	
 	/**

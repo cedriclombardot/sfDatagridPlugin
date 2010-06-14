@@ -21,6 +21,8 @@ abstract class sfDatagridFormatter
 	protected
 		// The datagrid container
 		$datagridContainer = '%loader%%flash%%pager%%actions%<table border="0" cellspadding="0" cellspacing="1" class="grid">%headers%%filters%%rows%</table>',
+		// The datagrid container with a bottom pager
+		$datagridContainerPagerBottom = '%loader%%flash%%pager%%actions%<table border="0" cellspadding="0" cellspacing="1" class="grid">%headers%%filters%%rows%</table>%pager_bottom%',
 		// The datagrid rowCell
 		$datagridRows = '<td %row_options%>%value%</td>',
 		// The datagrid headerCell
@@ -50,8 +52,9 @@ abstract class sfDatagridFormatter
 	 * @param string $rows The html of the rows
 	 * @param string $actions The html of the actions
 	 * @return string The html output of the datagrid
+	 * 
 	 */
-	public function renderDatagrid($object, $headers, $rows, $filters, $pager, $actions)
+	public function renderDatagrid($object, $headers, $rows, $filters, $pager, $actions,$pager_bottom='')
 	{
 		$formOptions = array(
 						'action' => '',
@@ -59,12 +62,16 @@ abstract class sfDatagridFormatter
 						'method' => 'post',
 						'onsubmit' => 'return false;'
 					   );
-		
+		if(sfDatagrid::getConfig('insert_pager_bottom',false)){
+			$this->datagridContainer=$this->datagridContainerPagerBottom;
+		}
+	    
 		return '<form ' . _tag_options($formOptions) . '>' . strtr($this->datagridContainer, array(
 			'%flash%' => $this->getFlash('datagrid'),
 			'%headers%' => $headers,
 			'%rows%' => $rows,
 			'%pager%' => $pager,
+		    '%pager_bottom%'=> $pager_bottom,
 			'%actions%' => $actions,
 			'%filters%' => $filters,
             '%loader%' => '<div class="datagrid-loader" id="loader-' . $object->_get('datagridName') . '">' . sfDatagrid::getConfig('text_loading') . '</div>'
