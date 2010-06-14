@@ -608,7 +608,7 @@ abstract class sfDatagridFormatter
 			return link_to_remote($name, $options , $html_options );
 		else{
 			if(sfDatagrid::getConfig('freezepanes',false)==true){
-				$options['complete']='freezePanes();';
+				$options['complete']='freezePanes(\''.$options['update'].'\');';
 			}
 			return jq_link_to_remote($name, $options , $html_options );
 		}
