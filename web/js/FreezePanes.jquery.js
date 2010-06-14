@@ -2,7 +2,12 @@
 freeze panes / jquery Datagrid
 **/
 $(document).ready(function(){
-    cols= $('.grid').find('tr.lt:first').find('td').length;
+    freezePanes();	
+});
+
+
+function freezePanes(){
+	cols= $('.grid').find('tr.lt:first').find('td').length;
     c_width=new Array();
     $('.grid').find('tr td.filter').each(function(i){
     	c_width[i]=$(this).width();
@@ -23,6 +28,4 @@ $(document).ready(function(){
 			}
 		})
 	;
-	
-	
-});
+}

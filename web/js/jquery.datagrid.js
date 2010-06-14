@@ -74,3 +74,11 @@ function dg_hide_show(name)
         $('div#loader-' + name).show();
     }
 }
+
+function function_exists (function_name) {
+    if (typeof function_name == 'string'){
+        return (typeof this.window[function_name] == 'function');
+    } else{
+        return (function_name instanceof Function);
+    }
+}

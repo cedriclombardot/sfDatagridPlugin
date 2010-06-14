@@ -66,6 +66,9 @@ abstract class sfDatagridFormatter
 			$this->datagridContainer=$this->datagridContainerPagerBottom;
 		}
 	    
+		$js='';
+		
+		
 		return '<form ' . _tag_options($formOptions) . '>' . strtr($this->datagridContainer, array(
 			'%flash%' => $this->getFlash('datagrid'),
 			'%headers%' => $headers,
@@ -600,10 +603,15 @@ abstract class sfDatagridFormatter
 	}
 	
 	public static function link_to_remote($name, $options = array(), $html_options = array()){
+		
 		if(sfConfig::get('app_datagrid_jsframwork','prototype')=='prototype')
 			return link_to_remote($name, $options , $html_options );
-		else
+		else{
+			if(sfDatagrid::getConfig('freezepanes',false)==true){
+				$options['complete']='freezePanes();';
+			}
 			return jq_link_to_remote($name, $options , $html_options );
+		}
 	}
 }
 ?>
