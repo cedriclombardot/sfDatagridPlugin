@@ -65,4 +65,7 @@ padding:0;
 clear:both;
 
 }
-
+.grid-fixed-height{
+	overflow: auto;
+	height:300px
+	}
