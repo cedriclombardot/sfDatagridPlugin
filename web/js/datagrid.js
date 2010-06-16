@@ -19,7 +19,7 @@ function dg_send(form, datagridName, type, url, freeze_after)
         			
         		
         	}
-        	url+='/reset/1';
+        	url+='&reset=1';
         	dg_send(form, datagridName, 'search', url, freeze_after);
             break;
         case 'action':
