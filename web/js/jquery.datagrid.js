@@ -1,4 +1,4 @@
-function dg_send(form, datagridName, type, url)
+function dg_send(form, datagridName, type, url, freeze_after)
 {
 	
 	
@@ -16,6 +16,9 @@ function dg_send(form, datagridName, type, url)
         		success: function(msg){
         			$('div#'+datagridName).empty().append(msg);
         		 	$('div#loader-' + datagridName).hide();	
+        		 	if(freeze_after){
+        		 		freezePanes(datagridName);
+        		 	}
         		 }
         	});
             break;
@@ -32,7 +35,7 @@ function dg_send(form, datagridName, type, url)
         		
         	}
         	url+='/reset/1';
-        	dg_send(form, datagridName, 'search', url);
+        	dg_send(form, datagridName, 'search', url, freeze_after);
             break;
            
         case 'action':
@@ -44,7 +47,10 @@ function dg_send(form, datagridName, type, url)
         		data: (oForm.serialize()),
         		success: function(msg){
         			$('div#'+datagridName).empty().append(msg);
-        		 	$('div#loader-' + datagridName).hide();	
+        		 	$('div#loader-' + datagridName).hide();
+        		 	if(freeze_after){
+        		 		freezePanes(datagridName);
+        		 	}	
         		 }
         	});
            
@@ -57,11 +63,11 @@ function dg_check_all(chk){
     var checked_status = chk.checked;
     $(chk).parent().parent().parent().find("input.gridline_chk[type='checkbox']").attr('checked',checked_status);
 }
-function dg_keydown(form, datagridName, type, url, e)
+function dg_keydown(form, datagridName, type, url, e, freeze_after)
 {
     if(e.keyCode == 13)
     {
-        dg_send(form, datagridName, type, url);
+        dg_send(form, datagridName, type, url, freeze_after);
     }
     
     return false;

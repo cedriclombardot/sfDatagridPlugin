@@ -202,9 +202,15 @@ abstract class sfDatagridFormatter
 		$url2 = $moduleAction.'?' . $this->P_PAGE . '=1&'.$suffixWithDefaultSorting;
 		if($renderSearch)
 		{
-			$searchHtml.= content_tag('button', content_tag('span', $this->traduct(sfDatagrid::getConfig('text_search'))), array('type' => 'button', 'class' => 'button', 'name' => 'search_btn', 'onclick' => 'dg_send(\'' . $datagridName . '-form\', \'' . $datagridName . '\', \'search\', \'' . url_for($url) . '\')'));
-		
-			$searchHtml.= content_tag('button', content_tag('span', $this->traduct(sfDatagrid::getConfig('text_reset'))), array('type' => 'button', 'class' => 'button reset', 'name' => 'reset_btn', 'onclick' => 'dg_send(\'' . $datagridName . '-form\', \'' . $datagridName . '\', \'reset\', \'' . url_for($url2) . '\')'));
+			$freeze='';
+			if(sfDatagrid::getConfig('freezepanes',false)==true){
+				$freeze='true';
+			}
+			$searchHtml.= content_tag('button', content_tag('span', $this->traduct(sfDatagrid::getConfig('text_search'))), array('type' => 'button', 'class' => 'button', 'name' => 'search_btn',
+			 'onclick' => 'dg_send(\'' . $datagridName . '-form\', \'' . $datagridName . '\', \'search\', \'' . url_for($url) . '\','.$freeze.'); '));
+			
+			$searchHtml.= content_tag('button', content_tag('span', $this->traduct(sfDatagrid::getConfig('text_reset'))), array('type' => 'button', 'class' => 'button reset',
+			 'name' => 'reset_btn', 'onclick' => 'dg_send(\'' . $datagridName . '-form\', \'' . $datagridName . '\', \'reset\', \'' . url_for($url2) . '\','.$freeze.'); '));
 	
 		}
 		

@@ -1,4 +1,4 @@
-function dg_send(form, datagridName, type, url)
+function dg_send(form, datagridName, type, url, freeze_after)
 {
     var oForm = $(form);
     
@@ -20,7 +20,7 @@ function dg_send(form, datagridName, type, url)
         		
         	}
         	url+='/reset/1';
-        	dg_send(form, datagridName, 'search', url);
+        	dg_send(form, datagridName, 'search', url, freeze_after);
             break;
         case 'action':
             
@@ -33,11 +33,11 @@ function dg_send(form, datagridName, type, url)
     }
 }
 
-function dg_keydown(form, datagridName, type, url, e)
+function dg_keydown(form, datagridName, type, url, e, freeze_after)
 {
     if(e.keyCode == 13)
     {
-        dg_send(form, datagridName, type, url);
+        dg_send(form, datagridName, type, url, freeze_after);
     }
     
     return false;

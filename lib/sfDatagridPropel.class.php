@@ -203,6 +203,11 @@ class sfDatagridPropel extends sfDatagrid
 							if(array_key_exists('null_' . $this->datagridName, $this->search[$col]) && $this->search[$col]['null_' . $this->datagridName] != '')
 							{
 								$c3 = $c->getNewCriterion($this->getColumnSortingOption($col), null, Criteria::ISNULL);
+								$c4 = $c->getNewCriterion($this->getColumnSortingOption($col), '0000-00-00', Criteria::EQUAL);
+								$c5 = $c->getNewCriterion($this->getColumnSortingOption($col), '', Criteria::EQUAL);
+								
+								$c3->addOr($c4);
+								$c3->addOr($c5);
 								$c->addOr($c3);
 							}
 							
