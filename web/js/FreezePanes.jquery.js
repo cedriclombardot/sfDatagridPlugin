@@ -12,6 +12,7 @@ function freezePanes(dgid){
     }else{
     	grid=$('.grid');
     }
+    $(grid).attr('cellspacing',0);
 	cols= $(grid).find('tr.lt:first').find('td').length;
     c_width=new Array();
     $(grid).find('tr td.filter').each(function(i){
@@ -19,14 +20,20 @@ function freezePanes(dgid){
     	$(this).attr('style','width:'+(c_width[i])+'px');
     });
     $(grid).find('tr th').each(function(i){
-    	$(this).attr('style','width:'+(c_width[i])+'px');
+    		$(this).attr('style','width:'+(c_width[i])+'px');
+    		c_width[i]=$(this).width();
     });
-	$(grid).find('tbody').append('<tr><td style="padding:0; border:0 none;" colspan="'+cols+'"><div class="grid-fixed-height"><table cellspacing="1" border="0" style="width:100%" cellspadding="0"></table></div></td></tr>');
+    
+	$(grid).find('tbody').append('<tr><td style="padding:0; border:0 none;" colspan="'+cols+'"><div class="grid-fixed-height"><table cellspacing="0" border="0" style="width:100%" cellspadding="0"></table></div></td></tr>');
+	//Largeure dispo
 	$(grid).find('tr').each(function(){
 			if($(this).hasClass('lt') || $(this).hasClass('dr')){
 				//Resize cols
 				$(this).find('td').each(function(i){
-					$(this).attr('style','width:'+(c_width[i])+'px');
+					if(i!=(cols-1))
+						$(this).attr('style','width:'+(c_width[i])+'px');
+					else
+						$(this).attr('style','width:'+(c_width[i]-17)+'px');//17 px scrollbar
 				});
 				//Replace row
 				$(this).parent().parent().find('.grid-fixed-height table').append($(this));
