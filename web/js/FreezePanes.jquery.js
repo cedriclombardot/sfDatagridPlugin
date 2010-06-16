@@ -25,7 +25,7 @@ function freezePanes(dgid){
     });
     
 	$(grid).find('tbody').append('<tr><td style="padding:0; border:0 none;" colspan="'+cols+'"><div class="grid-fixed-height"><table cellspacing="0" border="0" style="width:100%" cellspadding="0"></table></div></td></tr>');
-	//Largeure dispo
+
 	$(grid).find('tr').each(function(){
 			if($(this).hasClass('lt') || $(this).hasClass('dr')){
 				//Resize cols
@@ -40,4 +40,24 @@ function freezePanes(dgid){
 			}
 		})
 	;
+	//Si pas scrollbar
+	if(!$('.grid-fixed-height').hasScrollbar()){
+			$('.grid-fixed-height tr td:last').attr('style','width:'+(c_width[(cols-1)])+'px');
+	}
+}
+
+/**
+see : http://stackoverflow.com/questions/2578046/scrollbar-appear-disappear-event-in-jquery
+**/
+jQuery.fn.hasScrollbar = function() {
+    var scrollHeight = this.get(0).scrollHeight;
+
+    //safari's scrollHeight includes padding
+    if ($.browser.safari)
+        scrollHeight -= parseInt(this.css('padding-top')) + parseInt(this.css('padding-bottom'));
+
+    if (this.height() < scrollHeight)
+        return true;
+    else
+        return false;
 }
