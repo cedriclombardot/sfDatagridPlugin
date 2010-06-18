@@ -476,7 +476,7 @@ abstract class sfDatagridFormatter
 			preg_match('/%(?P<param>\w+)%/', $rowAction, $matches);
 					
 			$rowIndex = array_search($matches['param'], $columns);
-			$link=url_for(strtr($rowAction, array('%' . $matches['param'] . '%' => $rowIndexDefaultValue)));
+			$link=url_for(strtr($rowAction, array('%' . $matches['param'] . '%' => $rowIndex === false ? $rowIndexDefaultValue : $rowValues[$rowIndex])));
 			foreach($rowValues as $value)
 			{
 				$columnName = $columns[$columnIncrement];
