@@ -17,7 +17,7 @@
   <active>yes</active>
  </developer>
  
- <date>2010-06-14</date>
+ <date>2010-06-18</date>
  <version>
    <release>1.5.1</release>
    <api>1.5.1</api>
@@ -244,6 +244,13 @@
  * Add thick in list for boolean columns
  * correct an error_message into _call_action
  
- </notes></release></changelog>
+ </notes></release><release><version><release>1.5.1</release><api>1.5.1</api></version><stability><release/><api/></stability><license uri="http://www.symfony-project.com/license">MIT</license><date>2010-06-18</date><notes>
+ * fix Bug freezepanes on search and reset
+ * Fix reset tracking var
+ * fix column align with freezePanes
+ * fix freezePanes when no scrollbar	
+ * Fix row link Thanks Tomasz Jakub Rup
+ * Fix reset on IE with Jquery 
+</notes></release></changelog>
 
 </package>
