@@ -202,7 +202,7 @@ abstract class sfDatagridFormatter
 		$url2 = $moduleAction.'?' . $this->P_PAGE . '=1&'.$suffixWithDefaultSorting;
 		if($renderSearch)
 		{
-			$freeze='';
+			$freeze='false';
 			if(sfDatagrid::getConfig('freezepanes',false)==true){
 				$freeze='true';
 			}

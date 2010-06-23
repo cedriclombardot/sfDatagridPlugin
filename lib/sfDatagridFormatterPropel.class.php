@@ -136,7 +136,7 @@ class sfDatagridFormatterPropel extends sfDatagridFormatterDefault{
     			default:
     				$wInput = new sfWidgetFormInput();
     				$url = $object->_get('moduleAction') . '?' . $this->P_PAGE . '=1' . $suffix . '&' . $this->P_SORT . '=' . $object->_get('sortBy') . '&' . $this->P_ORDER . '=' . $object->_get('sortOrder');
-    				$output = $wInput->render('search[' . $column . ']', $value, array('style' => 'width: 100%;', 'onkeydown' => 'dg_keydown(\'' . $object->_get('datagridName') . '-form\', \'' . $object->_get('datagridName') . '\', \'search\', \'' . url_for($url) . '\', event,'.(sfDatagrid::getConfig('freezepanes',false)?'true':'').')'));
+    				$output = $wInput->render('search[' . $column . ']', $value, array('style' => 'width: 100%;', 'onkeydown' => 'dg_keydown(\'' . $object->_get('datagridName') . '-form\', \'' . $object->_get('datagridName') . '\', \'search\', \'' . url_for($url) . '\', event,'.(sfDatagrid::getConfig('freezepanes',false)?'true':'false').')'));
     				break;
     		}
 		
