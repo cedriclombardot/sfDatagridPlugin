@@ -91,7 +91,7 @@ function clearForm(form) {
  var tag = this.tagName.toLowerCase(); // normalize case
  // it's ok to reset the value attr of text inputs,
  // password inputs, and textareas
- if (type == 'text' || type == 'password' || tag == 'textarea')
+ if (type == 'text' || type == 'password' || tag == 'textarea' || type == 'hidden')
    this.value = "";
  // checkboxes and radios need to have their checked state cleared
  // but should *not* have their 'value' changed
