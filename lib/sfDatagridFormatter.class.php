@@ -257,8 +257,9 @@ abstract class sfDatagridFormatter
 		
 		if(count($actions) != 0)
 		{
-			$actionSelect.= select_tag('actions', array_flip($actions), array('id' => $datagridName . '_select'));
-			$actionSelect.= '&nbsp';
+			$widgetAction=new sfWidgetFormSelect(array('choices'=>array_flip($actions)));
+			$actionSelect.= $widgetAction->render('actions',null,array('id' => $datagridName . '_select'));
+			$actionSelect.= '&nbsp;';
 			$actionSelect.= '<input type="button" name="actions" value="' . $this->traduct(sfDatagrid::getConfig('text_validate')) . '" onclick="dg_send(\'' . $datagridName . '-form\', \'' . $datagridName . '\', \'action\', \'\')" />';
 		}
 		
