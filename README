@@ -11,9 +11,11 @@ Prototype must be loaded to the page
 Online documentation
 ---------------------
 
+New Documentation : [http://wiki.zellerda.com/doku.php/sfdatagridplugin](http://wiki.zellerda.com/doku.php/sfdatagridplugin)
+
 Go to [http://symfony.swisscenter.com/datagrid](http://symfony.swisscenter.com/datagrid)
 
-To know How use the Admin Genrator go to [http://symfony.spyrit.net](http://symfony.spyrit.net)
+To know How use the Old Admin Genrator go to [http://symfony.spyrit.net](http://symfony.spyrit.net)
 
 Now Jquery Compatible
 -------------------------
@@ -49,7 +51,7 @@ After download the plugin :
     [php]
     public function configure()
     {
-  	  $this->getActive()->loadHelpers(array('Form', 'Javascript', 'Date', 'Url', 'I18N', 'Tag','Asset','Partial')); 
+  	  $this->getActive()->loadHelpers(array( 'Javascript', 'Date', 'Url', 'I18N', 'Tag','Asset','Partial')); 
     }
 
 * Init a new admin module 
