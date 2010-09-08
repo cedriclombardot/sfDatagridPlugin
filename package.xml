@@ -17,10 +17,10 @@
   <active>yes</active>
  </developer>
  
- <date>2010-06-23</date>
+ <date>2010-09-08</date>
  <version>
-   <release>1.5.3</release>
-   <api>1.5.3</api>
+   <release>1.5.4</release>
+   <api>1.5.4</api>
  </version>
  <stability>
   <release>stable</release>
@@ -251,6 +251,6 @@
  * fix freezePanes when no scrollbar	
  * Fix row link Thanks Tomasz Jakub Rup
  * Fix reset on IE with Jquery 
-</notes></release><release><version><release>1.5.3</release><api>1.5.3</api></version><stability><release/><api/></stability><license uri="http://www.symfony-project.com/license">MIT</license><date>2010-06-23</date><notes>* Fix js when no freezepanes</notes></release></changelog>
+</notes></release><release><version><release>1.5.3</release><api>1.5.3</api></version><stability><release/><api/></stability><license uri="http://www.symfony-project.com/license">MIT</license><date>2010-06-23</date><notes>* Fix js when no freezepanes</notes></release><release><version><release>1.5.4</release><api>1.5.4</api></version><stability><release>stable</release><api>stable</api></stability><license uri="http://www.symfony-project.com/license">MIT</license><date>2010-09-08</date><notes>Fix select_tag into sfDatagridFormater. Thx sebastien Aucouturier</notes></release></changelog>
 
 </package>
