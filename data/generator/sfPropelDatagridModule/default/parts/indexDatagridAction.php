@@ -30,8 +30,31 @@ $map->initialize();
   	}else{
 	   $this->datagrid->setRowAction('<?php echo $this->getModuleName(); ?>/<?php echo $this->configuration->getRowAction() ?>?<?php echo strtolower($this->getPrimaryKeys(true)); ?>=','<?php echo strtolower($this->getPrimaryKeys(true)); ?>');
     }
+  
+    //Columns sorting
+    $columns=$this->datagrid->getColumnsSorting();
+    $columns=$this->getColumnsSortingForDatagrid($columns);
+    $this->datagrid->setColumnsSorting($columns);    
+    
+    //Default sorting
+<?php $sort=$this->configuration->getDefaultSort();
+if($sort[0]!=''):
+?>
+   $this->datagrid->setDefaultSortingColumn(<?php echo $this->asPhp($sort[0]) ?>,<?php echo $this->asPhp($sort[1]) ?>);
+<?php endif; ?>
 
-	<?php if($datagrid_actions): ?>
+    //hide_filters
+<?php 
+$hide_filters=$this->configuration->getHideFilters();
+if($hide_filters): ?>
+    $array=array();
+<?php foreach($hide_filters as $filter): ?>
+    $array['<?php echo $filter ?>']='NOTYPE';
+<?php endforeach; ?>
+    $this->datagrid->setColumnsFilters($array);
+<?php endif; ?>
+
+<?php if($datagrid_actions): ?>
   	//Batch actions
 <?php foreach($datagrid_actions as  $actionName => $params ){ ?>
     $actions[__('<?php echo @$params['label']?$params['label']:$actionName ?>')]= '<?php echo $this->getModuleName(); ?>/<?php echo @$params['action']?$params['action']:lcfirst(sfInflector::camelize($actionName.'_selected')); ?>';
@@ -58,6 +81,17 @@ $map->initialize();
     }
     
     return sfView::NONE;
+  }
+  
+  /**
+  * @param array
+  * @return array
+  */
+  protected function getColumnsSortingForDatagrid($columns){
+<?php foreach($this->configuration->getColumnsSorting() as $col=>$value): ?>
+    $columns['<?php echo $col; ?>']='<?php echo $value; ?>';
+<?php endforeach; ?>
+    return $columns;
   }
   
   /**
