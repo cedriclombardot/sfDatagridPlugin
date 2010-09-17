@@ -16,6 +16,7 @@ New Documentation : [http://wiki.zellerda.com/doku.php/sfdatagridplugin](http://
 Go to [http://symfony.swisscenter.com/datagrid](http://symfony.swisscenter.com/datagrid)
 
 To know How use the Old Admin Genrator go to [http://symfony.spyrit.net](http://symfony.spyrit.net)
+The new propel Admin generator is documented on Wiki
 
 Now Jquery Compatible
 -------------------------
@@ -35,7 +36,8 @@ Now direct rendering for first call
 ---------------------
 Use :
 
-sfDatagrid::renderDirect($div,$moduleName,$actionName);
+    [php]
+    sfDatagrid::renderDirect($div,$moduleName,$actionName);
 
 
 AdminGenerator Step By Step :
@@ -51,15 +53,15 @@ After download the plugin :
     [php]
     public function configure()
     {
-  	  $this->getActive()->loadHelpers(array( 'Javascript', 'Date', 'Url', 'I18N', 'Tag','Asset','Partial')); 
+  	  $this->getActive()->loadHelpers(array( 'JavascriptBase', 'Date', 'Url', 'I18N', 'Tag','Asset','Partial')); 
     }
 
 * Init a new admin module 
     [php]
-    symfony propel:init-admin YOUR_APP YOUR_MODULE YOUR_MODEL
+    symfony propel:generate-admin YOUR_APP YOUR_MODEL
 
 
-* Edit the yml and change the theme to **sfDataGrid**
+* Edit the yml and change the generator class to **sfPropelDatagridGenerator** and set theme **default**
 
 ### Options for the list: part
 
@@ -68,8 +70,7 @@ In the list part you could set :
     [yml]
     list:
       display: [] #Like for default theme but using = do Nothing the link is for all cells
-      hide: [] #Like for default theme
-      row_action: show # The action to redirect MY_MODULE/{row_action}?id={my_object_id} by default is edit
+      row_action: show # The action to redirect @MY_MODULE_{row_action}?id={my_object_id} by default is show if with_show = true else edit
       hide_filters: [] # To hide filters for some column
       sort: [] # Like by default
       object_actions:  # Like default the link is desactivated on column and the partial _list_td_actions is loaded (without td see your cache)
@@ -89,48 +90,3 @@ But sorting on an existin column like that:
       sort: [ smth_img, desc ] #Init sort on this col (optional of course)
       columns_sorting:
         smth_img: smth #Will translate sortin click smth_img to modelPeer::SMTH
-
-### Options for the edit: part
-
-The edit could be the same as default, but you could have a special layout by using :
-
-    [yml]
-    edit:
-      layout:
-        row_1: [ field_1, field_2 ]
-        row_2: [ field_3, field_4 ]
-        
-Add in your main css
-
-    [css]
-	#sf_admin_container fieldset#sf_datagrid_fieldset_none {
-	border:0;
-	}
-	.form-elem{
-	float:left;
-	padding:5px;
-	
-	}
-	#sf_admin_container .form-elem label{
-	width:7em;
-	text-align: right;
-	padding:0;
-	}
-	.row-form{
-	clear:both;
-	}
-
-The columns will bee in float see _edit_form_layout.php
-
-### Change title between create and edit 
-
-If you want to have a specific title for adding :
-
-    [yml]
-    new:
-      title: My specific title # No other options is the same form
-
-
-      
-
-  
