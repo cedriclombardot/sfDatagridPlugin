@@ -49,3 +49,10 @@
 <?php unset($this->config['list']['hide_filters']) ?>
   }
   
+  /**
+  * @return string Return the formatter class
+  */
+  public function getDatagridFormatter(){
+    return <?php echo $this->asPhp(isset($this->config['list']['formatter']) ? $this->config['list']['formatter'] : 'propel') ?>;
+<?php unset($this->config['list']['formatter']) ?>
+  }

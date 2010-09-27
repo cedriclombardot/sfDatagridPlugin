@@ -73,7 +73,7 @@ if($hide_filters): ?>
     $values=$this->getValuesForDatagrid();
     
     //Set datagrid content   
-    $this->getResponse()->setContent($this->datagrid->getContent($values, array('lt', 'dr')));
+    $this->getResponse()->setContent($this->datagrid->getContent($values, array('lt', 'dr'),'<?php echo $this->configuration->getDatagridFormatter() ?>'));
     
     // save page
     if ($this->getRequestParameter('page')) {
