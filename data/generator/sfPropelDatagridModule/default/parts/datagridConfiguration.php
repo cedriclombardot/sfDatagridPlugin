@@ -56,3 +56,12 @@
     return <?php echo $this->asPhp(isset($this->config['list']['formatter']) ? $this->config['list']['formatter'] : 'propel') ?>;
 <?php unset($this->config['list']['formatter']) ?>
   }
+  
+  /**
+  * @return array list.order_by_for_filters: params
+  */
+  public function getOrderByForFilters(){
+    return <?php echo $this->asPhp(isset($this->config['list']['order_by_for_filters']) ? $this->config['list']['order_by_for_filters'] : 'Array()') ?>;
+<?php unset($this->config['list']['order_by_for_filters']) ?>
+  }
+  
