@@ -61,7 +61,7 @@
   * @return array list.order_by_for_filters: params
   */
   public function getOrderByForFilters(){
-    return <?php echo $this->asPhp(isset($this->config['list']['order_by_for_filters']) ? $this->config['list']['order_by_for_filters'] : 'Array()') ?>;
+    return <?php echo $this->asPhp(isset($this->config['list']['order_by_for_filters']) ? $this->config['list']['order_by_for_filters'] : array()) ?>;
 <?php unset($this->config['list']['order_by_for_filters']) ?>
   }
   

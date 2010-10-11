@@ -55,12 +55,14 @@ if($hide_filters): ?>
 <?php endif; ?>
 
     //Sort filters
-<?php foreach($this->configuration->getOrderByForFilters() as $column=>$order_by_for_filter): ?>
+<?php if(count($this->configuration->getOrderByForFilters())>0): 
+foreach($this->configuration->getOrderByForFilters() as $column=>$order_by_for_filter): 
     if(!is_array($order_by_for_filter)){
       $order_by_for_filter=array($order_by_for_filter,'ASC');
     }
-    $this->datagrid->setOrderByForFilter($column,$order_by_for_filter);
-<?php endforeach; ?>    
+?>
+    $this->datagrid->setOrderByForFilter('<?php echo $column  ?>',<?php echo $this->asPhp($order_by_for_filter) ?>);
+<?php endforeach; endif; ?>    
 
 <?php if($datagrid_actions): ?>
   	//Batch actions
