@@ -1,4 +1,19 @@
-<?php $datagrid_actions=$this->configuration->getValue('list.batch_actions');
+<?php 
+if(false === function_exists('lcfirst'))
+{
+    /**
+     * Make a string's first character lowercase
+     *
+     * @param string $str
+     * @return string the resulting string.
+     */
+    function lcfirst( $str ) {
+        $str[0] = strtolower($str[0]);
+        return (string)$str;
+    }
+}
+
+$datagrid_actions=$this->configuration->getValue('list.batch_actions');
 $tablePeer=$this->getModelClass().'Peer';
 $map=$this->getModelClass().'TableMap';
 $map=new $map($this->getModelClass(),new DatabaseMap('propel'));
@@ -129,7 +144,7 @@ foreach($this->configuration->getOrderByForFilters() as $column=>$order_by_for_f
         if(method_exists($<?php echo $this->getSingularName() ?>,'get<?php echo sfInflector::camelize($map->getColumn($column->getName())->getRelatedTableName()).'RelatedBy'.ucfirst(sfInflector::camelize($column->getName())) ?>')):
           $values[$k][] = $<?php echo $this->getSingularName() ?>->get<?php echo sfInflector::camelize($map->getColumn($column->getName())->getRelatedTableName()).'RelatedBy'.ucfirst(sfInflector::camelize($column->getName())) ?>(); 
         else:
-          $values[$k][] = $<?php echo $this->getSingularName() ?>->get<?php echo sfInflector::camelize($map->getColumn($column->getName())->getRelatedTableName()) ?>(); 
+          $values[$k][] = $<?php echo $this->getSingularName() ?>->get<?php echo sfInflector::camelize($map->getColumn($column->getName())->getRelation()->getForeignTable()->getPhpName()) ?>(); 
         endif;
 <?php elseif($column->getType()=='Date'): ?>
         $values[$k][] = $<?php echo $this->getSingularName() ?>->get<?php echo sfInflector::camelize($column->getName()) ?>(sfConfig::get('app_datagrid_date_format'));	
