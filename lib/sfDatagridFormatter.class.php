@@ -30,11 +30,11 @@ abstract class sfDatagridFormatter
 		// The datagrid headerCell if no sort
 		$datagridHeadersNoSort = '<div>%value%</div>',
 		// The datagrid pager container
-		$datagridPagerContainer = '<table cellspacing="1" cellpadding="0" class="grid-pager"><tr><td valign="middle"><span class="pager">%pager%</span></td><td>%search%</td></table>',
+		$datagridPagerContainer = '<table cellspacing="1" cellpadding="0" class="grid-pager"><tr><td valign="middle"><span class="pager">%pager%</span></td><td>%search%</td></tr></table>',
 		// The datagrid pager details
 		$datagridPager = '%pager%&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;%grid_totals%',
 		// The datagrid action bar
-		$datagridActions = '<table cellspacing="0" cellpadding="0" class="grid-actions"><tr><td valign="middle" class="left-actions"><span class="pager">%links%</span></td><td align="right" valign="middle" class="right-actions">%actions%</td></table>',
+		$datagridActions = '<table cellspacing="0" cellpadding="0" class="grid-actions"><tr><td valign="middle" class="left-actions"><span class="pager">%links%</span></td><td align="right" valign="middle" class="right-actions">%actions%</td></tr></table>',
 		// To check all for batch_actions
 		$datagridCheckAll= '<input type="checkbox" name="check_all" onchange="dg_check_all(this)" />',
 		//The formater for onclick 
