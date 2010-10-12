@@ -9,7 +9,7 @@
  		return false;
     <?php }else{	?>
     	return true;
-  	<?php } ?>
+  	<?php } unset($this->config['list']['use_datagrid']); ?>
   }
   
   /**
@@ -17,6 +17,7 @@
   */
   public function getDatagridClassName(){
     return '<?php echo isset($this->config['list']['datagrid_class'])?$this->config['list']['datagrid_class']:'sfDatagridPropel' ?>';
+<?php unset($this->config['list']['datagrid_class']) ?> 
   }
   
   /**
@@ -24,6 +25,7 @@
   */
   public function getRowAction(){
      return <?php echo $this->asPhp(isset($this->config['list']['row_action'])? $this->config['list']['row_action']:($this->params['with_show']?'show':'edit')); ?>;
+<?php unset($this->config['list']['row_action']) ?>
   }
   
   /**
@@ -38,6 +40,7 @@
     	$sort['CHECK_ALL']='nosort';
     }
     return $sort;
+<?php unset($this->config['list']['columns_sorting']) ?> 
   }
   
   /**
