@@ -24,15 +24,18 @@ class sfDatagridFormatterPropel extends sfDatagridFormatterDefault{
     				$tablePeer=$object->_get('peerTable').'Peer';
 		    		$builder=$object->_get('peerTable').'MapBuilder';
 		    		if(sfAutoload::getInstance()->loadClass($builder)){
-		    		$mapBuilder=new $builder;
-		    		$mapBuilder->doBuild();
-		    		$adminrelated = $mapBuilder->getDatabaseMap()->getTable(sfInflector::underscore($object->_get('peerTable')))->getColumn(strtoupper($column));
+			    		$mapBuilder=new $builder;
+			    		$mapBuilder->doBuild();
+			    		$adminrelated = $mapBuilder->getDatabaseMap()
+			    		            ->getTable(sfInflector::underscore($object->_get('peerTable')))
+			    		            ->getColumn(strtoupper($column));
         			
 		    		}else{
 		    			 $map=$object->_get('peerTable').'TableMap';
 						 $map=new $map($object->_get('peerTable'),new DatabaseMap('propel'));
 						 $map->initialize();
 						 $adminrelated = $map->getColumn(strtoupper($column));
+						
 		    		}
 		    		
 		    		
@@ -47,14 +50,13 @@ class sfDatagridFormatterPropel extends sfDatagridFormatterDefault{
     			
     			
     			case 'FOREIGN':
-    				 
 			         if(($adminrelated instanceof ColumnMap)&&($adminrelated->isForeignKey()))
        				 {
     					$c=sfDatagrid::getConfig('class_for_foreign');
     					if(sfAutoload::getInstance()->loadClass(sfInflector::camelize($adminrelated->getRelatedTableName()))){
     						$class=sfInflector::camelize($adminrelated->getRelatedTableName());
     					}else{
-    						$class=sfInflector::camelize($adminrelated->getRelatedTableName());
+    						$class=sfInflector::camelize($adminrelated->getRelation()->getForeignTable()->getPhpName());
     						$class=strtolower($class[0]).substr($class,1);
     						
     					}
